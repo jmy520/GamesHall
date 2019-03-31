@@ -1,0 +1,262 @@
+@import '../../common/styles/index.scss';
+
+.content_container{
+  height: 100%;
+  background: black;
+
+  &>.header{
+    width: 100%;
+    height: 13vh;
+    background: url("../../assets/image/withdrawal/img_withdrawal_header_bg.png") no-repeat;
+    background-size: 100% 100%;
+
+    &>.back{
+      width: 28vw;
+      height: 100%;
+      line-height: 100%;
+      float: left;
+
+      &>img{
+        height: 8vh;
+        width: auto;
+        margin-top: 2.5vh;
+
+        &:nth-of-type(1){
+          margin-left: 3vh;
+        }
+
+        &:nth-of-type(2){
+          margin-left: 3vh;
+        }
+      }
+    }
+
+    &>.page_title{
+      display: block;
+      width: auto;
+      height: 7vh;
+      margin-top: 2vh;
+      float: left;
+      vertical-align: middle;
+    }
+  }
+
+  &>.content_main{
+    width: 100%;
+    height: calc(100% - 13vh);
+
+    &>.withdrawal_type_list_container{
+      height: 100%;
+      width: 20vw;
+      float: left;
+      background: url("../../assets/image/withdrawal/img_withdrawal_list_bg.png") no-repeat;
+      background-size: 100% 100%;
+      overflow-y: scroll;
+
+      &>.list_inner{
+        width: 100%;
+        height: auto;
+
+        &>.list_item{
+          width: 100%;
+          height: 12vh;
+          line-height: 12vh;
+          text-align: left;
+          padding-left: 2vh;
+          background: url("../../assets/image/withdrawal/img_item_high_light_bg.png") no-repeat;
+          background-size: 100% 100%;
+          font-size: 3.6vh;
+          font-weight: 600;
+          @include press_effect;
+
+          &.active{
+            color: #301F01;
+            background-image: url("../../assets/image/withdrawal/img_item_selected_bg.png")
+          }
+
+          &>img{
+            width: 6vh;
+            height: 6vh;
+            vertical-align: middle;
+            margin-right: 1vh;
+          }
+        }
+      }
+    }
+
+    &>.split_line{
+      display: block;
+      float: left;
+      height: 100%;
+      width: auto;
+      margin-left: -0.4vh;
+      max-width: 1vw;
+    }
+
+    &>.withdrawal_content_container{
+      width: calc(100% - 20vw - 1vw);
+      height: 100%;
+      float: left;
+      padding: 2vh 2vw;
+      overflow-y: scroll;
+
+      &>.withdrawal_content_inner{
+        width: 100%;
+        height: auto;
+        padding: 0 2vw;
+
+        &>.text_info{
+          width: 100%;
+          height: 10vh;
+          line-height: 10vh;
+
+          &>h4{
+            font-size: 3.2vh;
+            float: left;
+            height: 10vh;
+            line-height: 10vh;
+
+            &:nth-of-type(1){
+              color: #CCC;
+            }
+
+            &:nth-of-type(2){
+              color: $main_color;
+            }
+          }
+
+          &>.recharge_record{
+            float: right;
+
+            &>img{
+              height: 6vh;
+              width: auto;
+              vertical-align: middle;
+            }
+
+            &>span{
+              font-size: 3.2vh;
+              color: $main_color;
+            }
+          }
+        }
+
+        &>.withdrawal_info{
+          width: 100%;
+          height: 22vh;
+          line-height: 22vh;
+          background: url("../../assets/image/withdrawal/img_right_side_item_bg.png") no-repeat;
+          background-size: 100% 100%;
+          padding: 0 2vw;
+
+          &>span{
+            display: block;
+            float: left;
+            font-size: 3.6vh;
+            width: 16vh;
+            color: white;
+          }
+
+          &>input{
+            display: block;
+            float: left;
+            width: calc(100% - 16vh - 2vh - 15vh);
+            height: 10vh;
+            line-height: 10vh;
+            margin-left: 1vh;
+            margin-top: 6vh;
+            outline: none;
+            border: 0.55px solid $main_color;
+            background: transparent;
+            color: white;
+            padding: 0 3.6vh;
+            font-size: 2.8vh;
+            border-radius: 2vh;
+
+            &:-webkit-autofill { 
+              box-shadow: 0 0 0px 1000px $main_color inset;
+            }
+          }
+
+          &>.clear_button{
+            float: left;
+            width: 15vh;
+            height: 10vh;
+            line-height: 10vh;
+            margin-left: 1vh;
+            margin-top: 6vh;
+            font-size: 3.6vh;
+            color: #CCC;
+            background: url("../../assets/image/withdrawal/img_clear_button_bg.png") no-repeat;
+            background-size: 100% 100%;
+            text-align: center;
+            @include press_effect;
+          }
+        }
+
+        &>.binding_ic_card{
+          width: 100%;
+          height: 22vh;
+          line-height: 22vh;
+          margin-top: 2vh;
+          background: url("../../assets/image/withdrawal/img_right_side_item_bg.png") no-repeat;
+          background-size: 100% 100%;
+          padding: 0 2vw;
+
+          &>img{
+            display: block;
+            float: left;
+            width: 12vh;
+            height: 10vh;
+            margin-top: 6vh;
+          }
+
+          &>div:first-of-type{
+            width: calc(100% - 12vh - 2vh - 4vw - 20vh);
+            height: 12vh;
+            float: left;
+            margin-top: 6vh;
+            margin-left: 1vh;
+
+            &>h4{
+              font-size: 3.2vh;
+
+              &:first-of-type{
+                color: $main_color;
+              }
+
+              &:nth-of-type(2){
+                color: white;
+                margin-top: 2vh;
+              }
+            }
+          }
+
+          &>.binding_button{
+            width: 20vh;
+            height: 10vh;
+            line-height: 10vh;
+            float: left;
+            margin-left: 1vh;
+            margin-top: 6vh;
+            background: url("../../assets/image/withdrawal/img_bind_button_bg.png") no-repeat;
+            background-size: 100% 100%;
+            font-size: 3.6vh;
+            color: #CCC;
+            text-align: center;
+            @include press_effect;
+          }
+        }
+
+        &>.confirm_withdrawal{
+          display: block;
+          width: auto;
+          height: 10vh;
+          margin: 0 auto;
+          margin-top: 6vh;
+          @include press_effect;
+        }
+      }
+    }
+  }
+}

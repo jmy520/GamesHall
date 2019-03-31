@@ -1,0 +1,8 @@
+.base_container{
+  position: relative;
+  display: block;
+  width: 100%;
+  color: $main_color;
+  @include box-sizing;
+  font-size: 1.4rem;
+}

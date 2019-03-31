@@ -1,0 +1,19 @@
+.header_container {
+  @extend .base_container;
+}
+
+.content_container {
+  @extend .base_container;
+}
+
+.footer_container {
+  @extend .base_container;
+}
+
+@mixin press_effect {
+  @include transition(all 0.3s);
+
+  &:active{
+    @include transform(scale(0.9));
+  }
+}
