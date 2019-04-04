@@ -1,1 +1,258 @@
 @import '../../common/styles/index.scss';
+
+.content_container{
+  height: 100%;
+  background: black;
+
+  &>.header{
+    width: 100%;
+    height: 13vh;
+    background: url("../../assets/image/promote/img_promote_header_bg.png") no-repeat;
+    background-size: 100% 100%;
+
+    &>.back{
+      width: 28vw;
+      height: 100%;
+      line-height: 100%;
+      float: left;
+
+      &>img{
+        height: 8vh;
+        width: auto;
+        margin-top: 2.5vh;
+
+        &:nth-of-type(1){
+          margin-left: 3vh;
+        }
+
+        &:nth-of-type(2){
+          margin-left: 3vh;
+        }
+      }
+    }
+
+    &>.page_title{
+      display: block;
+      width: auto;
+      height: 7vh;
+      margin-top: 2vh;
+      float: left;
+      vertical-align: middle;
+    }
+  }
+
+  &>.content_main{
+    width: 100%;
+    height: calc(100% - 13vh);
+
+    &>.promote_type_list_container{
+      height: 100%;
+      width: 20vw;
+      float: left;
+      background: url("../../assets/image/promote/img_promote_list_bg.png") no-repeat;
+      background-size: 100% 100%;
+      overflow-y: scroll;
+
+      &>.list_inner{
+        width: 100%;
+        height: auto;
+
+        &>.list_item{
+          width: 100%;
+          height: 12vh;
+          line-height: 12vh;
+          text-align: left;
+          padding-left: 2vh;
+          background: url("../../assets/image/promote/img_item_high_light_bg.png") no-repeat;
+          background-size: 100% 100%;
+          font-size: 3.6vh;
+          font-weight: 600;
+          @include press_effect;
+
+          &.active{
+            color: #301F01;
+            background-image: url("../../assets/image/promote/img_item_selected_bg.png")
+          }
+
+          &>img{
+            width: 6vh;
+            height: 6vh;
+            vertical-align: middle;
+            margin-right: 1vh;
+          }
+        }
+      }
+    }
+
+    &>.split_line{
+      display: block;
+      float: left;
+      height: 100%;
+      width: auto;
+      margin-left: -0.4vh;
+      max-width: 1vw;
+    }
+
+    &>.promote_content_container{
+      width: calc(100% - 20vw - 1vw);
+      height: 100%;
+      float: left;
+      padding: 2vh 2vw;
+
+      &>.user_info{
+
+        &>.row01{
+
+          &>.header_img{
+
+          }
+
+          &>.text_col{
+
+            &>span{
+
+              &:nth-of-type(1){
+
+              }
+
+              &:nth-of-type(2){
+
+              }
+            }
+          }
+
+          &>.commision{
+
+            &>span{
+              
+              &:nth-of-type(1){
+
+              }
+
+              &:nth-of-type(2){
+
+              }
+            }
+          }
+
+          &>.receive_commision_button{
+
+          }
+        }
+
+        &>.row02{
+
+          &>.team{
+
+            &>span{
+
+              &:nth-of-type(1){
+
+              }
+
+              &:nth-of-type(2){
+
+              }
+            }
+          }
+
+          &>.commision_total{
+
+            &>span{
+
+              &:nth-of-type(1){
+
+              }
+
+              &:nth-of-type(2){
+                
+              }
+            }
+          }
+        }
+      }
+
+      &>.adv_img{
+
+      }
+
+      &>.share_container{
+
+        &>.link_address{
+
+          &>span{
+
+            &:nth-of-type(1){
+
+            }
+
+            &:nth-of-type(2){
+
+            }
+          }
+
+          &>img{
+
+          }
+        }
+
+        &>.share_to_thirdpart{
+          
+          &>span{
+
+          }
+
+          &>.third_part{
+
+            &>.share_to_wx{
+              
+              &>img{
+
+              }
+
+              &>span{
+
+              }
+            }
+
+            &>.share_to_circle_of_friends{
+
+              &>img{
+
+              }
+
+              &>span{
+
+              }
+            }
+
+            &>.share_to_qq{
+
+              &>img{
+
+              }
+
+              &>span{
+                
+              }
+            }
+          }
+
+          &>.qr_code{
+
+            &>img{
+
+              &:nth-of-type(1){
+
+              }
+
+              &:nth-of-type(2){
+                
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
