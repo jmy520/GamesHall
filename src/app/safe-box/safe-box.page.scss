@@ -1,1 +1,254 @@
 @import '../../common/styles/index.scss';
+
+.content_container{
+  height: 100%;
+  background: black;
+
+  &>.header{
+    width: 100%;
+    height: 13vh;
+    background: url("../../assets/image/safe_box/img_safe_box_header_bg.png") no-repeat;
+    background-size: 100% 100%;
+
+    &>.back{
+      width: 28vw;
+      height: 100%;
+      line-height: 100%;
+      float: left;
+
+      &>img{
+        height: 8vh;
+        width: auto;
+        margin-top: 2.5vh;
+
+        &:nth-of-type(1){
+          margin-left: 3vh;
+        }
+
+        &:nth-of-type(2){
+          margin-left: 3vh;
+        }
+      }
+    }
+
+    &>.page_title{
+      display: block;
+      width: auto;
+      height: 7vh;
+      margin-top: 2vh;
+      float: left;
+      vertical-align: middle;
+    }
+  }
+
+  &>.content_main{
+    width: 100%;
+    height: calc(100% - 13vh);
+
+    &>.safe_box_type_list_container{
+      height: 100%;
+      width: 20vw;
+      float: left;
+      background: url("../../assets/image/safe_box/img_safe_box_list_bg.png") no-repeat;
+      background-size: 100% 100%;
+      overflow-y: scroll;
+
+      &>.list_inner{
+        width: 100%;
+        height: auto;
+
+        &>.list_item{
+          width: 100%;
+          height: 12vh;
+          line-height: 12vh;
+          text-align: left;
+          padding-left: 2vh;
+          background: url("../../assets/image/safe_box/img_item_high_light_bg.png") no-repeat;
+          background-size: 100% 100%;
+          font-size: 3.6vh;
+          font-weight: 600;
+          @include press_effect;
+
+          &.active{
+            color: #301F01;
+            background-image: url("../../assets/image/safe_box/img_item_selected_bg.png")
+          }
+
+          &>img{
+            width: 6vh;
+            height: 6vh;
+            vertical-align: middle;
+            margin-right: 1vh;
+          }
+        }
+      }
+    }
+
+    &>.split_line{
+      display: block;
+      float: left;
+      height: 100%;
+      width: auto;
+      margin-left: -0.4vh;
+      max-width: 1vw;
+    }
+
+    &>.safe_box_content_container{
+      position: relative;
+      width: calc(100% - 20vw - 1vw);
+      height: 100%;
+      float: left;
+      padding: 2vh 2vw;
+
+      &>.deposit{
+        position: absolute;
+        width: calc(100% - 4vw);
+        height: 100%;
+
+      }
+
+      &>.take_out{
+        position: absolute;
+        width: calc(100% - 4vw);
+        height: 100%;
+
+      }
+
+      &>.detail{
+        position: absolute;
+        width: calc(100% - 4vw);
+        height: 100%;
+
+        &>.detail_header{
+          width: 100%;
+          height: 10vh;
+          background: url("../../assets/image/safe_box/img_detail_header_bg.png") no-repeat;
+          background-size: 100% 100%;
+          @include clearfix;
+
+          &>span{
+            display: block;
+            width: 33.33%;
+            height: 10vh;
+            line-height: 10vh;
+            float: left;
+            text-align: center;
+            font-size: 3.6vh;
+            color: $main_color;
+          }
+        }
+
+        &>.detail_body{
+          position: relative;
+          width: 100%;
+          height: calc(100% - 4vh - 10vh - 10vh);
+
+          &>.no_data_container{
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            &>.no_data_inner{
+              text-align: center;
+
+              &>img{
+                display: block;
+                width: 18vh;
+                height: auto;
+              }
+
+              &>span{
+                font-size: 3.2vh;
+                color: white;
+              }
+            }
+          }
+
+          &>.detail_content_container{
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow-y: scroll;
+
+            &>.detail_content_inner{
+              width: 100%;
+              height: auto;
+
+              &>.detail_content_row{
+                width: 100%;
+                height: 10vh;
+                @include clearfix;
+
+                &>span{
+                  display: block;
+                  width: 33.33%;
+                  height: 10vh;
+                  line-height: 10vh;
+                  float: left;
+                  color: white;
+                  font-size: 3.2vh;
+                  overflow: hidden;
+                  text-overflow: ellipsis;
+                  white-space: nowrap;
+                  text-align: center;
+                }
+              }
+            }
+          }
+        }
+
+        &>.detail_footer{
+          width: 100%;
+          height: 10vh;
+          line-height: 10vh;
+          background: url("../../assets/image/safe_box/img_detail_footer_bg.png") no-repeat;
+          background-size: 100% 100%;
+          padding: 0 2vw;
+          @include clearfix;
+          
+          &>.next_page{
+            width: 13vh;
+            height: 7vh;
+            line-height: 7vh;
+            margin-top: 1.5vh;
+            text-align: center;
+            background: url("../../assets/image/safe_box/img_common_button_bg.png") no-repeat;
+            background-size: 100% 100%;
+            font-size: 3.6vh;
+            color: #CCC;
+            float: right;
+            @include press_effect;
+          }
+
+          &>.page_counter{
+            width: auto;
+            height: 10vh;
+            line-height: 10vh;
+            float: right;
+            margin-right: 2vw;
+            font-size: 3.6vh;
+            color: white;
+          }
+
+          &>.pre_page{
+            width: 13vh;
+            height: 7vh;
+            line-height: 7vh;
+            margin-top: 1.5vh;
+            text-align: center;
+            background: url("../../assets/image/safe_box/img_common_button_bg.png") no-repeat;
+            background-size: 100% 100%;
+            font-size: 3.6vh;
+            color: #CCC;
+            float: right;
+            margin-right: 2vw;
+            @include press_effect;
+          }
+        }
+      }
+    }
+  }
+}
