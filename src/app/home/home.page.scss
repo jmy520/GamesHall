@@ -46,6 +46,37 @@
           }
         }
 
+        &>.login_and_register{
+          height: 100%;
+          margin-left: 1vw;
+
+          &>h4{
+            color: white;
+            font-size: 3.6vh;
+          }
+
+          &>.jump_oper{
+            display: flex;
+            margin-top: 1vh;
+            align-items: center;
+
+            &>img{
+              &:first-of-type{
+                height: 6vh;
+                width: auto;
+                @include press_effect;
+              }
+
+              &:last-of-type{
+                margin-left: 2vh;
+                height: 6vh;
+                width: auto;
+                @include press_effect;
+              }
+            }
+          }
+        }
+
         &>.name_and_level{
           height: 100%;
           margin-left: 1vw;
@@ -56,6 +87,7 @@
 
           &>.level{
             display: flex;
+            margin-top: 1vh;
             align-items: center;
 
             &>img{

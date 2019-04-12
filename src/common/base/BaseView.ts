@@ -1,0 +1,26 @@
+import { LoadingController, ToastController } from "@ionic/angular";
+
+export abstract class BaseView {
+  constructor(public loadingCtrl: LoadingController, public toastCtrl: ToastController) { }
+
+  /** show loading */
+  protected async showLoading(message: string) {
+    const loader = await this.loadingCtrl.create({
+      message: message
+    });
+    await loader.present();
+    return loader;
+  }
+
+  /** show toast */
+  protected async showToast(message: string) {
+    const toast = await this.toastCtrl.create({
+      message: message,
+      duration: 2000,
+      position: 'top'
+    });
+    await toast.present();
+    return toast;
+  }
+
+}

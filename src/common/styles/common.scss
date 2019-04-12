@@ -17,3 +17,15 @@
     @include transform(scale(0.9));
   }
 }
+
+ion-popover{
+  --width: 100vw;
+  --height: 100vh;
+  --max-width: 100vw;
+  --max-height: 100vh;
+
+  .popover-content{
+    top: 0 !important;
+    left: 0 !important;
+  }
+}

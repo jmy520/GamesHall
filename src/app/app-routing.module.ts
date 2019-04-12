@@ -1,11 +1,13 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './register/register.component';
+import { SafeBoxValidateComponent } from './safe-box-validate/safe-box-validate.component';
+import { FormsModule } from '@angular/forms';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', loadChildren: './home/home.module#HomePageModule' },
-  { path: 'login', loadChildren: './login/login.module#LoginPageModule' },
-  { path: 'register', loadChildren: './register/register.module#RegisterPageModule' },
   { path: 'activity', loadChildren: './activity/activity.module#ActivityPageModule' },
   { path: 'promote', loadChildren: './promote/promote.module#PromotePageModule' },
   { path: 'recharge', loadChildren: './recharge/recharge.module#RechargePageModule' },
@@ -15,9 +17,15 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [
-    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })
+  declarations: [ 
+    LoginComponent,
+    RegisterComponent,
+    SafeBoxValidateComponent
   ],
+  imports: [
+    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules }), FormsModule
+  ],
+  entryComponents: [LoginComponent, RegisterComponent, SafeBoxValidateComponent],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

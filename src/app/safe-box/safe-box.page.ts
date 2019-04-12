@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./safe-box.page.scss'],
 })
 export class SafeBoxPage implements OnInit {
+  tabIndex: number = 0;
 
   constructor() { }
 

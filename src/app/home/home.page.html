@@ -7,7 +7,16 @@
         <div class="header_img_wapper">
           <img src="assets/image/home/img_default_header.jpg">
         </div>
-        <div class="name_and_level">
+
+        <div *ngIf="!isLogined" class="login_and_register">
+          <h4>未登录</h4>
+          <div class="jump_oper">
+            <img src="../../assets/image/home/img_login_button.png" (click)="presentLogin()">
+            <img src="../../assets/image/home/img_register_button.png" (click)="presentRegister()">
+          </div>
+        </div>
+
+        <div *ngIf="isLogined" class="name_and_level">
           <h4>Jason520</h4>
           <div class="level">
             <img src="assets/image/home/icon_vip_icon_01.png">
@@ -139,16 +148,16 @@
 
 <ion-footer>
   <div class="footer_container">
-    <div class="promote">
+    <div class="promote" (click)="mRouter.navigate(['/promote'])">
       <img src="assets/image/home/icon_promote.png">
     </div>
 
     <div class="function_list">
-      <div class="function_item">
+      <div class="function_item" (click)="mRouter.navigate(['/activity'])">
         <img src="assets/image/home/icon_activity.png">
       </div>
 
-      <div class="function_item">
+      <div class="function_item" (click)="mRouter.navigate(['/refresh-chip'])">
         <img src="assets/image/home/icon_refresh_chip.png">
       </div>
 
@@ -160,17 +169,17 @@
         <img src="assets/image/home/icon_customer_service.png">
       </div>
 
-      <div class="function_item">
+      <div class="function_item" (click)="mRouter.navigate(['/safe-box'])">
         <img src="assets/image/home/icon_safe_box.png">
       </div>
     </div>
 
-    <div class="withdrawal">
+    <div class="withdrawal" (click)="mRouter.navigate(['/withdrawal'])">
       <img src="assets/image/home/icon_withdrawal.png">
     </div>
 
     <div class="recharge">
-      <img src="assets/image/home/icon_recharge.png">
+      <img src="assets/image/home/icon_recharge.png" (click)="mRouter.navigate(['/recharge'])">
     </div>
   </div>
 </ion-footer>
