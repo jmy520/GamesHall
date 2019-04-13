@@ -9,15 +9,38 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 
+import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from "@angular/common/http";
+
+import { RestRequestService } from './services/rest-request.service';
+import { ApiService } from './services/api.service';
+
+import { LoginComponent } from './components/login/login.component';
+import { RegisterComponent } from './components/register/register.component';
+import { SafeBoxValidateComponent } from './components/safe-box-validate/safe-box-validate.component';
+
 @NgModule({
-  declarations: [AppComponent],
-  entryComponents: [],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule],
+  declarations: [
+    AppComponent,
+    LoginComponent,
+    RegisterComponent,
+    SafeBoxValidateComponent
+  ],
+
+  entryComponents: [
+    LoginComponent,
+    RegisterComponent,
+    SafeBoxValidateComponent
+  ],
+
+  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, FormsModule, HttpClientModule],
   providers: [
     StatusBar,
     SplashScreen,
+    RestRequestService,
+    ApiService,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }

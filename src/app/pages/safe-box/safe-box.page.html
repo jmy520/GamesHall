@@ -1,0 +1,280 @@
+<ion-content>
+  <div class="content_container">
+    <div class="header">
+      <div class="back">
+        <img src="assets/image/safe_box/img_safe_box_back_button.png">
+        <img src="assets/image/safe_box/img_safe_box_back_text.png">
+      </div>
+
+      <img src="assets/image/safe_box/img_safe_box_page_title.png" class="page_title">
+    </div>
+
+    <div class="content_main">
+      <div class="safe_box_type_list_container">
+        <div class="list_inner">
+
+          <div [class]="tabIndex == 0 ? 'list_item active' : 'list_item'" (click)="tabIndex = 0">
+            <img src="assets/image/safe_box/img_deposit_icon.png">转入
+          </div>
+
+          <div [class]="tabIndex == 1 ? 'list_item active' : 'list_item'" (click)="tabIndex = 1">
+            <img src="assets/image/safe_box/img_take_out_icon.png">取出
+          </div>
+
+          <div [class]="tabIndex == 2 ? 'list_item active' : 'list_item'" (click)="tabIndex = 2">
+            <img src="assets/image/safe_box/img_detail_icon.png">明细
+          </div>
+
+        </div>
+      </div>
+
+      <img src="assets/image/safe_box/img_split_line.png" class="split_line">
+
+      <div class="safe_box_content_container">
+        <!-- 存入 -->
+        <div *ngIf="tabIndex == 0" class="deposit">
+          <div class="deposit_container">
+            <div class="balance_container">
+              <div class="safe_box_balance">
+                <span>
+                  0
+                </span>
+                <span>
+                  保险箱余额
+                </span>
+              </div>
+
+              <div class="tag_container">
+                <img src="assets/image/safe_box/img_deposit_tag.png">
+                <span>
+                  转入
+                </span>
+              </div>
+
+              <div class="wallet_balance">
+                <span>
+                  0
+                </span>
+                <span>
+                  钱包余额
+                </span>
+              </div>
+            </div>
+
+            <div class="oper_value_container">
+              <span>
+                转入金额
+              </span>
+
+              <div class="value_container">
+                100
+              </div>
+
+              <div class="clean_button">
+                清除
+              </div>
+            </div>
+
+            <div class="thumb_bar_container">
+              <div class="left_part">
+                <ion-range min="0" max="100" step="1">
+                </ion-range>
+
+                <div class="range_scale">
+                  <div class="empty_percent">
+                    <span>|</span>
+                    <span>0%</span>
+                  </div>
+
+                  <div class="half_percenter">
+                    <span>|</span>
+                    <span>50%</span>
+                  </div>
+
+                  <div class="full_percent">
+                    <span>|</span>
+                    <span>100%</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="right_part">
+                <div class="max_button">
+                  最大
+                </div>
+              </div>
+            </div>
+
+            <div class="thumb_description">
+              拖动圆点可以调整转入金额比例
+            </div>
+
+            <img src="assets/image/safe_box/img_confirm_deposit_button.png" class="confirm_deposit_button">
+          </div>
+        </div>
+
+        <!-- 取出 -->
+        <div *ngIf="tabIndex == 1" class="take_out">
+          <div class="take_out_container">
+            <div class="balance_container">
+              <div class="safe_box_balance">
+                <span>
+                  0
+                </span>
+                <span>
+                  保险箱余额
+                </span>
+              </div>
+
+              <div class="tag_container">
+                <img src="assets/image/safe_box/img_take_out_tag.png">
+                <span>
+                  取出
+                </span>
+              </div>
+
+              <div class="wallet_balance">
+                <span>
+                  0
+                </span>
+                <span>
+                  钱包余额
+                </span>
+              </div>
+            </div>
+
+            <div class="oper_value_container">
+              <span>
+                取出金额
+              </span>
+
+              <div class="value_container">
+                100
+              </div>
+
+              <div class="clean_button">
+                清除
+              </div>
+            </div>
+
+            <div class="thumb_bar_container">
+              <div class="left_part">
+                <ion-range min="0" max="100" step="1">
+                </ion-range>
+
+                <div class="range_scale">
+                  <div class="empty_percent">
+                    <span>|</span>
+                    <span>0%</span>
+                  </div>
+
+                  <div class="half_percenter">
+                    <span>|</span>
+                    <span>50%</span>
+                  </div>
+
+                  <div class="full_percent">
+                    <span>|</span>
+                    <span>100%</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="right_part">
+                <div class="max_button">
+                  最大
+                </div>
+              </div>
+            </div>
+
+            <div class="thumb_description">
+              拖动圆点可以调整取出金额比例
+            </div>
+
+            <img src="assets/image/safe_box/img_confirm_take_out_button.png" class="confirm_take_out_button">
+          </div>
+        </div>
+
+        <!-- 明细 -->
+        <div *ngIf="tabIndex == 2" class="detail">
+          <div class="detail_header">
+            <span>时间</span>
+            <span>描述</span>
+            <span>金额</span>
+          </div>
+
+          <div class="detail_body">
+            <div class="no_data_container">
+              <div class="no_data_inner">
+                <img src="assets/image/safe_box/img_no_data_icon.png">
+                <span>
+                  暂无数据
+                </span>
+              </div>
+            </div>
+
+            <div class="detail_content_container">
+              <div class="detail_content_inner">
+                <div class="detail_content_row">
+                  <span>
+                    2019-02-01 08:00
+                  </span>
+
+                  <span>
+                    从微信转入
+                  </span>
+
+                  <span>
+                    ￥2000.00
+                  </span>
+                </div>
+
+                <div class="detail_content_row">
+                  <span>
+                    2019-02-01 08:00
+                  </span>
+
+                  <span>
+                    从微信转入
+                  </span>
+
+                  <span>
+                    ￥2000.00
+                  </span>
+                </div>
+
+                <div class="detail_content_row">
+                  <span>
+                    2019-02-01 08:00
+                  </span>
+
+                  <span>
+                    从微信转入
+                  </span>
+
+                  <span>
+                    ￥2000.00
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="detail_footer">
+            <div class="next_page">
+              下一页
+            </div>
+
+            <div class="page_counter">
+              1/1
+            </div>
+
+            <div class="pre_page">
+              上一页
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ion-content>

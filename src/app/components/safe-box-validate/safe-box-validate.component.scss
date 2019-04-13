@@ -1,0 +1,185 @@
+@import "src/common/styles/index.scss";
+
+.content_container{
+  @extend .base_container;
+
+  &>.dialog_container{
+    position: absolute;
+    width: 138vh;
+    height: 80vh;
+    left: calc(50% - 69vh);
+    top: 10vh;
+    background-image: url("src/assets/image/safe_box_validate/img_dialog_content_bg.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 100% 100%;
+
+    &>.header{
+      width: 100%;
+      height: 12vh;
+      line-height: 12vh;
+      text-align: center;
+      background-image: url("src/assets/image/safe_box_validate/img_high_light_bg.png");
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: 100% 100%;
+      border-top-left-radius: 6vh;
+      border-top-right-radius: 6vh;
+
+      &>.title{
+        height: 10vh;
+        width: auto;
+        margin-top: 2vh;
+      }
+    }
+
+    &>.split_line{
+      display: block;
+      width: 100%;
+      height: auto;
+      margin-top: -0.4vh;
+    }
+
+    &>.form_container{
+      width: 100%;
+      height: calc(100% - 12vh);
+      padding: 3vh 0;
+
+      &>.tips_info{
+        width: 100%;
+        text-align: center;
+        font-size: 3.2vh;
+        color: #EEAA00;
+      }
+
+      &>.password{
+        width: 90%;
+        height: 10vh;
+        line-height: 10vh;
+        margin: 0 auto;
+        margin-top: 2vh;
+        @include clearfix;
+
+        &>span{
+          display: block;
+          width: 18vw;
+          height: 10vh;
+          line-height: 10vh;
+          float: left;
+          text-align: left;
+          padding-right: 2vh;
+          color: white;
+          font-size: 3.6vh;
+        }
+
+        &>.password_content{
+          width: calc(100% - 18vw);
+          height: 100%;
+          float: left;
+          background: url("src/assets/image/safe_box_validate/img_input_bg.png") no-repeat;
+          background-size: 100% 100%;
+          @include clearfix;
+
+          &>.letter{
+            width: 25%;
+            height: 100%;
+            float: left;
+            background: url("src/assets/image/safe_box_validate/img_letter_split.png") no-repeat;
+            background-position: right;
+            background-size: auto 100%;
+            text-align: center;
+
+            &>input{
+              width: 90%;
+              height: 90%;
+              line-height: 100%;
+              outline: none;
+              border: none;
+              text-align: center;
+              background: transparent;
+              color: white;
+              font-size: 3.6vh;
+    
+              &:-webkit-autofill { 
+                box-shadow: 0 0 0px 1000px $main_color inset;
+              }
+            }
+          }
+        }
+      }
+
+      &>.repassword{
+        width: 90%;
+        height: 10vh;
+        line-height: 10vh;
+        margin: 0 auto;
+        margin-top: 4vh;
+        @include clearfix;
+
+        &>span{
+          display: block;
+          width: 18vw;
+          height: 10vh;
+          line-height: 10vh;
+          float: left;
+          text-align: left;
+          padding-right: 2vh;
+          color: white;
+          font-size: 3.6vh;
+        }
+
+        &>.repassword_content{
+          width: calc(100% - 18vw);
+          height: 100%;
+          float: left;
+          background: url("src/assets/image/safe_box_validate/img_input_bg.png") no-repeat;
+          background-size: 100% 100%;
+          @include clearfix;
+
+          &>.letter{
+            width: 25%;
+            height: 100%;
+            float: left;
+            background: url("src/assets/image/safe_box_validate/img_letter_split.png") no-repeat;
+            background-position: right;
+            background-size: auto 100%;
+            text-align: center;
+
+            &>input{
+              width: 90%;
+              height: 90%;
+              line-height: 100%;
+              outline: none;
+              border: none;
+              text-align: center;
+              background: transparent;
+              color: white;
+              font-size: 3.6vh;
+    
+              &:-webkit-autofill { 
+                box-shadow: 0 0 0px 1000px $main_color inset;
+              }
+            }
+          }
+        }
+      }
+
+      &>.confirm_button{
+        display: block;
+        height: 12vh;
+        margin: 0 auto;
+        margin-top: 12vh;
+        @include press_effect;
+      }
+    }
+  }
+
+  &>.close_button{
+    position: absolute;
+    width: 10vh;
+    height: 10vh;
+    left: calc(50% + 69vh - 5vh);
+    top: calc(10vh - 5vh);
+    @include press_effect;
+  }
+}

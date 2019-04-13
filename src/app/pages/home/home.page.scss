@@ -1,0 +1,396 @@
+@import "src/common/styles/index.scss";
+
+@mixin img_border {
+  background-image: url("src/assets/image/home/img_split_line.png");
+  background-repeat: no-repeat;
+  background-position: right;
+  background-size: auto 100%;
+}
+
+.content_container {
+  background-color: black;
+  height: 100%;
+  
+  &>.header{
+    height: 13vh;
+    width: 100%;
+    padding: 0 1vw;
+    background-image: url("src/assets/image/home/img_header_bg.png");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+
+    &>div{
+      float: left;
+      @include box-sizing;
+
+      &.user_info{
+        display: flex;
+        align-items: center;
+        height: 100%;
+        width: 28vw;
+        overflow: hidden;
+
+        &>.header_img_wapper{
+          width: 11vh;
+          height: 11vh;
+          background-image: url("src/assets/image/home/img_header_border_box.png");
+          background-size: 100% 100%;
+          background-position: center;
+          background-repeat: no-repeat;
+          padding: 0.8vh;
+
+          &>img{
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+          }
+        }
+
+        &>.login_and_register{
+          height: 100%;
+          margin-left: 1vw;
+
+          &>h4{
+            color: white;
+            font-size: 3.6vh;
+          }
+
+          &>.jump_oper{
+            display: flex;
+            margin-top: 1vh;
+            align-items: center;
+
+            &>img{
+              &:first-of-type{
+                height: 6vh;
+                width: auto;
+                @include press_effect;
+              }
+
+              &:last-of-type{
+                margin-left: 2vh;
+                height: 6vh;
+                width: auto;
+                @include press_effect;
+              }
+            }
+          }
+        }
+
+        &>.name_and_level{
+          height: 100%;
+          margin-left: 1vw;
+
+          &>h4{
+            font-size: 3.6vh;
+          }
+
+          &>.level{
+            display: flex;
+            margin-top: 1vh;
+            align-items: center;
+
+            &>img{
+              &:first-of-type{
+                height: 6vh;
+                width: auto;
+              }
+
+              &:last-of-type{
+                height: 4vh;
+                width: auto;
+              }
+            }
+          }
+        }
+      }
+
+      &.header_right_side{
+        height: 100%;
+        width: calc(100% - 28vw);
+
+        &>.header_right_side_inner{
+          display: flex;
+          justify-content: space-between;
+          flex: 1;
+          height: 11vh;
+
+          &>div{
+            display: flex;
+            height: 100%;
+            align-items: center;
+
+            &.coin{
+              display: flex;
+              align-items: center;
+              height: 11vh;
+              width: 20vw;
+              overflow: hidden;
+      
+              &>img{
+                width: auto;
+                height: 9vh;
+      
+                &:nth-of-type(1){
+                  margin-right: -5vh;
+                }
+      
+                &:nth-of-type(2){
+                  margin-left: -5vh;
+                  @include press_effect;
+                }
+              }
+      
+              &>span{
+                display: inline-block;
+                flex: 1;
+                height: 7vh;
+                line-height: 7vh;
+                font-size: 3.6vh;
+                text-align: center;
+                @include getBorder(top, 0.55px, $main_color);
+                @include getBorder(bottom, 0.55px, $main_color);
+              }
+            }
+      
+            &.logo{
+              font-size: 5vh;
+            }
+
+            &.netword_location{
+              font-size: 3.2vh;
+
+              &>ion-button{
+                margin-left: 1vw;
+                @include press_effect;
+              }
+            }
+
+            &.setting{
+              display: flex;
+              align-items: center;
+              height: 100%;
+
+              &>img{
+                width: 8vh;
+                height: auto;
+
+                @include press_effect;
+              }
+            }
+          }
+        }
+        
+      }
+    }
+  }
+
+  &>.content_main{
+    width: 100%;
+    height: calc(100% - 13vh);
+    padding: 0 1vw;
+
+    &>.game_type_list_container{
+      position: relative;
+      height: 100%;
+      width: 25%;
+      text-align: center;
+      float: left;
+
+      &>.game_type_title{
+        position: absolute;
+        top: 0;
+        left: calc(50% - 13vh);
+        height: 6vh;
+        width: 26vh;
+        z-index: 2;
+      }
+
+      &>.list_container{
+        position: absolute;
+        width: 100%;
+        top: 3vh;
+        bottom: 1.6vh;
+        padding-bottom: 2vh;
+        padding-top: 3.6vh;
+        background-image: url("src/assets/image/home/img_list_bg.png");
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: 100% 100%;
+
+        &>.list_inner_container{
+          width: 100%;
+          height: 100%;
+          overflow-y: scroll;
+
+          &>.list_inner{
+            width: 100%;
+            height: auto;
+  
+            &>.list_item{
+              width: 100%;
+              height: 12vh;
+              line-height: 12vh;
+              font-size: 4.8vh;
+              text-align: center;
+              background-image: url("src/assets/image/home/img_list_item_hight_light_bg.png");
+              background-repeat: no-repeat;
+              background-size: 100% 100%;
+              @include press_effect;
+
+              &.active{
+                color: #301F01;
+                background-image: url("src/assets/image/home/img_list_item_selection_bg.png");
+              }
+              
+              &>img{
+                width: 6vh;
+                height: 6vh;
+                vertical-align: middle;
+                margin-right: 1vh;
+              }
+            }
+          }
+        }
+      }
+
+      &>.more_icon{
+        position: absolute;
+        bottom: 0;
+        left: calc(50% - 2vh);
+        height: 3vh;
+        width: 4vh;
+      }
+    }
+
+    &>.right_side_container{
+      float: left;
+      width: 75%;
+      padding: 0 1vw;
+
+      &>.system_broadcast{
+        width: 100%;
+        height: 4.8vh;
+        overflow: hidden;
+
+        &>img{
+          display: block;
+          float: left;
+          width: 4vh;
+          height: auto;
+          margin-top: 0.4vh;
+        }
+
+        &>.broadcast_content_container{
+          position: relative;
+          width: calc(100% - 6vh);
+          height: 100%;
+          float: left;
+          margin-left: 2vh;
+          overflow-x: scroll;
+
+          &>.broadcast_inner{
+            position: absolute;
+            width: auto;
+            height: 100%;
+            line-height: 4.8vh;
+            font-size: 3.2vh;
+            white-space: nowrap;
+          }
+        }
+      }
+
+      &>.game_list_container{
+        width: 100%;
+        height: 100%;
+        overflow-x: scroll;
+
+        &>.game_list_inner{
+          width: auto;
+          height: auto;
+          white-space: nowrap;
+
+          &>.game_item{
+            display: inline-block;
+            width: 29vh;
+            height: 29vh;
+            margin-top: 3vh;
+            margin-right: 3vh;
+            background-image: url("src/assets/image/common/img_default.png");
+            background-repeat: no-repeat;
+            background-size: 100% 100%;
+            @include press_effect;
+          }
+        }
+      }
+    }
+  }
+}
+
+.footer_container {
+  height: 13vh;
+  background-image: url("src/assets/image/home/img_footer_bg.png");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  background-position: center;
+  padding: 0 1vw;
+  display: flex;
+
+  &>div{
+    float: left;
+    height: 100%;
+    text-align: center;
+
+    &>img{
+      max-height: 100%;
+    }
+
+    &.promote{
+      height: 12vh;
+      width: 26.5vh;
+      padding-right: 1vh;
+      @include img_border;
+
+      &>img{
+        @include press_effect;
+      }
+    }
+
+    &.function_list{
+      flex: 1;
+      height: 100%;
+
+      &>.function_item{
+        @include box-sizing;
+        float: left;
+        height: 100%;
+        padding: 1vh 0;
+        width: 20%;
+        text-align: center;
+        @include img_border;
+        
+        &>img{
+          height: 100%;
+          @include press_effect;
+        }
+      }
+    }
+
+    
+
+    &.withdrawal{
+      width: 26vh;
+      height: 12vh;
+
+      @include press_effect;
+    }
+
+    &.recharge{
+      width: 26vh;
+      height: 12vh;
+      margin-top: -1vh;
+
+      @include press_effect;
+    }
+  }
+}
