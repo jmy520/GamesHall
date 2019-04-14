@@ -16,11 +16,19 @@ export class HomePage extends BaseView {
   isLogined: boolean = false;
 
   loginedUser: any = null;
+  currentGameType: number = 0;
 
   getGameTypeListParams: any = {
     colType: "home_left_column"
   };
   gameTypeList: any = [];
+
+  getGameListParams: any = {
+    typeGid: 0,
+    page: 1,
+    size: 20
+  };
+  gameList: any = [];
 
   constructor(
     public mRouter: Router,
@@ -42,6 +50,8 @@ export class HomePage extends BaseView {
       this.isLogined = true;
     }).catch(error => {
     });
+
+    this.getGameTypeList();
   }
 
   getGameTypeList() {
@@ -50,8 +60,37 @@ export class HomePage extends BaseView {
 
       if (hasError) {
         const errorMessage = response.msg;
+        if (errorMessage) {
+          this.showToast(errorMessage);
+        }
       } else {
-        this.gameTypeList = response.data;
+        this.gameTypeList = response.data.list;
+        if (this.gameTypeList && this.gameTypeList.length > 0) {
+          this.currentGameType = this.gameTypeList[0].gid;
+          this.getGameList();
+        }
+      }
+    }).catch(error => {
+    });
+  }
+
+  selectGameType(clickedGameType: any) {
+    this.currentGameType = clickedGameType.gid;
+    this.getGameList();
+  }
+
+  getGameList() {
+    this.getGameListParams.typeGid = this.currentGameType;
+    this.api.fetchGameList(this.getGameListParams).then(response => {
+      const hasError = response.hashError;
+
+      if (hasError) {
+        const errorMessage = response.msg;
+        if (errorMessage) {
+          this.showToast(errorMessage);
+        }
+      } else {
+        this.gameList = response.data.list;
       }
     }).catch(error => {
     });

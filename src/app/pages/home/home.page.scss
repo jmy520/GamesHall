@@ -249,6 +249,12 @@
                 vertical-align: middle;
                 margin-right: 1vh;
               }
+
+              &>span{
+                display: inline-block;
+                min-width: calc(60% - 6vh);
+                text-align: left;
+              }
             }
           }
         }

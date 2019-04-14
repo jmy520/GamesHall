@@ -64,28 +64,12 @@
           <div class="list_inner_container">
             <div class="list_inner">
 
-              <div class="list_item active">
-                <img src="assets/image/common/img_default_icon.png">热门游戏
-              </div>
-
-              <div class="list_item">
-                <img src="assets/image/common/img_default_icon.png">棋牌游戏
-              </div>
-
-              <div class="list_item">
-                <img src="assets/image/common/img_default_icon.png">捕鱼游戏
-              </div>
-
-              <div class="list_item">
-                <img src="assets/image/common/img_default_icon.png">电子游戏
-              </div>
-
-              <div class="list_item">
-                <img src="assets/image/common/img_default_icon.png">真人视讯
-              </div>
-
-              <div class="list_item">
-                <img src="assets/image/common/img_default_icon.png">体育赛事
+              <div 
+                *ngFor="let gameTypeItem of gameTypeList"
+                [class]="currentGameType == gameTypeItem.gid ? 'list_item active' : 'list_item'"
+                (click)="selectGameType(gameTypeItem)">
+                <img src="assets/image/common/img_default_icon.png">
+                <span>{{gameTypeItem.colName}}</span>
               </div>
 
             </div>
