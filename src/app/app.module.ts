@@ -9,6 +9,7 @@ import { IonicStorageModule } from '@ionic/storage';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
+import { InAppBrowser } from '@ionic-native/in-app-browser';
 
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from "@angular/common/http";

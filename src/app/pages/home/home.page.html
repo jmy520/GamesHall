@@ -91,37 +91,11 @@
         <div class="game_list_container">
           <div class="game_list_inner">
 
-            <div class="game_item">
-            </div>
-
-            <div class="game_item">
-            </div>
-
-            <div class="game_item">
-            </div>
-
-            <div class="game_item">
-            </div>
-
-            <div class="game_item">
-            </div>
+            <img *ngFor="let item of gameListRow01" [src]="fetchImage(item.gameImg)" class="game_item">
 
             <br>
 
-            <div class="game_item">
-            </div>
-
-            <div class="game_item">
-            </div>
-
-            <div class="game_item">
-            </div>
-
-            <div class="game_item">
-            </div>
-
-            <div class="game_item">
-            </div>
+            <img *ngFor="let item of gameListRow02" [src]="fetchImage(item.gameImg)" class="game_item">
 
           </div>
         </div>

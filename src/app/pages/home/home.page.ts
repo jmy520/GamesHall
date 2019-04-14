@@ -6,6 +6,7 @@ import { RegisterComponent } from 'src/app/components/register/register.componen
 import { BaseView } from 'src/common/base/BaseView';
 import { Storage } from '@ionic/storage';
 import { ApiService } from 'src/app/services/api.service';
+import { PictureHelper } from 'src/common/helper/PictureHelper';
 
 @Component({
   selector: 'app-home',
@@ -29,6 +30,13 @@ export class HomePage extends BaseView {
     size: 20
   };
   gameList: any = [];
+  gameListRow01: any = [];
+  gameListRow02: any = [];
+
+  getNoticeListParams: any = {
+
+  };
+  noticeList: any = [];
 
   constructor(
     public mRouter: Router,
@@ -46,8 +54,10 @@ export class HomePage extends BaseView {
 
   ionViewDidEnter() {
     this.mStorage.get("user").then(data => {
-      this.loginedUser = JSON.parse(data);
-      this.isLogined = true;
+      if (data) {
+        this.loginedUser = JSON.parse(data);
+        this.isLogined = true;
+      }
     }).catch(error => {
     });
 
@@ -91,9 +101,24 @@ export class HomePage extends BaseView {
         }
       } else {
         this.gameList = response.data.list;
+        if (this.gameList && this.gameList.length > 0) {
+          let spliteIndex: number = 0;
+          if (this.gameList.length % 2 == 0) {
+            spliteIndex = this.gameList.length / 2 + 1;
+          } else {
+            spliteIndex = (this.gameList.length + 1) / 2 + 1;
+          }
+
+          this.gameListRow01 = this.gameList.slice(0, spliteIndex);
+          this.gameListRow02 = this.gameList.slice(spliteIndex, this.gameList.length);
+        }
       }
     }).catch(error => {
     });
+  }
+
+  fetchImage(fileName: string) {
+    return PictureHelper.fetchImage(fileName);
   }
 
   presentLogin() {

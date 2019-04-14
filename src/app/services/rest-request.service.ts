@@ -34,9 +34,11 @@ export class RestRequestService {
       urlParams = "?" + this.serialize(request.params);
     }
     const mHeaders = new HttpHeaders(headers);
-    const fullUrl = mBaseUrl + ":" + mPort + request.url + urlParams;
 
-    return headers ? this.http.get(fullUrl, { headers: mHeaders }) : this.http.get(mBaseUrl + ":" + mPort + request.url);
+    const fullUrl = mBaseUrl + ":" + mPort + request.url + urlParams;
+    console.log("FULL_URL->" + fullUrl);
+
+    return headers ? this.http.get(fullUrl, { headers: mHeaders }) : this.http.get(fullUrl);
   }
 
   /** post method */
@@ -45,7 +47,8 @@ export class RestRequestService {
     const mPort = coverPort ? coverPort : this.PORT;
     const mHeaders = new HttpHeaders(headers);
     const fullUrl = mBaseUrl + ":" + mPort + request.url;
+    console.log("FULL_URL->" + fullUrl);
 
-    return headers ? this.http.post(fullUrl, request.params, { headers: mHeaders }) : this.http.post(mBaseUrl + ":" + mPort + request.url, request.params);
+    return headers ? this.http.post(fullUrl, request.body, { headers: mHeaders, params: request.params }) : this.http.post(fullUrl, request.body, {params: request.params});
   }
 }

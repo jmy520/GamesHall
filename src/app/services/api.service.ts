@@ -29,11 +29,12 @@ export class ApiService {
     });
   }
 
-  private buildPostPromise(url: string, params: any, coverBaseUrl?: string, coverPort?: string, headers?: any): Promise<any> {
+  private buildPostPromise(url: string, params: any, body?: any, coverBaseUrl?: string, coverPort?: string, headers?: any): Promise<any> {
     return new Promise((resolve, reject) => {
       this.requestProvider.post({
         url: url,
-        params: params
+        params: params,
+        body: body
       }, headers, coverBaseUrl, coverPort)
         .subscribe(data => {
           if (this.LOG_RESULT) {
