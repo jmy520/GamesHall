@@ -11,12 +11,12 @@ export class ApiService {
 
   }
 
-  private buildGetPromise(url: string, params?: any, coverBaseUrl?: string, coverPort?: string): Promise<any> {
+  private buildGetPromise(url: string, params?: any, coverBaseUrl?: string, coverPort?: string, headers?: any): Promise<any> {
     return new Promise((resolve, reject) => {
       this.requestProvider.get({
-        uri: url,
+        url: url,
         params: params
-      }, coverBaseUrl, coverPort)
+      }, headers, coverBaseUrl, coverPort)
         .subscribe(data => {
           if (this.LOG_RESULT) {
             console.log(data);
@@ -29,12 +29,12 @@ export class ApiService {
     });
   }
 
-  private buildPostPromise(url: string, params: any, coverBaseUrl?: string, coverPort?: string): Promise<any> {
+  private buildPostPromise(url: string, params: any, coverBaseUrl?: string, coverPort?: string, headers?: any): Promise<any> {
     return new Promise((resolve, reject) => {
       this.requestProvider.post({
         url: url,
         params: params
-      }, coverBaseUrl, coverPort)
+      }, headers, coverBaseUrl, coverPort)
         .subscribe(data => {
           if (this.LOG_RESULT) {
             console.log(data);
