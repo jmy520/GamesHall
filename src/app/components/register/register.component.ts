@@ -22,6 +22,9 @@ export class RegisterComponent extends BaseView implements OnInit {
     phoneNo: ""
   };
 
+  timerText: string = "60";
+  timerTick: boolean = false;
+
   constructor(
     public mLoading: LoadingController,
     public mToast: ToastController,
@@ -41,6 +44,16 @@ export class RegisterComponent extends BaseView implements OnInit {
         this.showToast(errorMessage ? errorMessage : "发送验证码出错");
       } else {
         this.showToast("验证码已发送请注意查收");
+        this.timerTick = true;
+        let timeValue = 60;
+        const timerHandler = setInterval(()=>{
+          timeValue -= 1;
+          this.timerText = "" + timeValue;
+          if (timeValue == 0) {
+            clearInterval(timerHandler);
+            this.timerTick = false;
+          }
+        }, 1000);
       }
     }).catch(error => {
     }).finally(() => {
