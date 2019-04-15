@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-safe-box',
@@ -8,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
 export class SafeBoxPage implements OnInit {
   tabIndex: number = 0;
 
-  constructor() { }
+  constructor(public mRouter: Router) { }
 
   ngOnInit() {
   }

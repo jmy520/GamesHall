@@ -7,6 +7,7 @@ import { BaseView } from 'src/common/base/BaseView';
 import { Storage } from '@ionic/storage';
 import { ApiService } from 'src/app/services/api.service';
 import { PictureHelper } from 'src/common/helper/PictureHelper';
+import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 
 @Component({
   selector: 'app-home',
@@ -45,6 +46,7 @@ export class HomePage extends BaseView {
     public mModal: ModalController,
     public mStorage: Storage,
     public api: ApiService,
+    public mInAppBrowser: InAppBrowser,
     public mPopover: PopoverController) {
     super(mLoading, mToast);
   }
@@ -82,6 +84,13 @@ export class HomePage extends BaseView {
       }
     }).catch(error => {
     });
+  }
+
+  jumpToGamePage(gameSourcePath: string) {
+    this.mInAppBrowser.create(gameSourcePath, "_self", {
+      location: "no",
+      toolbar: "no"
+    }).show();
   }
 
   selectGameType(clickedGameType: any) {
@@ -132,6 +141,19 @@ export class HomePage extends BaseView {
     this.mModal.create({
       component: RegisterComponent,
       cssClass: 'common_modal_dialog'
-    }).then(modalInstance => modalInstance.present());
+    }).then(
+      modalInstance => {
+        modalInstance.present();
+        modalInstance.onDidDismiss().then(result => {
+          this.mStorage.get("user").then(data => {
+            if (data) {
+              this.loginedUser = JSON.parse(data);
+              this.isLogined = true;
+            }
+          }).catch(error => {
+          });
+        }).catch(error => { });
+      }
+    );
   }
 }

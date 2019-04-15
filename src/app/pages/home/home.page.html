@@ -91,11 +91,17 @@
         <div class="game_list_container">
           <div class="game_list_inner">
 
-            <img *ngFor="let item of gameListRow01" [src]="fetchImage(item.gameImg)" class="game_item">
+            <img *ngFor="let item of gameListRow01" 
+            [src]="fetchImage(item.gameImg)" 
+            class="game_item" 
+            (click)="jumpToGamePage('https://www.baidu.com')">
 
             <br>
 
-            <img *ngFor="let item of gameListRow02" [src]="fetchImage(item.gameImg)" class="game_item">
+            <img *ngFor="let item of gameListRow02" 
+            [src]="fetchImage(item.gameImg)" 
+            class="game_item"
+            (click)="jumpToGamePage('https://www.baidu.com')">
 
           </div>
         </div>
