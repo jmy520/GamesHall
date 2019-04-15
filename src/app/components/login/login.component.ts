@@ -42,7 +42,7 @@ export class LoginComponent extends BaseView implements OnInit {
       const hasError = response.hashError;
 
       if (hasError) {
-        this.showToast("登录失败");
+        this.showToast(response.msg);
       }
     }).catch(error => {
       console.error(error);

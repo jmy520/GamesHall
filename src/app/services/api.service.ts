@@ -49,31 +49,31 @@ export class ApiService {
 
   /** 获取验证码 */
   fetchValidateCode(params: any): Promise<any> {
-    return this.buildPostPromise("/smsCode", params);
+    return this.buildPostPromise('/smsCode', params);
   }
 
   /** 注册 */
   register(params: any): Promise<any> {
-    return this.buildPostPromise("/regist", params);
+    return this.buildPostPromise('/regist', params);
   }
 
   /** 登录 */
   login(params: any): Promise<any> {
-    return this.buildPostPromise("/login", params);
+    return this.buildPostPromise('/login', params);
   }
 
   /** 拉取公告 */
   fetchBroadcastList(params: any): Promise<any> {
-    return this.buildGetPromise("/notice", params);
+    return this.buildPostPromise('/notice', params);
   }
 
   /** 拉取游戏分类 */
   fetchGameTypeList(params: any): Promise<any> {
-    return this.buildGetPromise("/columns", params);
+    return this.buildGetPromise('/columns', params);
   }
 
   /** 拉取游戏列表 */
   fetchGameList(params: any): Promise<any> {
-    return this.buildGetPromise("/games", params);
+    return this.buildGetPromise('/games', params);
   }
 }
