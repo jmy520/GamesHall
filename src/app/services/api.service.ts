@@ -87,4 +87,9 @@ export class ApiService {
   fetchGameLink(params: any, headers: any): Promise<any> {
     return this.buildPostPromise('/front/toGame', params, null, null, null, headers);
   }
+
+  /** 用户钱包 */
+  wallet(): Promise<any> {
+    return this.buildPostPromise('/front/wallet', null, null, null, null, null);
+  }
 }

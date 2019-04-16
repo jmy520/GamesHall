@@ -7,8 +7,7 @@ import { BaseView } from 'src/common/base/BaseView';
 import { Storage } from '@ionic/storage';
 import { ApiService } from 'src/app/services/api.service';
 import { PictureHelper } from 'src/common/helper/PictureHelper';
-import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
-import { RestConfig } from 'src/common/config/RestConfig';
+import { InAppBrowser, InAppBrowserOptions } from '@ionic-native/in-app-browser/ngx';
 
 @Component({
   selector: 'app-home',
@@ -40,6 +39,10 @@ export class HomePage extends BaseView {
   };
   noticeList: any = [];
   gongaoList: any;
+
+  userWallet: any = {
+    factMoney: 0.0
+  };
 
   constructor(
     public mRouter: Router,
@@ -103,7 +106,7 @@ export class HomePage extends BaseView {
       this.presentLogin();
       return;
     }
-    this.showLoading("正在登录请稍后..."+this.loginedUser.sessionId);
+    this.showLoading("正在登录请稍后...");
     this.api.fetchGameLink({ gameGid: gameGid },
       {
         port: 'mobile',
@@ -118,8 +121,29 @@ export class HomePage extends BaseView {
           gameLinkAddress = gameLinkAddress + "&backUrl=" + currentUrl+'/&jumpType=2';
           this.mInAppBrowser.create(gameLinkAddress, "_self", {
             location: "no",
-            toolbar: "no"
+            toolbar: "no",
+            closebuttoncaption: '测试'
           }).show();
+        }
+      }).catch(error => { }).finally(() => {
+        this.mLoading.getTop().then(instance => {
+          instance.dismiss();
+        }).catch(error => { });
+      });
+  }
+
+  wallet() {
+    if (!this.isLogined) {
+      this.showToast("请先登录");
+      this.presentLogin();
+      return;
+    }
+    this.api.wallet().then(response => {
+        const errorMessage = response.msg;
+        if (errorMessage) {
+          this.showToast(errorMessage);
+        } else {
+          this.userWallet = response.data;
         }
       }).catch(error => { }).finally(() => {
         this.mLoading.getTop().then(instance => {
