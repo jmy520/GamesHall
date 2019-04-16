@@ -9,7 +9,7 @@ import { IonicStorageModule } from '@ionic/storage';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-import { InAppBrowser } from '@ionic-native/in-app-browser';
+import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from "@angular/common/http";
@@ -39,6 +39,7 @@ import { SafeBoxValidateComponent } from './components/safe-box-validate/safe-bo
   providers: [
     StatusBar,
     SplashScreen,
+    InAppBrowser,
     RestRequestService,
     ApiService,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }

@@ -15,6 +15,7 @@
       height: 100%;
       line-height: 100%;
       float: left;
+      @include press_effect;
 
       &>img{
         height: 8vh;

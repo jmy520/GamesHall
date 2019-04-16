@@ -230,6 +230,20 @@
           vertical-align: middle;
           @include press_effect;
         }
+
+        &>.send_valid_code_timer{
+          display: inline-block;
+          width: 30vh;
+          height: 10vh;
+          line-height: 10vh;
+          margin-left: 6vh;
+          font-size: 3.6vh;
+          color: $main_color;
+          border: 0.55px solid $main_color;
+          border-radius: 5vh;
+          text-align: center;
+          vertical-align: middle;
+        }
       }
 
       &>.register_button{

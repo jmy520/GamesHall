@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-activity',
@@ -7,9 +8,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ActivityPage implements OnInit {
 
-  constructor() { }
+  constructor(public mRouter: Router) { }
 
   ngOnInit() {
   }
-
 }

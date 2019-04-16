@@ -31,7 +31,11 @@
       <div class="valid_code">
         <span>验证码</span>
         <input type="text" [(ngModel)]="registerParams.vsCode">
-        <img src="assets/image/register/img_send_validation_code_button.png" class="send_valid_code" (click)="sendValidCode()">
+        <img *ngIf="!timerTick" src="assets/image/register/img_send_validation_code_button.png" 
+          class="send_valid_code"
+          (click)="sendValidCode()">
+        <span *ngIf="timerTick" [innerHtml]="timerText" class="send_valid_code_timer">
+        </span>
       </div>
 
       <img class="register_button" src="assets/image/register/img_register_button.png" (click)="register()">

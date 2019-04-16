@@ -3,6 +3,7 @@ import { ModalController, LoadingController, ToastController } from '@ionic/angu
 import { BaseView } from 'src/common/base/BaseView';
 import { ApiService } from 'src/app/services/api.service';
 import { Storage } from '@ionic/storage';
+import { RegisterComponent } from 'src/app/components/register/register.component';
 
 @Component({
   selector: 'app-login',
@@ -32,6 +33,17 @@ export class LoginComponent extends BaseView implements OnInit {
     this.mModal.getTop().then(modalInstance => {
       modalInstance.dismiss();
     });
+  }
+
+  goRegister() {
+    this.mModal.create({
+      component: RegisterComponent,
+      cssClass: 'common_modal_dialog'
+    }).then(
+      modalInstance => {
+        modalInstance.present();
+      }
+    );
   }
 
   login() {

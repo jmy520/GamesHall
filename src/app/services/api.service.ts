@@ -48,6 +48,8 @@ export class ApiService {
     });
   }
 
+  //------------------- 首页模块 -------------------
+
   /** 获取验证码 */
   fetchValidateCode(params: any): Promise<any> {
     return this.buildPostPromise('/smsCode', params);
@@ -76,5 +78,12 @@ export class ApiService {
   /** 拉取游戏列表 */
   fetchGameList(params: any): Promise<any> {
     return this.buildGetPromise('/games', params);
+  }
+
+  //------------------- 用户模块 -------------------
+
+  /** 获取游戏地址 */
+  fetchGameLink(params: any, headers: any): Promise<any>{
+    return this.buildPostPromise("/fronttoGame", params, null, null, null, headers);
   }
 }
