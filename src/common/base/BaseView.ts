@@ -17,7 +17,7 @@ export abstract class BaseView {
     const toast = await this.toastCtrl.create({
       message: message,
       duration: 2000,
-      position: 'top'
+      position: 'bottom'
     });
     await toast.present();
     return toast;
