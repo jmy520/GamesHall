@@ -94,14 +94,14 @@
             <img *ngFor="let item of gameListRow01" 
             [src]="fetchImage(item.gameImg)" 
             class="game_item" 
-            (click)="jumpToGamePage('https://www.baidu.com')">
+            (click)="jumpToGamePage(item.gid)">
 
             <br>
 
             <img *ngFor="let item of gameListRow02" 
             [src]="fetchImage(item.gameImg)" 
             class="game_item"
-            (click)="jumpToGamePage('https://www.baidu.com')">
+            (click)="jumpToGamePage(item.gid)">
 
           </div>
         </div>

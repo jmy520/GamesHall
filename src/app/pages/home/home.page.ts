@@ -86,16 +86,41 @@ export class HomePage extends BaseView {
     });
   }
 
-  jumpToGamePage(gameSourcePath: string) {
-    this.mInAppBrowser.create(gameSourcePath, "_self", {
-      location: "no",
-      toolbar: "no"
-    }).show();
+  jumpToGamePage(gameGid: any) {
+    if (!this.isLogined) {
+      this.showToast("请先登录");
+      this.presentLogin();
+      return;
+    }
+    this.showLoading("正在登录请稍后...");
+    this.api.fetchGameLink({ gid: gameGid },
+      {
+        port: 168,
+        authorization: this.loginedUser.sessionId
+      }).then(response => {
+        const errorMessage = response.msg;
+        if (errorMessage) {
+          this.showToast(errorMessage);
+        } else {
+          let gameLinkAddress = response.data.url;
+          this.mInAppBrowser.create(gameLinkAddress, "_self", {
+            location: "no",
+            toolbar: "no"
+          }).show();
+        }
+      }).catch(error => { }).finally(() => {
+        this.mLoading.getTop().then(instance => {
+          instance.dismiss();
+        }).catch(error => { });
+      });
   }
 
   selectGameType(clickedGameType: any) {
     this.currentGameType = clickedGameType.gid;
     this.getGameList();
+    this.gameList = [];
+    this.gameListRow01 = [];
+    this.gameListRow02 = [];
   }
 
   getGameList() {
@@ -134,7 +159,18 @@ export class HomePage extends BaseView {
     this.mModal.create({
       component: LoginComponent,
       cssClass: 'common_modal_dialog'
-    }).then(modalInstance => modalInstance.present());
+    }).then(modalInstance => {
+      modalInstance.present();
+      modalInstance.onDidDismiss().then(result => {
+        this.mStorage.get("user").then(data => {
+          if (data) {
+            this.loginedUser = JSON.parse(data);
+            this.isLogined = true;
+          }
+        }).catch(error => {
+        });
+      }).catch(error => { });
+    });
   }
 
   presentRegister() {
@@ -144,15 +180,6 @@ export class HomePage extends BaseView {
     }).then(
       modalInstance => {
         modalInstance.present();
-        modalInstance.onDidDismiss().then(result => {
-          this.mStorage.get("user").then(data => {
-            if (data) {
-              this.loginedUser = JSON.parse(data);
-              this.isLogined = true;
-            }
-          }).catch(error => {
-          });
-        }).catch(error => { });
       }
     );
   }
