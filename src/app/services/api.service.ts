@@ -30,6 +30,7 @@ export class ApiService {
   }
 
   private buildPostPromise(url: string, params: any, body?: any, coverBaseUrl?: string, coverPort?: string, headers?: any): Promise<any> {
+    console.log('---->' + JSON.stringify(headers));
     return new Promise((resolve, reject) => {
       this.requestProvider.post({
         url: url,
@@ -80,10 +81,10 @@ export class ApiService {
     return this.buildGetPromise('/games', params);
   }
 
-  //------------------- 用户模块 -------------------
+  // ------------------- 用户模块 -------------------
 
   /** 获取游戏地址 */
-  fetchGameLink(params: any, headers: any): Promise<any>{
-    return this.buildPostPromise("/fronttoGame", params, null, null, null, headers);
+  fetchGameLink(params: any, headers: any): Promise<any> {
+    return this.buildPostPromise('/front/toGame', params, null, null, null, headers);
   }
 }

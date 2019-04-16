@@ -8,6 +8,7 @@ import { Storage } from '@ionic/storage';
 import { ApiService } from 'src/app/services/api.service';
 import { PictureHelper } from 'src/common/helper/PictureHelper';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
+import { RestConfig } from 'src/common/config/RestConfig';
 
 @Component({
   selector: 'app-home',
@@ -102,10 +103,10 @@ export class HomePage extends BaseView {
       this.presentLogin();
       return;
     }
-    this.showLoading("正在登录请稍后...");
-    this.api.fetchGameLink({ gid: gameGid },
+    this.showLoading("正在登录请稍后..."+this.loginedUser.sessionId);
+    this.api.fetchGameLink({ gameGid: gameGid },
       {
-        port: 168,
+        port: 'mobile',
         authorization: this.loginedUser.sessionId
       }).then(response => {
         const errorMessage = response.msg;
@@ -113,6 +114,8 @@ export class HomePage extends BaseView {
           this.showToast(errorMessage);
         } else {
           let gameLinkAddress = response.data.url;
+          let currentUrl = location.href;
+          gameLinkAddress = gameLinkAddress + "&backUrl=" + currentUrl+'/&jumpType=2';
           this.mInAppBrowser.create(gameLinkAddress, "_self", {
             location: "no",
             toolbar: "no"

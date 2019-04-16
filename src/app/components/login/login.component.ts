@@ -55,12 +55,11 @@ export class LoginComponent extends BaseView implements OnInit {
         const errorMessage = response.msg;
         this.showToast(errorMessage ? errorMessage : '登录失败');
       } else {
-        this.storage.set('user', JSON.stringify(response))
+        this.storage.set('user', JSON.stringify(response.data))
           .then(() => {
             this.showToast('登录成功');
             this.dismissDialog();
-          })
-          .catch(error => {
+          }).catch(error => {
             console.error(error);
           });
       }
