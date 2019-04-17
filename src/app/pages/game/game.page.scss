@@ -1,0 +1,20 @@
+.superfill {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    margin: 0 auto;
+    padding: 0 auto;
+    -webkit-overflow-scrolling: touch !important;
+    overflow: scroll !important;
+  }
+  .left_top_back{
+      display: block;
+      position: absolute;
+      left: 10px;
+      top: 10px;
+      background-image: url('src/assets/image/withdrawal/img_withdrawal_back_button.png');
+      width: 50vh;
+      height: 50vh;
+  }

@@ -51,6 +51,7 @@ export class HomePage extends BaseView {
     keyword: ''
   };
 
+
   gameTypeArray: Map<string, string> = new Map();
 
   constructor(
@@ -62,7 +63,7 @@ export class HomePage extends BaseView {
     public api: ApiService,
     public mInAppBrowser: InAppBrowser,
     public mPopover: PopoverController) {
-    super(mLoading, mToast);
+    super(mLoading, mToast, mModal);
   }
 
   // tslint:disable-next-line:use-life-cycle-interface
@@ -119,31 +120,36 @@ export class HomePage extends BaseView {
       this.presentLogin();
       return;
     }
-    this.showLoading("正在登录请稍后...");
-    this.api.fetchGameLink({ gameGid: gameGid },
-      {
-        port: 'mobile',
-        authorization: this.loginedUser.sessionId
-      }).then(response => {
-        const errorMessage = response.msg;
-        if (errorMessage) {
-          this.showToast(errorMessage);
-        } else {
-          let gameLinkAddress = response.data.url;
-          let currentUrl = location.href;
-          gameLinkAddress = gameLinkAddress + "&backUrl=" + currentUrl+'/&jumpType=2';
-          this.mInAppBrowser.create(gameLinkAddress, "_self", {
-            location: "no",
-            toolbar: "no",
-            hardwareback: 'no',
-            closebuttoncaption: 'yes'
-          }).show();
-        }
-      }).catch(error => { }).finally(() => {
-        this.mLoading.getTop().then(instance => {
-          instance.dismiss();
-        }).catch(error => { });
-      });
+    this.mRouter.navigate(['/game'], {
+      queryParams: {
+          gameGid: gameGid
+      }
+    });
+    // this.showLoading("正在登录请稍后...");
+    // this.api.fetchGameLink({ gameGid: gameGid },
+    //   {
+    //     port: 'mobile',
+    //     authorization: this.loginedUser.sessionId
+    //   }).then(response => {
+    //     const errorMessage = response.msg;
+    //     if (errorMessage) {
+    //       this.showToast(errorMessage);
+    //     } else {
+    //       let gameLinkAddress = response.data.url;
+    //       let currentUrl = location.href;
+    //       gameLinkAddress = gameLinkAddress + "&backUrl=" + currentUrl+'/&jumpType=2';
+    //       this.mInAppBrowser.create(gameLinkAddress, "_self", {
+    //         location: "no",
+    //         toolbar: "no",
+    //         hardwareback: 'no',
+    //         closebuttoncaption: 'yes'
+    //       }).show();
+    //     }
+    //   }).catch(error => { }).finally(() => {
+    //     this.mLoading.getTop().then(instance => {
+    //       instance.dismiss();
+    //     }).catch(error => { });
+    //   });
   }
 
   wallet() {
