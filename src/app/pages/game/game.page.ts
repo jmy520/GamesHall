@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
+import { Router, ActivatedRoute, Params } from '@angular/router';
 import { PopoverController, ModalController, LoadingController, ToastController } from '@ionic/angular';
 import { LoginComponent } from 'src/app/components/login/login.component';
 import { RegisterComponent } from 'src/app/components/register/register.component';
@@ -25,6 +25,7 @@ export class GamePage extends BaseView implements OnInit {
 
 
   constructor(public activeRoute: ActivatedRoute,
+    public mRouter: Router,
     public mLoading: LoadingController,
     public mToast: ToastController,
     public mModal: ModalController,
@@ -50,6 +51,10 @@ export class GamePage extends BaseView implements OnInit {
       this.jumpToGamePage(this.gameGid);
     }).catch(error => {
     });
+  }
+
+  goDating() {
+    this.mRouter.navigate(['/home']);
   }
 
 
