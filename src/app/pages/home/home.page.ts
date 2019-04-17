@@ -135,7 +135,8 @@ export class HomePage extends BaseView {
           this.mInAppBrowser.create(gameLinkAddress, "_self", {
             location: "no",
             toolbar: "no",
-            closebuttoncaption: '测试'
+            hardwareback: 'no',
+            closebuttoncaption: 'yes'
           }).show();
         }
       }).catch(error => { }).finally(() => {
