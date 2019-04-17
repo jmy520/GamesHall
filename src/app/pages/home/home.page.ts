@@ -44,6 +44,15 @@ export class HomePage extends BaseView {
     factMoney: 0.0
   };
 
+  gongGaoSeachParam: any = {
+    page: 1,
+    size: 100,
+    colGid: '339',
+    keyword: ''
+  };
+
+  gameTypeArray: Map<string, string> = new Map();
+
   constructor(
     public mRouter: Router,
     public mLoading: LoadingController,
@@ -55,13 +64,6 @@ export class HomePage extends BaseView {
     public mPopover: PopoverController) {
     super(mLoading, mToast);
   }
-
-  gongGaoSeachParam = {
-    page: 1,
-    size: 100,
-    colGid: '339',
-    keyword: ''
-  };
 
   // tslint:disable-next-line:use-life-cycle-interface
   ngOnInit() {
@@ -78,6 +80,17 @@ export class HomePage extends BaseView {
     });
 
     this.getGameTypeList();
+
+    this.gameTypeArray.set("buyu_game", "assets/image/home/img_fishing_game_icon.png");
+    this.gameTypeArray.set("qipai_game", "assets/image/home/img_poker_game_icon.png");
+    this.gameTypeArray.set("dianzi_game", "assets/image/home/img_arcade_game_icon.png");
+    this.gameTypeArray.set("xunshi_game", "assets/image/home/img_real_game_icon.png");
+    this.gameTypeArray.set("tiyusaishi_game", "assets/image/home/img_ball_game_icon.png");
+    this.gameTypeArray.set("hot_game", "assets/image/home/img_hot_game_icon.png");
+  }
+
+  getGameTypeImage(typeCode: string) {
+    return this.gameTypeArray.get(typeCode);
   }
 
   getGameTypeList() {
@@ -138,6 +151,7 @@ export class HomePage extends BaseView {
       this.presentLogin();
       return;
     }
+
     this.api.wallet().then(response => {
         const errorMessage = response.msg;
         if (errorMessage) {

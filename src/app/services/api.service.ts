@@ -30,7 +30,6 @@ export class ApiService {
   }
 
   private buildPostPromise(url: string, params: any, body?: any, coverBaseUrl?: string, coverPort?: string, headers?: any): Promise<any> {
-    console.log('---->' + JSON.stringify(headers));
     return new Promise((resolve, reject) => {
       this.requestProvider.post({
         url: url,
@@ -90,6 +89,6 @@ export class ApiService {
 
   /** 用户钱包 */
   wallet(): Promise<any> {
-    return this.buildPostPromise('/front/wallet', null, null, null, null, null);
+    return this.buildPostPromise('/front/wallet', null);
   }
 }
