@@ -3,7 +3,7 @@ export class RestConfig{
 
   static DEFAULT_PORT: string = "168";
 
-  static STREAM_PORT: string = "169";
+  static STREAM_PORT: string = "170";
   
   static TIME_OUT: number = 10000;
 }
