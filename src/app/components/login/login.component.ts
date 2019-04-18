@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ModalController, LoadingController, ToastController } from '@ionic/angular';
 import { BaseView } from 'src/common/base/BaseView';
 import { ApiService } from 'src/app/services/api.service';
-import { Storage } from '@ionic/storage';
+import { Runtime } from 'src/app/services/Runtime';
 import { RegisterComponent } from 'src/app/components/register/register.component';
 
 @Component({
@@ -22,7 +22,7 @@ export class LoginComponent extends BaseView implements OnInit {
     public mModal: ModalController,
     public mLoading: LoadingController,
     public mToast: ToastController,
-    public storage: Storage,
+    public runtime: Runtime,
     public api: ApiService) {
     super(mLoading, mToast, mModal);
   }
@@ -55,13 +55,9 @@ export class LoginComponent extends BaseView implements OnInit {
         const errorMessage = response.msg;
         this.showToast(errorMessage ? errorMessage : '登录失败');
       } else {
-        this.storage.set('user', JSON.stringify(response.data))
-          .then(() => {
-            this.showToast('登录成功');
-            this.dismissDialog();
-          }).catch(error => {
-            console.error(error);
-          });
+        this.runtime.postLogin(response.data, true);
+        this.showToast('登录成功');
+        this.dismissDialog();
       }
     }).catch(error => {
       console.error(error);

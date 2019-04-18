@@ -16,6 +16,7 @@ import { HttpClientModule } from "@angular/common/http";
 
 import { RestRequestService } from './services/rest-request.service';
 import { ApiService } from './services/api.service';
+import { Runtime } from './services/Runtime';
 
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
@@ -42,6 +43,7 @@ import { SafeBoxValidateComponent } from './components/safe-box-validate/safe-bo
     InAppBrowser,
     RestRequestService,
     ApiService,
+    Runtime,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]

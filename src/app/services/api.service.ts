@@ -1,17 +1,29 @@
 import { Injectable } from '@angular/core';
 import { RestRequestService } from 'src/app/services/rest-request.service';
+import { Runtime } from 'src/app/services/Runtime';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApiService {
-  LOG_RESULT: boolean = true;
+  LOG_RESULT = true;
 
-  constructor(public requestProvider: RestRequestService) {
+  port_str: String = 'mobile';
+
+  constructor(
+    public runtime: Runtime,
+    public requestProvider: RestRequestService) {
 
   }
 
   private buildGetPromise(url: string, params?: any, coverBaseUrl?: string, coverPort?: string, headers?: any): Promise<any> {
+    if(headers == null || headers === undefined) {
+      headers = {};
+    }
+    if (this.runtime.user) {
+      headers['authorization'] = this.runtime.user.sessionId;
+    }
+    headers['port'] = this.port_str;
     return new Promise((resolve, reject) => {
       this.requestProvider.get({
         url: url,
@@ -30,6 +42,13 @@ export class ApiService {
   }
 
   private buildPostPromise(url: string, params: any, body?: any, coverBaseUrl?: string, coverPort?: string, headers?: any): Promise<any> {
+    if(headers == null || headers === undefined) {
+      headers = {};
+    }
+    if (this.runtime.user) {
+      headers['authorization'] = this.runtime.user.sessionId;
+    }
+    headers['port'] = this.port_str;
     return new Promise((resolve, reject) => {
       this.requestProvider.post({
         url: url,
@@ -83,12 +102,12 @@ export class ApiService {
   // ------------------- 用户模块 -------------------
 
   /** 获取游戏地址 */
-  fetchGameLink(params: any, headers: any): Promise<any> {
-    return this.buildPostPromise('/front/toGame', params, null, null, null, headers);
+  fetchGameLink(params: any): Promise<any> {
+    return this.buildPostPromise('/front/toGame', params, null, null, null, {});
   }
 
   /** 用户钱包 */
   wallet(): Promise<any> {
-    return this.buildPostPromise('/front/wallet', null);
+    return this.buildPostPromise('/front/wallet', null, null, null, null, {});
   }
 }
