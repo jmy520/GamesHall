@@ -8,7 +8,7 @@ import { Runtime } from 'src/app/services/Runtime';
 export class ApiService {
   LOG_RESULT = true;
 
-  port_str: String = 'mobile';
+  END_POINT: String = 'mobile';
 
   constructor(
     public runtime: Runtime,
@@ -17,13 +17,13 @@ export class ApiService {
   }
 
   private buildGetPromise(url: string, params?: any, coverBaseUrl?: string, coverPort?: string, headers?: any): Promise<any> {
-    if(headers == null || headers === undefined) {
+    if(headers === null || headers === undefined) {
       headers = {};
     }
     if (this.runtime.user) {
       headers['authorization'] = this.runtime.user.sessionId;
     }
-    headers['port'] = this.port_str;
+    headers['port'] = this.END_POINT;
     return new Promise((resolve, reject) => {
       this.requestProvider.get({
         url: url,
@@ -42,13 +42,13 @@ export class ApiService {
   }
 
   private buildPostPromise(url: string, params: any, body?: any, coverBaseUrl?: string, coverPort?: string, headers?: any): Promise<any> {
-    if(headers == null || headers === undefined) {
+    if(headers === null || headers === undefined) {
       headers = {};
     }
     if (this.runtime.user) {
       headers['authorization'] = this.runtime.user.sessionId;
     }
-    headers['port'] = this.port_str;
+    headers['port'] = this.END_POINT;
     return new Promise((resolve, reject) => {
       this.requestProvider.post({
         url: url,
