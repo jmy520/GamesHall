@@ -4,7 +4,7 @@ import { PopoverController, ModalController, LoadingController, ToastController 
 import { LoginComponent } from 'src/app/components/login/login.component';
 import { RegisterComponent } from 'src/app/components/register/register.component';
 import { BaseView } from 'src/common/base/BaseView';
-import { Storage } from '@ionic/storage';
+import { Runtime } from 'src/app/services/Runtime';
 import { ApiService } from 'src/app/services/api.service';
 import { SafeResourceUrl, DomSanitizer } from '@angular/platform-browser';
 
@@ -29,7 +29,7 @@ export class GamePage extends BaseView implements OnInit {
     public mLoading: LoadingController,
     public mToast: ToastController,
     public mModal: ModalController,
-    public mStorage: Storage,
+    public runtime: Runtime,
     public api: ApiService,
     private sanitizer: DomSanitizer,
     public mPopover: PopoverController) {
@@ -43,14 +43,10 @@ export class GamePage extends BaseView implements OnInit {
   }
 
   ionViewDidEnter() {
-    this.mStorage.get('user').then(data => {
-      if (data) {
-        this.loginedUser = JSON.parse(data);
-        this.isLogined = true;
-      }
-      this.jumpToGamePage(this.gameGid);
-    }).catch(error => {
-    });
+    this.loginedUser = this.runtime.user;
+    if (this.loginedUser) {
+      this.isLogined = true;
+    }
   }
 
   goDating() {
@@ -64,17 +60,13 @@ export class GamePage extends BaseView implements OnInit {
       this.presentLogin();
       return;
     }
-    this.showLoading("正在登录请稍后...");
-    this.api.fetchGameLink({ gameGid: gameGid },
-      {
-        port: 'mobile',
-        authorization: this.loginedUser.sessionId
-      }).then(response => {
+    this.showLoading('正在登录请稍后...');
+    this.api.fetchGameLink({ gameGid: gameGid }).then(response => {
         const errorMessage = response.msg;
         if (errorMessage) {
           this.showToast(errorMessage);
         } else {
-          this.targetUrl = this.sanitizer.bypassSecurityTrustResourceUrl(response.data.url);
+          this.targetUrl = this.sanitizer.bypassSecurityTrustResourceUrl(response.data.url + '&backUrl=0&jumpType=1');
         }
       }).catch(error => { }).finally(() => {
         this.mLoading.getTop().then(instance => {
@@ -90,13 +82,10 @@ export class GamePage extends BaseView implements OnInit {
     }).then(modalInstance => {
       modalInstance.present();
       modalInstance.onDidDismiss().then(result => {
-        this.mStorage.get("user").then(data => {
-          if (data) {
-            this.loginedUser = JSON.parse(data);
-            this.isLogined = true;
-          }
-        }).catch(error => {
-        });
+        this.loginedUser = this.runtime.user;
+        if (this.loginedUser) {
+          this.isLogined = true;
+        }
       }).catch(error => { });
     });
   }

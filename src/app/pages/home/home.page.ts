@@ -4,7 +4,7 @@ import { PopoverController, ModalController, LoadingController, ToastController 
 import { LoginComponent } from 'src/app/components/login/login.component';
 import { RegisterComponent } from 'src/app/components/register/register.component';
 import { BaseView } from 'src/common/base/BaseView';
-import { Storage } from '@ionic/storage';
+import { Runtime } from 'src/app/services/Runtime';
 import { ApiService } from 'src/app/services/api.service';
 import { PictureHelper } from 'src/common/helper/PictureHelper';
 import { InAppBrowser, InAppBrowserOptions } from '@ionic-native/in-app-browser/ngx';
@@ -59,7 +59,7 @@ export class HomePage extends BaseView {
     public mLoading: LoadingController,
     public mToast: ToastController,
     public mModal: ModalController,
-    public mStorage: Storage,
+    public runtime: Runtime,
     public api: ApiService,
     public mInAppBrowser: InAppBrowser,
     public mPopover: PopoverController) {
@@ -72,13 +72,10 @@ export class HomePage extends BaseView {
   }
 
   ionViewDidEnter() {
-    this.mStorage.get('user').then(data => {
-      if (data) {
-        this.loginedUser = JSON.parse(data);
-        this.isLogined = true;
-      }
-    }).catch(error => {
-    });
+    this.loginedUser = this.runtime.user;
+    if (this.loginedUser) {
+      this.isLogined = true;
+    }
 
     this.getGameTypeList();
 
@@ -116,7 +113,7 @@ export class HomePage extends BaseView {
 
   jumpToGamePage(gameGid: any) {
     if (!this.isLogined) {
-      this.showToast("请先登录");
+      this.showToast('请先登录');
       this.presentLogin();
       return;
     }
@@ -154,7 +151,7 @@ export class HomePage extends BaseView {
 
   wallet() {
     if (!this.isLogined) {
-      this.showToast("请先登录");
+      this.showToast('请先登录');
       this.presentLogin();
       return;
     }
@@ -220,13 +217,10 @@ export class HomePage extends BaseView {
     }).then(modalInstance => {
       modalInstance.present();
       modalInstance.onDidDismiss().then(result => {
-        this.mStorage.get("user").then(data => {
-          if (data) {
-            this.loginedUser = JSON.parse(data);
-            this.isLogined = true;
-          }
-        }).catch(error => {
-        });
+        this.loginedUser = this.runtime.user;
+        if (this.loginedUser) {
+          this.isLogined = true;
+        }
       }).catch(error => { });
     });
   }
