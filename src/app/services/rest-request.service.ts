@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { RestConfig } from 'src/common/config/RestConfig';
-import { Platform } from '@ionic/angular';
+import { Platform, ToastController } from '@ionic/angular';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +14,7 @@ export class RestRequestService {
   /** default port */
   private PORT: string = RestConfig.DEFAULT_PORT;
 
-  constructor(public http: HttpClient, public mPlatform: Platform) {
+  constructor(public http: HttpClient, public mPlatform: Platform, public mToast: ToastController) {
     if (mPlatform.is("cordova")) {
       this.BASE_URL = RestConfig.PHONE_BASE_URL;
       this.PORT = RestConfig.PHONE_DEFAULT_PORT;
@@ -43,8 +43,19 @@ export class RestRequestService {
 
     const fullUrl = mBaseUrl + ":" + mPort + request.url + urlParams;
     console.log("FULL_URL->" + fullUrl);
+    this.showToast("FULL_URL->" + fullUrl);
 
     return headers ? this.http.get(fullUrl, { headers: mHeaders }) : this.http.get(fullUrl);
+  }
+
+  protected async showToast(message: string) {
+    const toast = await this.mToast.create({
+      message: message,
+      duration: 2000,
+      position: 'bottom'
+    });
+    await toast.present();
+    return toast;
   }
 
   /** post method */
@@ -54,6 +65,7 @@ export class RestRequestService {
     const mHeaders = new HttpHeaders(headers);
     const fullUrl = mBaseUrl + ":" + mPort + request.url;
     console.log("FULL_URL->" + fullUrl);
+    this.showToast("FULL_URL->" + fullUrl);
 
     return headers ? this.http.post(fullUrl, request.body, { headers: mHeaders, params: request.params }) : this.http.post(fullUrl, request.body, {params: request.params});
   }
