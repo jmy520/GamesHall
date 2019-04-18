@@ -1,7 +1,7 @@
-import { LoadingController, ToastController } from "@ionic/angular";
+import { LoadingController, ToastController, ModalController } from '@ionic/angular';
 
 export abstract class BaseView {
-  constructor(public loadingCtrl: LoadingController, public toastCtrl: ToastController) { }
+  constructor(public loadingCtrl: LoadingController, public toastCtrl: ToastController, public mModal: ModalController) { }
 
   /** show loading */
   protected async showLoading(message: string) {
@@ -22,5 +22,4 @@ export abstract class BaseView {
     await toast.present();
     return toast;
   }
-
 }

@@ -30,7 +30,7 @@ export class RegisterComponent extends BaseView implements OnInit {
     public mToast: ToastController,
     public mModal: ModalController,
     public api: ApiService) {
-    super(mLoading, mToast);
+    super(mLoading, mToast, mModal);
   }
 
   ngOnInit() { }

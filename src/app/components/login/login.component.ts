@@ -24,7 +24,7 @@ export class LoginComponent extends BaseView implements OnInit {
     public mToast: ToastController,
     public storage: Storage,
     public api: ApiService) {
-    super(mLoading, mToast);
+    super(mLoading, mToast, mModal);
   }
 
   ngOnInit() { }
