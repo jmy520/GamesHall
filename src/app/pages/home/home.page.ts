@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { PopoverController, ModalController, LoadingController, ToastController } from '@ionic/angular';
+import { PopoverController, ModalController, LoadingController, ToastController, Platform } from '@ionic/angular';
 import { LoginComponent } from 'src/app/components/login/login.component';
 import { RegisterComponent } from 'src/app/components/register/register.component';
 import { BaseView } from 'src/common/base/BaseView';
@@ -62,6 +62,7 @@ export class HomePage extends BaseView {
     public mStorage: Storage,
     public api: ApiService,
     public mInAppBrowser: InAppBrowser,
+    public mPlatform: Platform,
     public mPopover: PopoverController) {
     super(mLoading, mToast, mModal);
   }
@@ -79,6 +80,37 @@ export class HomePage extends BaseView {
       }
     }).catch(error => {
     });
+
+    let platformName: string = "";
+    if (this.mPlatform.is("cordova")) {
+      platformName += "cordova";
+    }
+
+    if (this.mPlatform.is("android")) {
+      platformName += "android";
+    }
+
+    if (this.mPlatform.is("mobile")) {
+      platformName += "mobile";
+    }
+
+    if (this.mPlatform.is("desktop")) {
+      platformName += "desktop";
+    }
+
+    if (this.mPlatform.is("mobileweb")) {
+      platformName += "mobileweb";
+    }
+
+    if (this.mPlatform.is("tablet")) {
+      platformName += "tablet";
+    }
+
+    if (this.mPlatform.is("pwa")) {
+      platformName += "pwa";
+    }
+
+    this.showToast(platformName);
 
     this.getGameTypeList();
 

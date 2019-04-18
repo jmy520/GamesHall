@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { RestConfig } from 'src/common/config/RestConfig';
+import { Platform } from '@ionic/angular';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,12 @@ export class RestRequestService {
   /** default port */
   private PORT: string = RestConfig.DEFAULT_PORT;
 
-  constructor(public http: HttpClient) { }
+  constructor(public http: HttpClient, public mPlatform: Platform) {
+    if (mPlatform.is("cordova")) {
+      this.BASE_URL = RestConfig.PHONE_BASE_URL;
+      this.PORT = RestConfig.PHONE_DEFAULT_PORT;
+    }
+   }
 
   /** serialize params */
   serialize(params: any) {
