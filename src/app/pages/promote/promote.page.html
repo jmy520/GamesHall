@@ -13,24 +13,24 @@
       <div class="promote_type_list_container">
         <div class="list_inner">
 
-          <div class="list_item active">
-            <img src="assets/image/common/img_default_icon.png">推广赚钱
+          <div [class]="tabIndex == 0 ? 'list_item active' : 'list_item'" (click)="switchTab(0)">
+            <img src="assets/image/promote/img_promote_share_icon.png">推广赚钱
           </div>
 
-          <div class="list_item">
-            <img src="assets/image/common/img_default_icon.png">我的佣金
+          <div [class]="tabIndex == 1 ? 'list_item active' : 'list_item'" (click)="switchTab(1)">
+            <img src="assets/image/promote/img_promote_commission_icon.png">我的佣金
           </div>
 
-          <div class="list_item">
-            <img src="assets/image/common/img_default_icon.png">佣金记录
+          <div [class]="tabIndex == 2 ? 'list_item active' : 'list_item'" (click)="switchTab(2)">
+            <img src="assets/image/promote/img_promote_record_icon.png">佣金记录
           </div>
 
-          <div class="list_item">
-            <img src="assets/image/common/img_default_icon.png">团队成员
+          <div [class]="tabIndex == 3 ? 'list_item active' : 'list_item'" (click)="switchTab(3)">
+            <img src="assets/image/promote/img_promote_team_icon.png">团队成员
           </div>
 
-          <div class="list_item">
-            <img src="assets/image/common/img_default_icon.png">代理介绍
+          <div [class]="tabIndex == 4 ? 'list_item active' : 'list_item'" (click)="switchTab(4)">
+            <img src="assets/image/promote/img_promote_proxy_icon.png">代理介绍
           </div>
 
         </div>
@@ -39,8 +39,94 @@
       <img src="assets/image/promote/img_split_line.png" class="split_line">
 
       <div class="promote_content_container">
-        <div class="user_info">
-          <div class="row01">
+        <div *ngIf="tabIndex == 0" class="tab00_content">
+          <div class="user_info">
+            <div class="row01">
+              <img src="assets/image/common/img_default_icon.png" class="header_img">
+
+              <div class="text_col">
+                <span>
+                  Jason520
+                </span>
+                <span>
+                  当前推广等级：0
+                </span>
+              </div>
+
+              <div class="commision">
+                <span>
+                  可提现佣金：
+                </span>
+                <span>
+                  0.00元
+                </span>
+              </div>
+
+              <img src="assets/image/promote/img_receive_commision.png" class="receive_commision_button">
+            </div>
+
+            <div class="row02">
+              <div class="team">
+                <span>0</span>
+                <span>团队成员总数</span>
+              </div>
+
+              <div class="commision_total">
+                <span>0.00元</span>
+                <span>累计获得佣金</span>
+              </div>
+            </div>
+          </div>
+
+          <img src="assets/image/promote/img_adv_img.png" class="adv_img">
+
+          <div class="share_container">
+            <div class="link_address">
+              <span>
+                复制您的专属网址发送给好友
+              </span>
+              <span class="address">
+                https://200965.com
+              </span>
+              <img src="assets/image/promote/img_copy_url.png" class="copy_link_address">
+            </div>
+
+            <div class="share_to_thirdpart">
+              <span>一键分享到社交平台：</span>
+              <div class="third_part">
+                <div class="share_to_wx">
+                  <img src="assets/image/promote/img_share_wx.png">
+                  <span>
+                    微信好友
+                  </span>
+                </div>
+
+                <div class="share_to_circle_of_friends">
+                  <img src="assets/image/promote/img_share_circle_of_friends.png">
+                  <span>
+                    朋友圈
+                  </span>
+                </div>
+
+                <div class="share_to_qq">
+                  <img src="assets/image/promote/img_share_qq.png">
+                  <span>
+                    QQ
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <div class="qr_code">
+              <img src="assets/image/common/img_default.png">
+
+              <img src="assets/image/promote/img_save_picture.png">
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="tabIndex == 1" class="tab01_content">
+          <div class="user_info">
             <img src="assets/image/common/img_default_icon.png" class="header_img">
 
             <div class="text_col">
@@ -64,63 +150,231 @@
             <img src="assets/image/promote/img_receive_commision.png" class="receive_commision_button">
           </div>
 
-          <div class="row02">
-            <div class="team">
-              <span>0</span>
-              <span>团队成员总数</span>
+          <div class="table_header">
+            <span>上次结算时间</span>
+            <span>代理类型</span>
+            <span>所得佣金(元)</span>
+            <span>贡献人数</span>
+            <span>状态</span>
+            <span>操作</span>
+          </div>
+
+          <div class="table_body">
+            <div class="no_data_container">
+              <div class="no_data_inner">
+                <img src="assets/image/promote/img_promote_no_data_icon.png">
+                <span>
+                  暂无数据
+                </span>
+              </div>
             </div>
 
-            <div class="commision_total">
-              <span>0.00元</span>
-              <span>累计获得佣金</span>
+            <div class="table_content_container">
+              <div class="table_content_inner">
+                <div class="table_content_row">
+                  <span>
+                    2019/02/01 08:00
+                  </span>
+
+                  <span>
+                    总代理
+                  </span>
+
+                  <span>
+                    ￥1000.00
+                  </span>
+
+                  <span>
+                    60
+                  </span>
+
+                  <span>
+                    正常
+                  </span>
+
+                  <span>
+                    存入
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="table_footer">
+            <div class="total">
+              一共{{dataTotal}}单
+            </div>
+            <div class="next_page">
+              下一页
+            </div>
+
+            <div class="page_counter">
+              1/1
+            </div>
+
+            <div class="pre_page">
+              上一页
             </div>
           </div>
         </div>
 
-        <img src="assets/image/promote/img_adv_img.png" class="adv_img">
+        <div *ngIf="tabIndex == 2" class="tab02_content">
+          <div class="content_header">
+            <div class="commission">
+              <span>
+                已转出佣金：
+              </span>
+              <span>
+                0.00元
+              </span>
+            </div>
 
-        <div class="share_container">
-          <div class="link_address">
-            <span>
-              复制您的专属网址发送给好友
-            </span>
-            <span class="address">
-              https://200965.com
-            </span>
-            <img src="assets/image/promote/img_copy_url.png" class="copy_link_address">
-          </div>
-
-          <div class="share_to_thirdpart">
-            <span>一键分享到社交平台：</span>
-            <div class="third_part">
-              <div class="share_to_wx">
-                <img src="assets/image/promote/img_share_wx.png">
+            <div class="time">
+              <span>
+                佣金交易时间：
+              </span>
+              <div class="time_scope">
                 <span>
-                  微信好友
+                  开始时间
                 </span>
-              </div>
-
-              <div class="share_to_circle_of_friends">
-                <img src="assets/image/promote/img_share_circle_of_friends.png">
                 <span>
-                  朋友圈
+                  至
                 </span>
-              </div>
-
-              <div class="share_to_qq">
-                <img src="assets/image/promote/img_share_qq.png">
                 <span>
-                  QQ
+                  2019/04/19
                 </span>
               </div>
             </div>
           </div>
 
-          <div class="qr_code">
-            <img src="assets/image/common/img_default.png">
-
-            <img src="assets/image/promote/img_save_picture.png">
+          <div class="table_header">
+            <span>交易时间</span>
+            <span>订单号</span>
+            <span>转出佣金(元)</span>
+            <span>状态</span>
           </div>
+
+          <div class="table_body">
+            <div class="no_data_container">
+              <div class="no_data_inner">
+                <img src="assets/image/promote/img_promote_no_data_icon.png">
+                <span>
+                  暂无数据
+                </span>
+              </div>
+            </div>
+
+            <div class="table_content_container">
+              <div class="table_content_inner">
+                <div class="table_content_row">
+                  <span>
+                    2019/02/01 08:00
+                  </span>
+
+                  <span>
+                    2038201904190322
+                  </span>
+
+                  <span>
+                    ￥1000.00
+                  </span>
+
+                  <span>
+                    处理中
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="table_footer">
+            <div class="total">
+              一共{{dataTotal}}单
+            </div>
+            <div class="next_page">
+              下一页
+            </div>
+
+            <div class="page_counter">
+              1/1
+            </div>
+
+            <div class="pre_page">
+              上一页
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="tabIndex == 3" class="tab03_content">
+          <div class="content_header">
+            <div class="team">
+              <span>
+                团队成员：
+              </span>
+              <span>
+                0人
+              </span>
+            </div>
+
+            <div class="search">
+              <span>
+                会员查询：
+              </span>
+              <input type="text" placeholder="请输入要查询的会员ID">
+              <div class="search_button">
+                查找
+              </div>
+            </div>
+          </div>
+
+          <div class="table_header">
+            <span>上次登录时间</span>
+            <span>注册时间</span>
+            <span>旗下成员账号</span>
+            <span>等级</span>
+            <span>总充值</span>
+          </div>
+
+          <div class="table_body">
+            <div class="no_data_container">
+              <div class="no_data_inner">
+                <img src="assets/image/promote/img_promote_no_data_icon.png">
+                <span>
+                  暂无数据
+                </span>
+              </div>
+            </div>
+
+            <div class="table_content_container">
+              <div class="table_content_inner">
+                <div class="table_content_row">
+                  <span>
+                    2019/02/01 08:08
+                  </span>
+
+                  <span>
+                    2018/06/24 11:36
+                  </span>
+
+                  <span>
+                    60281645
+                  </span>
+
+                  <span>
+                    8
+                  </span>
+
+                  <span>
+                    ￥680.00
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="tabIndex == 4" class="tab04_content">
+
         </div>
       </div>
     </div>
