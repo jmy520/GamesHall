@@ -43,7 +43,7 @@ export class RestRequestService {
 
     const fullUrl = mBaseUrl + ":" + mPort + request.url + urlParams;
     console.log("FULL_URL->" + fullUrl);
-    this.showToast("FULL_URL->" + fullUrl);
+    // this.showToast("FULL_URL->" + fullUrl);
 
     return headers ? this.http.get(fullUrl, { headers: mHeaders }) : this.http.get(fullUrl);
   }
@@ -65,7 +65,7 @@ export class RestRequestService {
     const mHeaders = new HttpHeaders(headers);
     const fullUrl = mBaseUrl + ":" + mPort + request.url;
     console.log("FULL_URL->" + fullUrl);
-    this.showToast("FULL_URL->" + fullUrl);
+    // this.showToast("FULL_URL->" + fullUrl);
 
     return headers ? this.http.post(fullUrl, request.body, { headers: mHeaders, params: request.params }) : this.http.post(fullUrl, request.body, {params: request.params});
   }
