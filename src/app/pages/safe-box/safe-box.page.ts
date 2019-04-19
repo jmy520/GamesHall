@@ -22,7 +22,7 @@ export class SafeBoxPage extends BaseView implements OnInit {
 
   safeBoxActionParam = {
     safeType: 'safeBox', //固定值safeBox
-    money: 0.0,
+    money: '0.0',
   };
 
   safeBoxSeachParam = {
@@ -59,7 +59,7 @@ export class SafeBoxPage extends BaseView implements OnInit {
    * 从保险箱转出
    */
   outSafeBox() {
-    if (this.safeBoxActionParam.money <= this.userWallet.freezeMoney) {
+    if (parseFloat(this.safeBoxActionParam.money) <= this.userWallet.freezeMoney) {
       const loading = super.showLoading('正在转出,请稍后...');
       this.api.safeBox(this.safeBoxActionParam).then(response => {
         const hasError = response.hashError;
@@ -88,9 +88,9 @@ export class SafeBoxPage extends BaseView implements OnInit {
    * 转入到保险箱中
    */
   inSafeBox() {
-    if (this.safeBoxActionParam.money <= this.userWallet.factMoney) {
+    if (parseFloat(this.safeBoxActionParam.money) <= this.userWallet.factMoney) {
       const loading = super.showLoading('转入中,请稍后...');
-      this.safeBoxActionParam.money = -this.safeBoxActionParam.money;
+      this.safeBoxActionParam.money = '-' + this.safeBoxActionParam.money;
       this.api.safeBox(this.safeBoxActionParam).then(response => {
         const hasError = response.hashError;
         if (hasError) {
@@ -170,7 +170,7 @@ export class SafeBoxPage extends BaseView implements OnInit {
 
   clearRange() {
     this.bl = 0;
-    this.safeBoxActionParam.money = 0.0;
+    this.safeBoxActionParam.money = '0.0';
   }
 
   maxRage() {
