@@ -7,7 +7,6 @@ import { BaseView } from 'src/common/base/BaseView';
 import { Runtime } from 'src/app/services/Runtime';
 import { ApiService } from 'src/app/services/api.service';
 import { PictureHelper } from 'src/common/helper/PictureHelper';
-import { InAppBrowser, InAppBrowserOptions } from '@ionic-native/in-app-browser/ngx';
 
 @Component({
   selector: 'app-home',
@@ -61,7 +60,6 @@ export class HomePage extends BaseView {
     public mModal: ModalController,
     public runtime: Runtime,
     public api: ApiService,
-    public mInAppBrowser: InAppBrowser,
     public mPopover: PopoverController) {
     super(mLoading, mToast, mModal);
   }
@@ -113,7 +111,7 @@ export class HomePage extends BaseView {
 
   jumpToGamePage(gameGid: any) {
     if (!this.isLogined) {
-      this.showToast('请先登录');
+      // this.showToast('请先登录');
       this.presentLogin();
       return;
     }
@@ -151,7 +149,7 @@ export class HomePage extends BaseView {
 
   wallet() {
     if (!this.isLogined) {
-      this.showToast('请先登录');
+      // this.showToast('请先登录');
       this.presentLogin();
       return;
     }
@@ -246,6 +244,15 @@ export class HomePage extends BaseView {
     }).catch(error => {
       console.error(error);
     });
+  }
+
+  goSafeBox() {
+    if (!this.isLogined) {
+      // this.showToast('请先登录');
+      this.presentLogin();
+      return;
+    }
+    this.mRouter.navigate(['/safe-box']);
   }
 
 

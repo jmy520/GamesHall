@@ -12,7 +12,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from "@angular/common/http";
+import { HttpClientModule } from '@angular/common/http';
 
 import { RestRequestService } from './services/rest-request.service';
 import { ApiService } from './services/api.service';

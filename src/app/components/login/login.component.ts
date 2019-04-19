@@ -14,8 +14,8 @@ export class LoginComponent extends BaseView implements OnInit {
   isSaveAccount = false;
 
   loginParams: any = {
-    inputStr: "",
-    pwd: ""
+    inputStr: '',
+    pwd: ''
   };
 
   constructor(
@@ -47,9 +47,11 @@ export class LoginComponent extends BaseView implements OnInit {
   }
 
   login() {
-    this.showLoading('正在登录...');
+    const loading = super.showLoading('正在登录...');
     this.api.login(this.loginParams).then(response => {
-      console.log(response);
+      loading.then((loadinginstan) => {
+        loadinginstan.dismiss();
+      });
       const hasError = response.hashError;
       if (hasError) {
         const errorMessage = response.msg;
@@ -61,10 +63,6 @@ export class LoginComponent extends BaseView implements OnInit {
       }
     }).catch(error => {
       console.error(error);
-    }).finally(() => {
-      this.mLoading.getTop().then(loadingInstance => {
-        loadingInstance.dismiss();
-      });
     });
   }
 }

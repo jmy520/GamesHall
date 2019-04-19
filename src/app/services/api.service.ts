@@ -22,6 +22,7 @@ export class ApiService {
     }
     if (this.runtime.user) {
       headers['authorization'] = this.runtime.user.sessionId;
+      headers['token'] = this.runtime.user.token;
     }
     headers['port'] = this.port_str;
     return new Promise((resolve, reject) => {
@@ -47,6 +48,7 @@ export class ApiService {
     }
     if (this.runtime.user) {
       headers['authorization'] = this.runtime.user.sessionId;
+      headers['token'] = this.runtime.user.token;
     }
     headers['port'] = this.port_str;
     return new Promise((resolve, reject) => {
@@ -109,5 +111,15 @@ export class ApiService {
   /** 用户钱包 */
   wallet(): Promise<any> {
     return this.buildPostPromise('/front/wallet', null, null, null, null, {});
+  }
+
+  /** 用户把钱转入/转出保险箱 */
+  safeBox(params: any): Promise<any> {
+    return this.buildPostPromise('/front/safeBox', params, null, null, null, {});
+  }
+
+  /** 流水明细  可传入 itemType参数得到不同类型的流水明细 */
+  bankItem(params: any): Promise<any> {
+    return this.buildPostPromise('/front/bankItem', params, null, null, null, {});
   }
 }

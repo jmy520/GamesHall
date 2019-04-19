@@ -46,6 +46,7 @@ export class GamePage extends BaseView implements OnInit {
     this.loginedUser = this.runtime.user;
     if (this.loginedUser) {
       this.isLogined = true;
+      this.jumpToGamePage(this.gameGid);
     }
   }
 
@@ -56,11 +57,11 @@ export class GamePage extends BaseView implements OnInit {
 
   jumpToGamePage(gameGid: any) {
     if (!this.isLogined) {
-      this.showToast('请先登录');
+      // this.showToast('请先登录');
       this.presentLogin();
       return;
     }
-    this.showLoading('正在登录请稍后...');
+    const loadingPromise = this.showLoading('正在登录请稍后...');
     this.api.fetchGameLink({ gameGid: gameGid }).then(response => {
         const errorMessage = response.msg;
         if (errorMessage) {
@@ -69,7 +70,7 @@ export class GamePage extends BaseView implements OnInit {
           this.targetUrl = this.sanitizer.bypassSecurityTrustResourceUrl(response.data.url + '&backUrl=0&jumpType=1');
         }
       }).catch(error => { }).finally(() => {
-        this.mLoading.getTop().then(instance => {
+        loadingPromise.then(instance => {
           instance.dismiss();
         }).catch(error => { });
       });
