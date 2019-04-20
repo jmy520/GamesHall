@@ -20,6 +20,8 @@ import { Runtime } from './services/Runtime';
 
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
+import { ReceiveCommisionComponent } from './components/receive-commision/receive-commision.component';
+import { WithdrawalRecordComponent } from './components/withdrawal-record/withdrawal-record.component';
 import { SafeBoxValidateComponent } from './components/safe-box-validate/safe-box-validate.component';
 
 @NgModule({
@@ -27,12 +29,16 @@ import { SafeBoxValidateComponent } from './components/safe-box-validate/safe-bo
     AppComponent,
     LoginComponent,
     RegisterComponent,
+    ReceiveCommisionComponent,
+    WithdrawalRecordComponent,
     SafeBoxValidateComponent
   ],
 
   entryComponents: [
     LoginComponent,
     RegisterComponent,
+    ReceiveCommisionComponent,
+    WithdrawalRecordComponent,
     SafeBoxValidateComponent
   ],
 

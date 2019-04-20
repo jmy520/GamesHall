@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ModalController } from '@ionic/angular';
 
 @Component({
   selector: 'app-safe-box-validate',
@@ -7,8 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SafeBoxValidateComponent implements OnInit {
 
-  constructor() { }
+  constructor(public mModalController: ModalController) { }
 
   ngOnInit() {}
 
+  dismissDialog() {
+    this.mModalController.getTop().then(modalInstance => {
+      modalInstance.dismiss();
+    }).catch(error => { });
+  }
 }

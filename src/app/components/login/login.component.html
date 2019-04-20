@@ -24,7 +24,9 @@
 
       <div class="function_row">
         <div class="save_state" (click)="isSaveAccount = !isSaveAccount">
-          <img [src]="isSaveAccount ? 'assets/image/login/img_checkbox_selected.png' : 'assets/image/login/img_checkbox_unselected.png'" class="check_state">
+          <img
+            [src]="isSaveAccount ? 'assets/image/login/img_checkbox_selected.png' : 'assets/image/login/img_checkbox_unselected.png'"
+            class="check_state">
           <span>保存账号</span>
         </div>
         <img src="assets/image/login/img_login_button.png" class="login_button" (click)="login()">

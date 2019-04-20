@@ -13,16 +13,16 @@
       <div class="withdrawal_type_list_container">
         <div class="list_inner">
 
-          <div class="list_item active">
-            <img src="assets/image/common/img_default_icon.png">提现到银行
+          <div (click)="tabIndex = 0" [class]="tabIndex == 0 ? 'list_item active' : 'list_item'">
+            <img src="assets/image/withdrawal/img_withdrawal_ic_card_icon.png">提现到银行
           </div>
 
-          <div class="list_item">
-            <img src="assets/image/common/img_default_icon.png">资金流水
+          <div (click)="tabIndex = 1" [class]="tabIndex == 1 ? 'list_item active' : 'list_item'">
+            <img src="assets/image/withdrawal/img_withdrawal_amount_transfer_icon.png">资金流水
           </div>
 
-          <div class="list_item">
-            <img src="assets/image/common/img_default_icon.png">银行卡管理
+          <div (click)="tabIndex = 2" [class]="tabIndex == 2 ? 'list_item active' : 'list_item'">
+            <img src="assets/image/withdrawal/img_withdrawal_bank_card_icon.png">银行卡管理
           </div>
 
         </div>
@@ -31,7 +31,7 @@
       <img src="assets/image/withdrawal/img_split_line.png" class="split_line">
 
       <div class="withdrawal_content_container">
-        <div class="withdrawal_content_inner">
+        <div *ngIf="tabIndex == 0" class="content_tab_00">
           <div class="text_info">
             <h4>
               账户余额：
@@ -39,7 +39,7 @@
             <h4>
               ￥0.00元
             </h4>
-            <div class="recharge_record">
+            <div class="recharge_record" (click)="viewWithdrawalRecord()">
               <img src="assets/image/withdrawal/img_record_icon.png">
               <span>提现记录</span>
             </div>
@@ -69,6 +69,259 @@
           </div>
 
           <img src="assets/image/withdrawal/img_confirm_button.png" class="confirm_withdrawal">
+        </div>
+
+        <div *ngIf="tabIndex == 1" class="content_tab_01">
+          <div class="inner_tab">
+            <div (click)="innerTabIndex = 0" [class]="innerTabIndex == 0 ? 'tab01 active' : 'tab01'">
+              流水详情
+            </div>
+
+            <div (click)="innerTabIndex = 1" [class]="innerTabIndex == 1 ? 'tab02 active' : 'tab02'">
+              资金明细
+            </div>
+          </div>
+
+          <div *ngIf="innerTabIndex == 0" class="table_container_01">
+            <div class="table_header">
+              <span>流水时间</span>
+              <span>需求打码</span>
+              <span>实际打码</span>
+              <span>流水状态</span>
+            </div>
+
+            <div class="table_body">
+              <div class="no_data_container">
+                <div class="no_data_inner">
+                  <img src="assets/image/promote/img_promote_no_data_icon.png">
+                  <span>
+                    暂无数据
+                  </span>
+                </div>
+              </div>
+
+              <div class="table_content_container">
+                <div class="table_content_inner">
+                  <div class="table_content_row">
+                    <span>
+                      2019/02/01 08:00
+                    </span>
+
+                    <span>
+                      868
+                    </span>
+
+                    <span>
+                      868
+                    </span>
+
+                    <span>
+                      转出成功
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="table_footer">
+              <div class="total">
+                一共{{dataTotal}}条
+              </div>
+              <div class="next_page">
+                下一页
+              </div>
+
+              <div class="page_counter">
+                1/1
+              </div>
+
+              <div class="pre_page">
+                上一页
+              </div>
+            </div>
+          </div>
+
+          <div *ngIf="innerTabIndex == 1" class="table_container_02">
+            <div class="table_header">
+              <span>充值时间</span>
+              <span>充值类型</span>
+              <span>充值金额</span>
+            </div>
+
+            <div class="table_body">
+              <div class="no_data_container">
+                <div class="no_data_inner">
+                  <img src="assets/image/promote/img_promote_no_data_icon.png">
+                  <span>
+                    暂无数据
+                  </span>
+                </div>
+              </div>
+
+              <div class="table_content_container">
+                <div class="table_content_inner">
+                  <div class="table_content_row">
+                    <span>
+                      2019/02/01 08:00
+                    </span>
+
+                    <span>
+                      在线充值
+                    </span>
+
+                    <span>
+                      ￥1000.00
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="table_footer">
+              <div class="total">
+                一共{{dataTotal}}条
+              </div>
+              <div class="next_page">
+                下一页
+              </div>
+
+              <div class="page_counter">
+                1/1
+              </div>
+
+              <div class="pre_page">
+                上一页
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="tabIndex == 2" class="content_tab_02">
+          <div *ngIf="!isAddingBankCard" class="bank_card_list">
+            <div class="bank_card_list_container">
+              <div class="bank_card_list_inner">
+
+                <div class="bank_card_item">
+                  <div class="row01">
+                    <img src="assets/image/withdrawal/img_withdrawal_bank_item_01_icon.png">
+                    <span>
+                      邮政银行
+                    </span>
+                  </div>
+                  <div class="row02">
+                    6210********7257
+                  </div>
+                </div>
+
+                <div class="bank_card_item">
+                  <div class="row01">
+                    <img src="assets/image/withdrawal/img_withdrawal_bank_item_01_icon.png">
+                    <span>
+                      邮政银行
+                    </span>
+                  </div>
+                  <div class="row02">
+                    6210********7257
+                  </div>
+                </div>
+
+                <div class="bank_card_item">
+                  <div class="row01">
+                    <img src="assets/image/withdrawal/img_withdrawal_bank_item_01_icon.png">
+                    <span>
+                      邮政银行
+                    </span>
+                  </div>
+                  <div class="row02">
+                    6210********7257
+                  </div>
+                </div>
+
+                <div class="bank_card_item">
+                  <div class="row01">
+                    <img src="assets/image/withdrawal/img_withdrawal_bank_item_01_icon.png">
+                    <span>
+                      邮政银行
+                    </span>
+                  </div>
+                  <div class="row02">
+                    6210********7257
+                  </div>
+                </div>
+
+                <div class="bank_card_item">
+                  <div class="row01">
+                    <img src="assets/image/withdrawal/img_withdrawal_bank_item_01_icon.png">
+                    <span>
+                      邮政银行
+                    </span>
+                  </div>
+                  <div class="row02">
+                    6210********7257
+                  </div>
+                </div>
+
+                <div class="bank_card_item">
+                  <div class="row01">
+                    <img src="assets/image/withdrawal/img_withdrawal_bank_item_01_icon.png">
+                    <span>
+                      邮政银行
+                    </span>
+                  </div>
+                  <div class="row02">
+                    6210********7257
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+            <img class="to_add_bank_card" src="assets/image/withdrawal/img_withdrawal_add_bank_card_button.png"
+              (click)="isAddingBankCard = true">
+          </div>
+
+          <div *ngIf="isAddingBankCard" class="add_bank_card">
+            <div class="row01">
+              <span>
+                持卡人姓名
+              </span>
+              <input type="text" placeholder="请输入姓名">
+            </div>
+
+            <div class="row02">
+              <span>
+                选择银行
+              </span>
+              <input disabled type="text" placeholder="请选择银行卡">
+              <span>
+                选择
+              </span>
+            </div>
+
+            <div class="row03">
+              <span>
+                银行卡账号
+              </span>
+              <input type="text" placeholder="请输入银行卡号">
+            </div>
+
+            <div class="row04">
+              <span>
+                开户地址
+              </span>
+              <input type="text" placeholder="请输入银行卡开户地址">
+            </div>
+
+            <div class="tips">
+              提示：请正确选择开户行，并绑定真是姓名，结算时将直接转入此账号，为了您的资金安全，绑定后不可随意更改，如需修改，请联系客服人员。
+            </div>
+
+            <div class="buttons">
+              <img src="assets/image/withdrawal/img_withdrawal_previous_step_button.png"
+                (click)="isAddingBankCard = false">
+              <img src="assets/image/withdrawal/img_withdrawal_cnfirm_bingding_button.png">
+            </div>
+          </div>
         </div>
       </div>
     </div>

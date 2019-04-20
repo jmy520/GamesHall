@@ -47,7 +47,7 @@ export class RegisterComponent extends BaseView implements OnInit {
         this.showToast("验证码已发送请注意查收");
         this.timerTick = true;
         let timeValue = 60;
-        const timerHandler = setInterval(()=>{
+        const timerHandler = setInterval(() => {
           timeValue -= 1;
           this.timerText = "" + timeValue;
           if (timeValue == 0) {
@@ -87,6 +87,6 @@ export class RegisterComponent extends BaseView implements OnInit {
   dismissDialog() {
     this.mModal.getTop().then(modalInstance => {
       modalInstance.dismiss();
-    });
+    }).catch(error => { });
   }
 }

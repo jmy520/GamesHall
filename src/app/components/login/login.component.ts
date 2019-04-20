@@ -32,7 +32,7 @@ export class LoginComponent extends BaseView implements OnInit {
   dismissDialog() {
     this.mModal.getTop().then(modalInstance => {
       modalInstance.dismiss();
-    });
+    }).catch(error => { });
   }
 
   goRegister() {

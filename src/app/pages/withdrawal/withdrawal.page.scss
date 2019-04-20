@@ -99,9 +99,8 @@
       height: 100%;
       float: left;
       padding: 2vh 2vw;
-      overflow-y: scroll;
 
-      &>.withdrawal_content_inner{
+      &>.content_tab_00{
         width: 100%;
         height: auto;
         padding: 0 2vw;
@@ -256,6 +255,601 @@
           margin: 0 auto;
           margin-top: 6vh;
           @include press_effect;
+        }
+      }
+
+      &>.content_tab_01{
+        width: 100%;
+        height: calc(100% - 13vh);
+        padding: 0 2vw;
+
+        &>.inner_tab{
+          width: 100%;
+          height: auto;
+          @include clearfix;
+
+          &>.tab01{
+            width: 26vh;
+            height: 10vh;
+            line-height: 10vh;
+            float: left;
+            text-align: center;
+            font-size: 3.6vh;
+            color: #CCC;
+            background: url("src/assets/image/withdrawal/img_withdrawal_top_tab_unselect_bg.png") no-repeat;
+            background-size: 100% 100%;
+
+            &.active{
+              color: #301F01;
+              background: url("src/assets/image/withdrawal/img_withdrawal_top_tab_selected_bg.png") no-repeat;
+              background-size: 100% 100%;
+            }
+          }
+
+          &>.tab02{
+            width: 26vh;
+            height: 10vh;
+            line-height: 10vh;
+            float: left;
+            text-align: center;
+            font-size: 3.6vh;
+            color: #CCC;
+            background: url("src/assets/image/withdrawal/img_withdrawal_top_tab_unselect_bg.png") no-repeat;
+            background-size: 100% 100%;
+
+            &.active{
+              color: #301F01;
+              background: url("src/assets/image/withdrawal/img_withdrawal_top_tab_selected_bg.png") no-repeat;
+              background-size: 100% 100%;
+            }
+          }
+        }
+
+        &>.table_container_01{
+          width: 100%;
+          height: 100%;
+
+          &>.table_header{
+            width: 100%;
+            height: 10vh;
+            background: url("src/assets/image/promote/img_promote_table01_table_header_bg.png") no-repeat;
+            background-size: 100% 100%;
+            @include clearfix;
+  
+            &>span{
+              display: block;
+              width: 25%;
+              height: 10vh;
+              line-height: 10vh;
+              float: left;
+              text-align: center;
+              font-size: 3.6vh;
+              color: $main_color;
+            }
+          }
+  
+          &>.table_body{
+            position: relative;
+            width: 100%;
+            height: calc(100% - 4vh - 10vh - 2vh);
+  
+            &>.no_data_container{
+              position: absolute;
+              width: 100%;
+              height: 100%;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+  
+              &>.no_data_inner{
+                text-align: center;
+  
+                &>img{
+                  display: block;
+                  width: 18vh;
+                  height: auto;
+                }
+  
+                &>span{
+                  font-size: 3.2vh;
+                  color: white;
+                }
+              }
+            }
+  
+            &>.table_content_container{
+              position: absolute;
+              width: 100%;
+              height: 100%;
+              overflow-y: scroll;
+  
+              &>.table_content_inner{
+                width: 100%;
+                height: auto;
+  
+                &>.table_content_row{
+                  width: 100%;
+                  height: 10vh;
+                  @include clearfix;
+  
+                  &>span{
+                    display: block;
+                    width: 25%;
+                    height: 10vh;
+                    line-height: 10vh;
+                    float: left;
+                    color: white;
+                    font-size: 3.2vh;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
+                    text-align: center;
+                  }
+                }
+              }
+            }
+          }
+  
+          &>.table_footer{
+            width: 100%;
+            height: 10vh;
+            line-height: 10vh;
+            background: url("src/assets/image/promote/img_promote_table_footer_bg.png") no-repeat;
+            background-size: 100% 100%;
+            padding: 0 2vw;
+            @include clearfix;
+  
+            &>.total{
+              float: left;
+              height: 10vh;
+              line-height: 10vh;
+              font-size: 3.2vh;
+              color: #CCC;
+            }
+            
+            &>.next_page{
+              width: 13vh;
+              height: 7vh;
+              line-height: 7vh;
+              margin-top: 1.5vh;
+              text-align: center;
+              background: url("src/assets/image/promote/img_promote_common_button_bg.png") no-repeat;
+              background-size: 100% 100%;
+              font-size: 3.6vh;
+              color: #CCC;
+              float: right;
+              @include press_effect;
+            }
+  
+            &>.page_counter{
+              width: auto;
+              height: 10vh;
+              line-height: 10vh;
+              float: right;
+              margin-right: 2vw;
+              font-size: 3.6vh;
+              color: white;
+            }
+  
+            &>.pre_page{
+              width: 13vh;
+              height: 7vh;
+              line-height: 7vh;
+              margin-top: 1.5vh;
+              text-align: center;
+              background: url("src/assets/image/promote/img_promote_common_button_bg.png") no-repeat;
+              background-size: 100% 100%;
+              font-size: 3.6vh;
+              color: #CCC;
+              float: right;
+              margin-right: 2vw;
+              @include press_effect;
+            }
+          }
+        }
+
+        &>.table_container_02{
+          width: 100%;
+          height: 100%;
+
+          &>.table_header{
+            width: 100%;
+            height: 10vh;
+            background: url("src/assets/image/promote/img_promote_table01_table_header_bg.png") no-repeat;
+            background-size: 100% 100%;
+            @include clearfix;
+  
+            &>span{
+              display: block;
+              width: 33.33%;
+              height: 10vh;
+              line-height: 10vh;
+              float: left;
+              text-align: center;
+              font-size: 3.6vh;
+              color: $main_color;
+            }
+          }
+  
+          &>.table_body{
+            position: relative;
+            width: 100%;
+            height: calc(100% - 4vh - 10vh - 2vh);
+  
+            &>.no_data_container{
+              position: absolute;
+              width: 100%;
+              height: 100%;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+  
+              &>.no_data_inner{
+                text-align: center;
+  
+                &>img{
+                  display: block;
+                  width: 18vh;
+                  height: auto;
+                }
+  
+                &>span{
+                  font-size: 3.2vh;
+                  color: white;
+                }
+              }
+            }
+  
+            &>.table_content_container{
+              position: absolute;
+              width: 100%;
+              height: 100%;
+              overflow-y: scroll;
+  
+              &>.table_content_inner{
+                width: 100%;
+                height: auto;
+  
+                &>.table_content_row{
+                  width: 100%;
+                  height: 10vh;
+                  @include clearfix;
+  
+                  &>span{
+                    display: block;
+                    width: 33.33%;
+                    height: 10vh;
+                    line-height: 10vh;
+                    float: left;
+                    color: white;
+                    font-size: 3.2vh;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
+                    text-align: center;
+                  }
+                }
+              }
+            }
+          }
+  
+          &>.table_footer{
+            width: 100%;
+            height: 10vh;
+            line-height: 10vh;
+            background: url("src/assets/image/promote/img_promote_table_footer_bg.png") no-repeat;
+            background-size: 100% 100%;
+            padding: 0 2vw;
+            @include clearfix;
+  
+            &>.total{
+              float: left;
+              height: 10vh;
+              line-height: 10vh;
+              font-size: 3.2vh;
+              color: #CCC;
+            }
+            
+            &>.next_page{
+              width: 13vh;
+              height: 7vh;
+              line-height: 7vh;
+              margin-top: 1.5vh;
+              text-align: center;
+              background: url("src/assets/image/promote/img_promote_common_button_bg.png") no-repeat;
+              background-size: 100% 100%;
+              font-size: 3.6vh;
+              color: #CCC;
+              float: right;
+              @include press_effect;
+            }
+  
+            &>.page_counter{
+              width: auto;
+              height: 10vh;
+              line-height: 10vh;
+              float: right;
+              margin-right: 2vw;
+              font-size: 3.6vh;
+              color: white;
+            }
+  
+            &>.pre_page{
+              width: 13vh;
+              height: 7vh;
+              line-height: 7vh;
+              margin-top: 1.5vh;
+              text-align: center;
+              background: url("src/assets/image/promote/img_promote_common_button_bg.png") no-repeat;
+              background-size: 100% 100%;
+              font-size: 3.6vh;
+              color: #CCC;
+              float: right;
+              margin-right: 2vw;
+              @include press_effect;
+            }
+          }
+        }
+      }
+
+      &>.content_tab_02{
+        position: relative;
+        width: 100%;
+        height: calc(100% - 13vh);
+        padding: 0 2vw;
+
+        &>.bank_card_list{
+          position: absolute;
+          width: calc(100% - 4vh);
+          height: 100%;
+
+          &>.bank_card_list_container{
+            width: 100%;
+            height: 100%;
+            overflow-y: scroll;
+
+            &>.bank_card_list_inner{
+              width: 100%;
+              height: auto;
+
+              &>.bank_card_item{
+                width: 100%;
+                height: auto;
+                padding: 3vh 4vh;
+                margin-top: 2vh;
+                background: url("src/assets/image/withdrawal/img_withdrawal_bank_item_01_bg.png") no-repeat;
+                background-size: cover;
+
+                &:nth-of-type(1){
+                  margin-top: 0;
+                }
+
+                &>.row01{
+                  width: 100%;
+                  height: 6vh;
+                  line-height: 6vh;
+
+                  &>img{
+                    width: 6vh;
+                    height: 6vh;
+                    border-radius: 50%;
+                  }
+
+                  &>span{
+                    font-size: 3.6vh;
+                    color: white;
+                    margin-left: 1vh;
+                  }
+                }
+
+                &>.row02{
+                  margin-top: 4vh;
+                  padding-left: 7vh;
+                  font-size: 3.6vh;
+                  color: white;
+                }
+              }
+            }
+          }
+
+          &>.to_add_bank_card{
+            display: block;
+            margin: 0 auto;
+            margin-top: 1vh;
+            width: auto;
+            height: 10vh;
+            @include press_effect;
+          }
+        }
+
+        &>.add_bank_card{
+          position: absolute;
+          width: 100%;
+          height: 100%;
+
+          &>.row01{
+            width: 100%;
+            height: 10vh;
+            line-height: 10vh;
+            text-align: center;
+  
+            &>span{
+              display: inline-block;
+              width: 20vh;
+              text-align: right;
+              font-size: 3.6vh;
+              color: white;
+            }
+  
+            &>input{
+              width: 60vh;
+              height: 8vh;
+              line-height: 8vh;
+              padding: 2vh 2.6vh;
+              color: #CCC;
+              margin-left: 2vh;
+              background: transparent;
+              border-radius: 2vh;
+              font-size: 3.6vh;
+              @include getBorder(all, 0.55px, $main_color);
+              outline: none;
+  
+              &:-webkit-autofill { 
+                box-shadow: 0 0 0px 1000px $main_color inset;
+              }
+            }
+          }
+  
+          &>.row02{
+            width: 100%;
+            height: 10vh;
+            line-height: 10vh;
+            margin-top: 2vh;
+            text-align: center;
+  
+            &>span{
+              &:nth-of-type(1){
+                display: inline-block;
+                width: 20vh;
+                text-align: right;
+                font-size: 3.6vh;
+                color: white;
+              }
+  
+              &:nth-of-type(2){
+                display: inline-block;
+                width: 18vh;
+                height: 10vh;
+                line-height: 10vh;
+                margin-left: 2vh;
+                font-size: 3.6vh;
+                color: #AAA;
+                text-align: center;
+                background: url("src/assets/image/withdrawal/img_withdrawal_choose_button.png") no-repeat;
+                background-size: 100% 100%;
+                @include press_effect;
+              }
+            }
+  
+            &>input{
+              display: inline-block;
+              width: 40vh;
+              height: 8vh;
+              line-height: 8vh;
+              padding: 2vh 2.6vh;
+              color: #CCC;
+              margin-left: 2vh;
+              background: transparent;
+              border-radius: 2vh;
+              font-size: 3.6vh;
+              @include getBorder(all, 0.55px, $main_color);
+              outline: none;
+  
+              &:-webkit-autofill { 
+                box-shadow: 0 0 0px 1000px $main_color inset;
+              }
+            }
+          }
+  
+          &>.row03{
+            width: 100%;
+            height: 10vh;
+            line-height: 10vh;
+            margin-top: 2vh;
+            text-align: center;
+  
+            &>span{
+              display: inline-block;
+              width: 20vh;
+              text-align: right;
+              font-size: 3.6vh;
+              color: white;
+            }
+  
+            &>input{
+              display: inline-block;
+              width: 60vh;
+              height: 8vh;
+              line-height: 8vh;
+              padding: 2vh 2.6vh;
+              color: #CCC;
+              margin-left: 2vh;
+              background: transparent;
+              border-radius: 2vh;
+              font-size: 3.6vh;
+              @include getBorder(all, 0.55px, $main_color);
+              outline: none;
+  
+              &:-webkit-autofill { 
+                box-shadow: 0 0 0px 1000px $main_color inset;
+              }
+            }
+          }
+  
+          &>.row04{
+            width: 100%;
+            height: 10vh;
+            line-height: 10vh;
+            margin-top: 2vh;
+            text-align: center;
+  
+            &>span{
+              display: inline-block;
+              width: 20vh;
+              text-align: right;
+              font-size: 3.6vh;
+              color: white;
+            }
+  
+            &>input{
+              display: inline-block;
+              width: 60vh;
+              height: 8vh;
+              line-height: 8vh;
+              padding: 2vh 2.6vh;
+              color: #CCC;
+              margin-left: 2vh;
+              background: transparent;
+              border-radius: 2vh;
+              font-size: 3.6vh;
+              @include getBorder(all, 0.55px, $main_color);
+              outline: none;
+  
+              &:-webkit-autofill { 
+                box-shadow: 0 0 0px 1000px $main_color inset;
+              }
+            }
+          }
+  
+          &>.tips{
+            width: 100%;
+            height: auto;
+            margin-top: 2vh;
+            font-size: 2.6vh;
+            color: #CCC;
+          }
+  
+          &>.buttons{
+            width: 100%;
+            height: auto;
+            margin-top: 6vh;
+            text-align: center;
+  
+            &>img{
+              display: inline-block;
+              height: 10vh;
+              width: auto;
+              @include press_effect;
+  
+              &:nth-of-type(1){
+                margin-right: 6vh;
+              }
+  
+              &:nth-of-type(2){
+                margin-left: 6vh;
+              }
+            }
+          }
         }
       }
     }

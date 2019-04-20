@@ -1,0 +1,138 @@
+@import "src/common/styles/index.scss";
+
+.content_container{
+  @extend .base_container;
+
+  &>.dialog_container{
+    position: absolute;
+    width: 138vh;
+    height: 80vh;
+    left: calc(50% - 69vh);
+    top: 10vh;
+    background-image: url("src/assets/image/withdrawal_record/img_withdrawal_record_content_bg.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 100% 100%;
+
+    &>.header{
+      width: 100%;
+      height: 12vh;
+      line-height: 12vh;
+      text-align: center;
+      background-image: url("src/assets/image/withdrawal_record/img_high_light_bg.png");
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: 100% 100%;
+      border-top-left-radius: 6vh;
+      border-top-right-radius: 6vh;
+
+      &>.title{
+        height: 10vh;
+        width: auto;
+        margin-top: 2vh;
+      }
+    }
+
+    &>.split_line{
+      display: block;
+      width: 100%;
+      height: auto;
+      margin-top: -0.4vh;
+    }
+
+    &>.content_container{
+      width: 100%;
+      height: calc(100% - 12vh);
+
+      &>.table_header{
+        width: 100%;
+        height: 10vh;
+        background: url("src/assets/image/withdrawal_record/img_withdrawal_record_table_header_bg.png") no-repeat;
+        background-size: 100% 100%;
+        @include clearfix;
+
+        &>span{
+          display: block;
+          width: 25%;
+          height: 10vh;
+          line-height: 10vh;
+          float: left;
+          text-align: center;
+          font-size: 3.6vh;
+          color: $main_color;
+        }
+      }
+
+      &>.table_body{
+        position: relative;
+        width: 100%;
+        height: calc(100% - 8vh);
+
+        &>.no_data_container{
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+
+          &>.no_data_inner{
+            text-align: center;
+
+            &>img{
+              display: block;
+              width: 18vh;
+              height: auto;
+            }
+
+            &>span{
+              font-size: 3.2vh;
+              color: white;
+            }
+          }
+        }
+
+        &>.table_content_container{
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          overflow-y: scroll;
+
+          &>.table_content_inner{
+            width: 100%;
+            height: auto;
+
+            &>.table_content_row{
+              width: 100%;
+              height: 10vh;
+              @include clearfix;
+
+              &>span{
+                display: block;
+                width: 25%;
+                height: 10vh;
+                line-height: 10vh;
+                float: left;
+                color: white;
+                font-size: 3.2vh;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                text-align: center;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  &>.close_button{
+    position: absolute;
+    width: 10vh;
+    height: 10vh;
+    left: calc(50% + 69vh - 5vh);
+    top: calc(10vh - 5vh);
+    @include press_effect;
+  }
+}
