@@ -255,5 +255,14 @@ export class HomePage extends BaseView {
     this.mRouter.navigate(['/safe-box']);
   }
 
+  goPromote() {
+    if (!this.isLogined) {
+      // this.showToast('请先登录');
+      this.presentLogin();
+      return;
+    }
+    this.mRouter.navigate(['/promote']);
+  }
+
 
 }

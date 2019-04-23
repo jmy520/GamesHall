@@ -122,4 +122,20 @@ export class ApiService {
   bankItem(params: any): Promise<any> {
     return this.buildPostPromise('/front/bankItem', params, null, null, null, {});
   }
+
+  /** 推广页 */
+  promote(): Promise<any> {
+    return this.buildPostPromise('/front/popularize', null, null, null, null, {});
+  }
+
+  /** 我的佣金 */
+  myCommissions(params): Promise<any> {
+    return this.buildPostPromise('/front/myCommissions', params, null, null, null, {});
+  }
+
+  /** 我的下级 */
+  groupMembers(params): Promise<any> {
+    return this.buildPostPromise('/front/groupMembers', params, null, null, null, {});
+  }
+
 }

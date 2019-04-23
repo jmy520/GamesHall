@@ -1,7 +1,7 @@
 export class RestConfig {
-  static BASE_URL = 'http://www.mt618888.com';
+  // static BASE_URL = 'http://www.mt618888.com';
 
-  // static BASE_URL: string = "http://localhost";
+  static BASE_URL = "http://localhost";
 
   static DEFAULT_PORT = '166';
 
