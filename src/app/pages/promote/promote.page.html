@@ -244,15 +244,9 @@
                 佣金交易时间：
               </span>
               <div class="time_scope">
-                <span>
-                  开始时间
-                </span>
-                <span>
-                  至
-                </span>
-                <span>
-                  2019/04/19
-                </span>
+                  <ion-select okText="确定" cancelText="取消" (ionChange)="selectDate()" [(ngModel)]="myDay" [compareWith]="compareWithFn">
+                      <ion-select-option [value]="item" *ngFor="let item of timeSelectObjectArray">{{item.txt}}</ion-select-option>
+                  </ion-select>
               </div>
             </div>
           </div>
@@ -322,7 +316,7 @@
                 团队成员：
               </span>
               <span>
-                0人
+                {{homeData.pepolNum}}人
               </span>
             </div>
 
@@ -330,8 +324,8 @@
               <span>
                 会员查询：
               </span>
-              <input type="text" placeholder="请输入要查询的会员ID">
-              <div class="search_button">
+              <input type="text" placeholder="请输入要查询的会员ID" [(ngModel)]="seachParam.keyword">
+              <div class="search_button" (click)="groupMembers()">
                 查找
               </div>
             </div>
@@ -359,23 +353,23 @@
               <div class="table_content_inner">
                 <div class="table_content_row" *ngFor="let item of myCommissionData.list">
                   <span>
-                    {{item.lastLoginTime}}
+                    {{item.last_login_time | date:'yy/MM/dd HH:mm'}}
                   </span>
 
                   <span>
-                    {{item.createrTime}}
+                    {{item.creater_time | date:'yy/MM/dd HH:mm'}}
                   </span>
 
                   <span>
-                    {{item.userAccount}}
+                    {{item.user_account}}
                   </span>
 
                   <span>
-                    {{item.vipGrade}}
+                    {{item.vip_grade}}
                   </span>
 
                   <span>
-                    ￥{{item.totalRecharge}}
+                    ￥{{item.total_recharge}}
                   </span>
                 </div>
               </div>

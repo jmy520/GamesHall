@@ -6,6 +6,8 @@ import { Runtime } from 'src/app/services/Runtime';
 import { ApiService } from 'src/app/services/api.service';
 import { ReceiveCommisionComponent } from 'src/app/components/receive-commision/receive-commision.component';
 import { BaseView } from 'src/common/base/BaseView';
+import { DatePipe } from '@angular/common';
+import { DateUtile } from 'src/common/helper/DateUtile';
 
 @Component({
   selector: 'app-promote',
@@ -32,6 +34,18 @@ export class PromotePage extends BaseView implements OnInit {
     InsterTimeEnd: ''
   };
 
+  myDay: any = {
+    id: 0,
+    txt: '全部',
+    startTimeStr: '',
+    endTimeStr: ''
+  };
+
+  timeSelectNumberArray = [3, 5, 7, 10, 30, 90 ];
+  timeSelectTextArray = ['三天', '五天', '七天', '十天', '一个月', '三个月' ];
+
+  timeSelectObjectArray = [];
+
   myCommissionData: any = {
     totals: 0,
     totalsPage: 0,
@@ -40,8 +54,10 @@ export class PromotePage extends BaseView implements OnInit {
 
   constructor(public mRouter: Router,
     public runtime: Runtime,
+    private datePipe: DatePipe,
     public mLoading: LoadingController,
     public mToast: ToastController,
+    public dateUtile: DateUtile,
     public api: ApiService,
     public mModalController: ModalController) {
       super(mLoading, mToast, mModalController);
@@ -56,6 +72,44 @@ export class PromotePage extends BaseView implements OnInit {
       return;
     }
     this.initData();
+    this.initTimeArray();
+  }
+
+  compareWithFn = (o1, o2) => {
+    return o1 && o2 ? o1.id === o2.id : o1 === o2;
+  }
+
+
+  initTimeArray() {
+    const now: Date  = new Date();
+    this.timeSelectObjectArray.push({
+      id: 0,
+      txt: '全部',
+      startTimeStr: '',
+      endTimeStr: ''
+    });
+    for (let i = 0; i < this.timeSelectNumberArray.length; i++) {
+      const num = this.timeSelectNumberArray[i];
+      const endTimeStr = this.datePipe.transform(now, 'yyyy-MM-dd HH:mm:ss');
+      const endTimeShowStr = this.datePipe.transform(now, 'yyyy/MM/dd');
+      const endTime: Date = DateUtile.addDays(now, -num);
+      const startTimeStr = this.datePipe.transform(endTime, 'yyyy-MM-dd HH:mm:ss');
+      const startTimeShowStr = this.datePipe.transform(endTime, 'yyyy/MM/dd');
+
+      const name = this.timeSelectTextArray[i] + '[' + startTimeShowStr + '-' + endTimeShowStr + ']';
+      this.timeSelectObjectArray.push({
+        id: num,
+        txt: name,
+        startTimeStr: startTimeStr,
+        endTimeStr: endTimeStr
+      });
+    }
+  }
+
+  selectDate() {
+    this.seachParam.insterTimeStart = this.myDay.startTimeStr;
+    this.seachParam.InsterTimeEnd = this.myDay.endTimeStr;
+    this.bankItem();
   }
 
   initData() {
