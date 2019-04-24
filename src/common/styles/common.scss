@@ -4,6 +4,8 @@
 
 .content_container {
   @extend .base_container;
+  font-size: 3.6vh;
+  color: $main_color;
 }
 
 .footer_container {
