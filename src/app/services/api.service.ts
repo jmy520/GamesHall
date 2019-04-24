@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { RestRequestService } from 'src/app/services/rest-request.service';
 import { Runtime } from 'src/app/services/Runtime';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +12,7 @@ export class ApiService {
   END_POINT: String = 'mobile';
 
   constructor(
+    public mRouter: Router,
     public runtime: Runtime,
     public requestProvider: RestRequestService) {
 
@@ -34,7 +36,13 @@ export class ApiService {
           if (this.LOG_RESULT) {
             console.log(data);
           }
-          resolve(data);
+          if (data.hashError && data.status === 900) {
+            this.runtime.postLogout();
+            this.mRouter.navigate(['/HomePage']);
+            reject(data);
+          } else {
+            resolve(data);
+          }
         }, error => {
           console.error(error);
           reject(error);
@@ -43,7 +51,7 @@ export class ApiService {
   }
 
   private buildPostPromise(url: string, params: any, body?: any, coverBaseUrl?: string, coverPort?: string, headers?: any): Promise<any> {
-    if(headers === null || headers === undefined) {
+    if (headers === null || headers === undefined) {
       headers = {};
     }
     if (this.runtime.user) {
@@ -61,7 +69,13 @@ export class ApiService {
           if (this.LOG_RESULT) {
             console.log(data);
           }
-          resolve(data);
+          if (data.hashError && data.status === 900) {
+            this.runtime.postLogout();
+            this.mRouter.navigate(['/HomePage']);
+            reject(data);
+          } else {
+            resolve(data);
+          }
         }, error => {
           console.error(error);
           reject(error);
@@ -69,7 +83,7 @@ export class ApiService {
     });
   }
 
-  //------------------- 首页模块 -------------------
+  // ------------------- 首页模块 -------------------
 
   /** 获取验证码 */
   fetchValidateCode(params: any): Promise<any> {
@@ -138,4 +152,29 @@ export class ApiService {
     return this.buildPostPromise('/front/groupMembers', params, null, null, null, {});
   }
 
+   /** 领取佣金 */
+   receiveCommission(params): Promise<any> {
+    return this.buildPostPromise('/front/receiveCommission', params, null, null, null, {});
+  }
+
+
+   /** 提现 */
+   cash(params): Promise<any> {
+    return this.buildPostPromise('/front/cash', params, null, null, null, {});
+  }
+
+  /** 绑卡 */
+  bindCard(params): Promise<any> {
+    return this.buildPostPromise('/front/bindCard', params, null, null, null, {});
+  }
+
+  /** 提现页 */
+  cashIndex(): Promise<any> {
+    return this.buildPostPromise('/front/cashIndex', null, null, null, null, {});
+  }
+
+  /** 银行列表 */
+  banks(): Promise<any> {
+    return this.buildPostPromise('/front/banks', null, null, null, null, {});
+  }
 }

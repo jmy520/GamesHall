@@ -37,7 +37,7 @@
               账户余额：
             </h4>
             <h4>
-              ￥0.00元
+              ￥{{userWallet.factMoney}}元
             </h4>
             <div class="recharge_record" (click)="viewWithdrawalRecord()">
               <img src="assets/image/withdrawal/img_record_icon.png">
@@ -47,8 +47,8 @@
 
           <div class="withdrawal_info">
             <span>提现金额</span>
-            <input placeholder="请输入您的提现金额 单笔最低100元最高200000元" type="number">
-            <div class="clear_button">
+            <input placeholder="请输入您的提现金额 单笔最低100元最高200000元" type="number" [(ngModel)]="withDrawalParam.money">
+            <div class="clear_button" (click)="clearMoney()">
               清除
             </div>
           </div>

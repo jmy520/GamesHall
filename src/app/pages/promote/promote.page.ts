@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { LoginComponent } from 'src/app/components/login/login.component';
 import { Router } from '@angular/router';
-import { ModalController, ToastController , LoadingController } from '@ionic/angular';
+import { ModalController, ToastController , LoadingController, AlertController } from '@ionic/angular';
 import { Runtime } from 'src/app/services/Runtime';
 import { ApiService } from 'src/app/services/api.service';
 import { ReceiveCommisionComponent } from 'src/app/components/receive-commision/receive-commision.component';
@@ -57,6 +57,7 @@ export class PromotePage extends BaseView implements OnInit {
     private datePipe: DatePipe,
     public mLoading: LoadingController,
     public mToast: ToastController,
+    public alertController: AlertController,
     public dateUtile: DateUtile,
     public api: ApiService,
     public mModalController: ModalController) {
@@ -115,6 +116,7 @@ export class PromotePage extends BaseView implements OnInit {
   initData() {
     const loading = super.showLoading('加载中...');
     this.api.promote().then(response => {
+      console.log('------>' + JSON.stringify(response));
       const errorMessage = response.msg;
       if (errorMessage) {
         this.showToast(errorMessage);
@@ -255,14 +257,59 @@ export class PromotePage extends BaseView implements OnInit {
   }
 
   receiveCommision() {
-    this.mModalController.create({
-      component: ReceiveCommisionComponent,
-      cssClass: 'common_modal_dialog'
-    }).then(modalInstance => {
-      modalInstance.present();
-      modalInstance.onDidDismiss().then(result => {
-        //TODO something back
-      }).catch(error => { });
+    if (this.homeData.canCommission > 0 ) {
+      this.showToast('未有可领取的佣金.');
+    } else {
+      this.presentAlertConfirm();
+    }
+    // this.mModalController.create({
+    //   component: ReceiveCommisionComponent,
+    //   cssClass: 'common_modal_dialog'
+    // }).then(modalInstance => {
+    //   modalInstance.present();
+    //   modalInstance.onDidDismiss().then(result => {
+    //     // TODO something back
+    //   }).catch(error => { });
+    // });
+  }
+
+  async presentAlertConfirm() {
+    const alert = await this.alertController.create({
+      header: '确认提取？',
+      message: '提取 <strong>' + this.homeData.canCommission + '</strong>元？提取后立即到账,如未到账请及时联系客服.',
+      buttons: [
+        {
+          text: '取消',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+          }
+        }, {
+          text: '确定',
+          handler: () => {
+            this.receive();
+          }
+        }
+      ]
+    });
+    await alert.present();
+  }
+
+
+  receive() {
+    const loading = super.showLoading('领取中...');
+    this.api.promote().then(response => {
+      const errorMessage = response.msg;
+      if (errorMessage) {
+        this.showToast(errorMessage);
+      } else {
+        this.showToast(errorMessage);
+        this.initData();
+      }
+    }).catch(error => { }).finally(() => {
+      loading.then((loadinginstan) => {
+        loadinginstan.dismiss();
+      });
     });
   }
 }

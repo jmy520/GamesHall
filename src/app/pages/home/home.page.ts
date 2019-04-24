@@ -169,6 +169,7 @@ export class HomePage extends BaseView {
   }
 
   selectGameType(clickedGameType: any) {
+    this.runtime.payButtonVido();
     this.currentGameType = clickedGameType.gid;
     this.getGameList();
     this.gameList = [];

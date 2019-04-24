@@ -26,6 +26,7 @@ export class AppComponent {
       // this.statusBar.styleDefault();
       this.statusBar.hide();
       this.splashScreen.hide();
+      this.runtime.payBgVido();
       // 加载用户信息
       this.userStore
         .load()

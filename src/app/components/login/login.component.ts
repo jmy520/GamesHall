@@ -62,6 +62,9 @@ export class LoginComponent extends BaseView implements OnInit {
         this.dismissDialog();
       }
     }).catch(error => {
+      loading.then((loadinginstan) => {
+        loadinginstan.dismiss();
+      });
       console.error(error);
     });
   }
