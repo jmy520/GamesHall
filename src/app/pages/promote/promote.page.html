@@ -46,7 +46,7 @@
 
               <div class="text_col">
                 <span>
-                  Jason520
+                  {{runtime.user.userAccount}}
                 </span>
                 <span>
                   当前推广等级：0
@@ -58,7 +58,7 @@
                   可提现佣金：
                 </span>
                 <span>
-                  0.00元
+                  {{homeData.canCommission}}元
                 </span>
               </div>
 
@@ -69,12 +69,12 @@
 
             <div class="row02">
               <div class="team">
-                <span>0</span>
+                <span>{{homeData.pepolNum}}</span>
                 <span>团队成员总数</span>
               </div>
 
               <div class="commision_total">
-                <span>0.00元</span>
+                <span>{{homeData.ljCommission}}元</span>
                 <span>累计获得佣金</span>
               </div>
             </div>
@@ -88,7 +88,7 @@
                 复制您的专属网址发送给好友
               </span>
               <span class="address">
-                https://200965.com
+                https://ly888.com
               </span>
               <img src="assets/image/promote/img_copy_url.png" class="copy_link_address">
             </div>
@@ -133,7 +133,7 @@
 
             <div class="text_col">
               <span>
-                Jason520
+                {{runtime.user.userAccount}}
               </span>
               <span>
                 当前推广等级：0
@@ -145,7 +145,7 @@
                 可提现佣金：
               </span>
               <span>
-                0.00元
+                {{homeData.canCommission}}元
               </span>
             </div>
 
@@ -164,7 +164,7 @@
           </div>
 
           <div class="table_body">
-            <div class="no_data_container">
+            <div class="no_data_container" *ngIf="myCommissionData.totals==0">
               <div class="no_data_inner">
                 <img src="assets/image/promote/img_promote_no_data_icon.png">
                 <span>
@@ -174,30 +174,36 @@
             </div>
 
             <div class="table_content_container">
-              <div class="table_content_inner">
+              <div class="table_content_inner" *ngFor="let item of myCommissionData.list">
                 <div class="table_content_row">
                   <span>
-                    2019/02/01 08:00
+                    {{item.balanceTime}}
                   </span>
 
                   <span>
-                    总代理
+                    {{item.agentType}}
                   </span>
 
                   <span>
-                    ￥1000.00
+                    ￥{{item.commissionMoney}}
                   </span>
 
                   <span>
-                    60
+                    {{item.devotePepolNum}}
                   </span>
 
-                  <span>
+                  <span *ngIf="item.shStatus=='normal'">
                     正常
                   </span>
+                  <span *ngIf="item.shStatus=='unaudited'">
+                    未审核
+                  </span>
 
-                  <span>
+                  <span *ngIf="item.acStatus=='deposit'">
                     存入
+                  </span>
+                  <span *ngIf="item.acStatus=='deposit'">
+                    已领取
                   </span>
                 </div>
               </div>
@@ -206,17 +212,17 @@
 
           <div class="table_footer">
             <div class="total">
-              一共{{dataTotal}}单
+              一共{{myCommissionData.totals}}单
             </div>
-            <div class="next_page">
+            <div class="next_page" (click)="nextPage(1)">
               下一页
             </div>
 
             <div class="page_counter">
-              1/1
+              {{seachParam.page}}/{{myCommissionData.totals}}
             </div>
 
-            <div class="pre_page">
+            <div class="pre_page" (click)="nextPage(-1)">
               上一页
             </div>
           </div>
@@ -229,7 +235,7 @@
                 已转出佣金：
               </span>
               <span>
-                0.00元
+                {{homeData.ljCommission}}元
               </span>
             </div>
 
@@ -238,15 +244,9 @@
                 佣金交易时间：
               </span>
               <div class="time_scope">
-                <span>
-                  开始时间
-                </span>
-                <span>
-                  至
-                </span>
-                <span>
-                  2019/04/19
-                </span>
+                  <ion-select okText="确定" cancelText="取消" (ionChange)="selectDate()" [(ngModel)]="myDay" [compareWith]="compareWithFn">
+                      <ion-select-option [value]="item" *ngFor="let item of timeSelectObjectArray">{{item.txt}}</ion-select-option>
+                  </ion-select>
               </div>
             </div>
           </div>
@@ -259,7 +259,7 @@
           </div>
 
           <div class="table_body">
-            <div class="no_data_container">
+            <div class="no_data_container" *ngIf="myCommissionData.totals==0">
               <div class="no_data_inner">
                 <img src="assets/image/promote/img_promote_no_data_icon.png">
                 <span>
@@ -270,21 +270,21 @@
 
             <div class="table_content_container">
               <div class="table_content_inner">
-                <div class="table_content_row">
+                <div class="table_content_row" *ngFor="let item of myCommissionData.list">
                   <span>
-                    2019/02/01 08:00
+                    {{item.createrTime}}
                   </span>
 
                   <span>
-                    2038201904190322
+                    {{item.orderNo}}
                   </span>
 
                   <span>
-                    ￥1000.00
+                    ￥{{item.actMoney}}
                   </span>
 
-                  <span>
-                    处理中
+                  <span *ngIf="'normal'==item.gStatus">
+                    正常
                   </span>
                 </div>
               </div>
@@ -293,17 +293,17 @@
 
           <div class="table_footer">
             <div class="total">
-              一共{{dataTotal}}单
+              一共{{myCommissionData.totals}}单
             </div>
-            <div class="next_page">
+            <div class="next_page" (click)="nextPage(1)">
               下一页
             </div>
 
             <div class="page_counter">
-              1/1
+              {{seachParam.page}}/{{myCommissionData.totals}}
             </div>
 
-            <div class="pre_page">
+            <div class="pre_page" (click)="nextPage(-1)">
               上一页
             </div>
           </div>
@@ -316,7 +316,7 @@
                 团队成员：
               </span>
               <span>
-                0人
+                {{homeData.pepolNum}}人
               </span>
             </div>
 
@@ -324,8 +324,8 @@
               <span>
                 会员查询：
               </span>
-              <input type="text" placeholder="请输入要查询的会员ID">
-              <div class="search_button">
+              <input type="text" placeholder="请输入要查询的会员ID" [(ngModel)]="seachParam.keyword">
+              <div class="search_button" (click)="groupMembers()">
                 查找
               </div>
             </div>
@@ -340,7 +340,7 @@
           </div>
 
           <div class="table_body">
-            <div class="no_data_container">
+            <div class="no_data_container" *ngIf="myCommissionData.totals==0">
               <div class="no_data_inner">
                 <img src="assets/image/promote/img_promote_no_data_icon.png">
                 <span>
@@ -351,25 +351,25 @@
 
             <div class="table_content_container">
               <div class="table_content_inner">
-                <div class="table_content_row">
+                <div class="table_content_row" *ngFor="let item of myCommissionData.list">
                   <span>
-                    2019/02/01 08:08
+                    {{item.last_login_time | date:'yy/MM/dd HH:mm'}}
                   </span>
 
                   <span>
-                    2018/06/24 11:36
+                    {{item.creater_time | date:'yy/MM/dd HH:mm'}}
                   </span>
 
                   <span>
-                    60281645
+                    {{item.user_account}}
                   </span>
 
                   <span>
-                    8
+                    {{item.vip_grade}}
                   </span>
 
                   <span>
-                    ￥680.00
+                    ￥{{item.total_recharge}}
                   </span>
                 </div>
               </div>

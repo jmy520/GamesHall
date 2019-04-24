@@ -17,6 +17,10 @@ import { HttpClientModule } from '@angular/common/http';
 import { RestRequestService } from './services/rest-request.service';
 import { ApiService } from './services/api.service';
 import { Runtime } from './services/Runtime';
+import { SafeBox } from './services/storage/safe-box';
+import { UserStore } from './services/storage/user-store';
+import { DatePipe } from '@angular/common';
+import { DateUtile } from 'src/common/helper/DateUtile';
 
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
@@ -50,6 +54,10 @@ import { SafeBoxValidateComponent } from './components/safe-box-validate/safe-bo
     RestRequestService,
     ApiService,
     Runtime,
+    DatePipe,
+    DateUtile,
+    SafeBox,
+    UserStore,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]

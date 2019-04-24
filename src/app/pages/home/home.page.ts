@@ -169,6 +169,7 @@ export class HomePage extends BaseView {
   }
 
   selectGameType(clickedGameType: any) {
+    this.runtime.payButtonVido();
     this.currentGameType = clickedGameType.gid;
     this.getGameList();
     this.gameList = [];
@@ -253,6 +254,15 @@ export class HomePage extends BaseView {
       return;
     }
     this.mRouter.navigate(['/safe-box']);
+  }
+
+  goPromote() {
+    if (!this.isLogined) {
+      // this.showToast('请先登录');
+      this.presentLogin();
+      return;
+    }
+    this.mRouter.navigate(['/promote']);
   }
 
 
