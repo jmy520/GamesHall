@@ -1,6 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { LoadingController, ToastController, ModalController } from '@ionic/angular';
 import { BaseView } from 'src/common/base/BaseView';
+import { Router } from '@angular/router';
+import { Runtime } from 'src/app/services/Runtime';
+import { DatePipe } from '@angular/common';
+import { DateUtile } from 'src/common/helper/DateUtile';
+import { ApiService } from 'src/app/services/api.service';
+import { LoginComponent } from 'src/app/components/login/login.component';
 
 @Component({
   selector: 'app-personal-center',
@@ -14,6 +20,68 @@ export class PersonalCenterPage extends BaseView implements OnInit {
   isEditContact: boolean = false;
 
   tabIndex: number = 0;
+
+  myDay: any = {
+    id: 0,
+    txt: '全部',
+    startTimeStr: '',
+    endTimeStr: ''
+  };
+
+  timeSelectNumberArray = [3, 5, 7, 10, 30, 90 ];
+  timeSelectTextArray = ['三天', '五天', '七天', '十天', '一个月', '三个月' ];
+
+  timeSelectObjectArray = [];
+
+  seachBetLogParam = {
+    apiCode: '',
+    gameType: '',
+    startTime: '',
+    endTime: '',
+    page: 1,
+    size: 100
+  };
+
+  seachBankItemParam = {
+    itemType: '',
+    insterTimeStart: '',
+    InsterTimeEnd: '',
+    page: 1,
+    size: 100
+  };
+
+  seachReportParam = {
+    gameType: '',
+    startTime: '',
+    endTime: ''
+  };
+
+  betLogs = {
+    totals: 0,
+    totalsPage: 0,
+    list: []
+  };
+
+  apiColumns = {
+    totals: 0,
+    totalsPage: 0,
+    list: []
+  };
+
+  apiInfos = {
+    totals: 0,
+    totalsPage: 0,
+    list: []
+  };
+
+  bankItemTypes = [];
+
+
+  bankItems = {
+    totals: 0,
+    totalsPage: 0,
+    list: []
+  };
 
   style01LevelArray: Array<string> = new Array();
   style02LevelArray: Array<string> = new Array();
@@ -45,7 +113,7 @@ export class PersonalCenterPage extends BaseView implements OnInit {
           const $slideEl = swiper.slides.eq(i);
           const offset$$1 = $slideEl[0].swiperSlideOffset;
           let tx = -offset$$1;
-          if (!swiper.params.virtualTranslate) tx -= swiper.translate;
+          if (!swiper.params.virtualTranslate) { tx -= swiper.translate; }
           let ty = 0;
           if (!swiper.isHorizontal()) {
             ty = tx;
@@ -68,8 +136,8 @@ export class PersonalCenterPage extends BaseView implements OnInit {
         if (swiper.params.virtualTranslate && duration !== 0) {
           let eventTriggered = false;
           slides.transitionEnd(() => {
-            if (eventTriggered) return;
-            if (!swiper || swiper.destroyed) return;
+            if (eventTriggered) { return; }
+            if (!swiper || swiper.destroyed) { return; }
             eventTriggered = true;
             swiper.animating = false;
             const triggerEvents = ['webkitTransitionEnd', 'transitionend'];
@@ -82,54 +150,198 @@ export class PersonalCenterPage extends BaseView implements OnInit {
     }
   };
 
-  constructor(public mModalCtrl: ModalController, public mLoadingCtrl: LoadingController, public mToastCtrl: ToastController) {
+  constructor(
+       public runTime: Runtime,
+       public mRouter: Router,
+       public dateUtile: DateUtile,
+       private datePipe: DatePipe,
+       public api: ApiService,
+       public mModalCtrl: ModalController,
+       public mLoadingCtrl: LoadingController,
+       public mToastCtrl: ToastController) {
     super(mLoadingCtrl, mToastCtrl, mModalCtrl);
   }
 
+  ionViewDidEnter() {
+    if (!this.runTime.user) {
+      this.showToast('请先登录.');
+      this.mRouter.navigate(['/home']);
+      return;
+    }
+    this.initApiColumnsData();
+    this.initApiInfosData();
+    this.comdicts();
+    this.initTimeArray();
+  }
+
+  initApiColumnsData() {
+    this.api.fetchGameTypeList({colType: 'game_type'}).then(response => {
+      const errorMessage = response.msg;
+      if (errorMessage) {
+        this.showToast(errorMessage);
+      } else {
+        this.apiColumns = response.data;
+        if (this.apiColumns.totals > 0 ) {
+          this.seachBetLogParam.gameType = this.apiColumns.list[0].colCode;
+        }
+        this.getBetLogs();
+      }
+    }).catch(error => { });
+  }
+
+  initApiInfosData() {
+    this.api.fetchApiInfoList({page: 1, size: 100}).then(response => {
+      const errorMessage = response.msg;
+      if (errorMessage) {
+        this.showToast(errorMessage);
+      } else {
+        this.apiInfos = response.data;
+      }
+    }).catch(error => { });
+  }
+
+  comdicts() {
+    this.api.comdicts({type: 'bank_item_type'}).then(response => {
+      const errorMessage = response.msg;
+      if (errorMessage) {
+        this.showToast(errorMessage);
+      } else {
+        this.bankItemTypes = response.data;
+      }
+    }).catch(error => { });
+  }
+
+  selectGameType (gameType) {
+    if (this.tabIndex === 3) {
+      this.seachReportParam.gameType = gameType;
+    } else {
+      this.seachBetLogParam.gameType = gameType;
+    }
+  }
+
+  compareWithFn = (o1, o2) => {
+    return o1 && o2 ? o1.id === o2.id : o1 === o2;
+  }
+
+
+  initTimeArray() {
+    const now: Date  = new Date();
+    this.timeSelectObjectArray.push({
+      id: 0,
+      txt: '全部',
+      startTimeStr: '',
+      endTimeStr: ''
+    });
+    for (let i = 0; i < this.timeSelectNumberArray.length; i++) {
+      const num = this.timeSelectNumberArray[i];
+      const endTimeStr = this.datePipe.transform(now, 'yyyy-MM-dd HH:mm:ss');
+      const endTimeShowStr = this.datePipe.transform(now, 'yyyy/MM/dd');
+      const endTime: Date = DateUtile.addDays(now, -num);
+      const startTimeStr = this.datePipe.transform(endTime, 'yyyy-MM-dd HH:mm:ss');
+      const startTimeShowStr = this.datePipe.transform(endTime, 'yyyy/MM/dd');
+
+      const name = this.timeSelectTextArray[i] + '[' + startTimeShowStr + '-' + endTimeShowStr + ']';
+      this.timeSelectObjectArray.push({
+        id: num,
+        txt: name,
+        startTimeStr: startTimeStr,
+        endTimeStr: endTimeStr
+      });
+    }
+  }
+
+  selectDate() {
+    if (this.tabIndex === 1) {
+      this.seachBetLogParam.startTime = this.myDay.startTimeStr;
+      this.seachBetLogParam.endTime = this.myDay.endTimeStr;
+      this.getBetLogs();
+    } else if (this.tabIndex === 2) {
+      this.seachBankItemParam.insterTimeStart = this.myDay.startTimeStr;
+      this.seachBankItemParam.InsterTimeEnd = this.myDay.endTimeStr;
+      this.bankItem();
+    } else if (this.tabIndex === 3) {
+      this.seachReportParam.startTime = this.myDay.startTimeStr;
+      this.seachReportParam.endTime = this.myDay.endTimeStr;
+      // this.getBetLogs();
+    }
+  }
+
+  bankItem() {
+    const loading = super.showLoading('加载中...');
+    this.api.bankItem(this.seachBankItemParam).then(response => {
+      const errorMessage = response.msg;
+      if (errorMessage) {
+        this.showToast(errorMessage);
+      } else {
+        this.bankItems = response.data;
+      }
+    }).catch(error => { }).finally(() => {
+      loading.then((loadinginstan) => {
+        loadinginstan.dismiss();
+      });
+    });
+  }
+
+  getBetLogs() {
+    const loading = super.showLoading('加载中...');
+    this.api.betlogs(this.seachBetLogParam).then(response => {
+      const errorMessage = response.msg;
+      if (errorMessage) {
+        this.showToast(errorMessage);
+      } else {
+        this.betLogs = response.data;
+      }
+    }).catch(error => { }).finally(() => {
+      loading.then((loadinginstan) => {
+        loadinginstan.dismiss();
+      });
+    });
+  }
+
   ngOnInit() {
-    this.style01LevelArray.push("assets/image/personal_center/img_personal_center_vip01_style01.png");
-    this.style01LevelArray.push("assets/image/personal_center/img_personal_center_vip02_style01.png");
-    this.style01LevelArray.push("assets/image/personal_center/img_personal_center_vip03_style01.png");
-    this.style01LevelArray.push("assets/image/personal_center/img_personal_center_vip04_style01.png");
-    this.style01LevelArray.push("assets/image/personal_center/img_personal_center_vip05_style01.png");
-    this.style01LevelArray.push("assets/image/personal_center/img_personal_center_vip06_style01.png");
-    this.style01LevelArray.push("assets/image/personal_center/img_personal_center_vip07_style01.png");
-    this.style01LevelArray.push("assets/image/personal_center/img_personal_center_vip08_style01.png");
-    this.style01LevelArray.push("assets/image/personal_center/img_personal_center_vip09_style01.png");
-    this.style01LevelArray.push("assets/image/personal_center/img_personal_center_vip10_style01.png");
+    this.style01LevelArray.push('assets/image/personal_center/img_personal_center_vip01_style01.png');
+    this.style01LevelArray.push('assets/image/personal_center/img_personal_center_vip02_style01.png');
+    this.style01LevelArray.push('assets/image/personal_center/img_personal_center_vip03_style01.png');
+    this.style01LevelArray.push('assets/image/personal_center/img_personal_center_vip04_style01.png');
+    this.style01LevelArray.push('assets/image/personal_center/img_personal_center_vip05_style01.png');
+    this.style01LevelArray.push('assets/image/personal_center/img_personal_center_vip06_style01.png');
+    this.style01LevelArray.push('assets/image/personal_center/img_personal_center_vip07_style01.png');
+    this.style01LevelArray.push('assets/image/personal_center/img_personal_center_vip08_style01.png');
+    this.style01LevelArray.push('assets/image/personal_center/img_personal_center_vip09_style01.png');
+    this.style01LevelArray.push('assets/image/personal_center/img_personal_center_vip10_style01.png');
 
-    this.style02LevelArray.push("assets/image/personal_center/img_personal_center_vip01_style02.png");
-    this.style02LevelArray.push("assets/image/personal_center/img_personal_center_vip02_style02.png");
-    this.style02LevelArray.push("assets/image/personal_center/img_personal_center_vip03_style02.png");
-    this.style02LevelArray.push("assets/image/personal_center/img_personal_center_vip04_style02.png");
-    this.style02LevelArray.push("assets/image/personal_center/img_personal_center_vip05_style02.png");
-    this.style02LevelArray.push("assets/image/personal_center/img_personal_center_vip06_style02.png");
-    this.style02LevelArray.push("assets/image/personal_center/img_personal_center_vip07_style02.png");
-    this.style02LevelArray.push("assets/image/personal_center/img_personal_center_vip08_style02.png");
-    this.style02LevelArray.push("assets/image/personal_center/img_personal_center_vip09_style02.png");
-    this.style02LevelArray.push("assets/image/personal_center/img_personal_center_vip10_style02.png");
+    this.style02LevelArray.push('assets/image/personal_center/img_personal_center_vip01_style02.png');
+    this.style02LevelArray.push('assets/image/personal_center/img_personal_center_vip02_style02.png');
+    this.style02LevelArray.push('assets/image/personal_center/img_personal_center_vip03_style02.png');
+    this.style02LevelArray.push('assets/image/personal_center/img_personal_center_vip04_style02.png');
+    this.style02LevelArray.push('assets/image/personal_center/img_personal_center_vip05_style02.png');
+    this.style02LevelArray.push('assets/image/personal_center/img_personal_center_vip06_style02.png');
+    this.style02LevelArray.push('assets/image/personal_center/img_personal_center_vip07_style02.png');
+    this.style02LevelArray.push('assets/image/personal_center/img_personal_center_vip08_style02.png');
+    this.style02LevelArray.push('assets/image/personal_center/img_personal_center_vip09_style02.png');
+    this.style02LevelArray.push('assets/image/personal_center/img_personal_center_vip10_style02.png');
 
-    this.style03LevelArray.push("assets/image/personal_center/img_personal_center_vip01_style03.png");
-    this.style03LevelArray.push("assets/image/personal_center/img_personal_center_vip02_style03.png");
-    this.style03LevelArray.push("assets/image/personal_center/img_personal_center_vip03_style03.png");
-    this.style03LevelArray.push("assets/image/personal_center/img_personal_center_vip04_style03.png");
-    this.style03LevelArray.push("assets/image/personal_center/img_personal_center_vip05_style03.png");
-    this.style03LevelArray.push("assets/image/personal_center/img_personal_center_vip06_style03.png");
-    this.style03LevelArray.push("assets/image/personal_center/img_personal_center_vip07_style03.png");
-    this.style03LevelArray.push("assets/image/personal_center/img_personal_center_vip08_style03.png");
-    this.style03LevelArray.push("assets/image/personal_center/img_personal_center_vip09_style03.png");
-    this.style03LevelArray.push("assets/image/personal_center/img_personal_center_vip10_style03.png");
+    this.style03LevelArray.push('assets/image/personal_center/img_personal_center_vip01_style03.png');
+    this.style03LevelArray.push('assets/image/personal_center/img_personal_center_vip02_style03.png');
+    this.style03LevelArray.push('assets/image/personal_center/img_personal_center_vip03_style03.png');
+    this.style03LevelArray.push('assets/image/personal_center/img_personal_center_vip04_style03.png');
+    this.style03LevelArray.push('assets/image/personal_center/img_personal_center_vip05_style03.png');
+    this.style03LevelArray.push('assets/image/personal_center/img_personal_center_vip06_style03.png');
+    this.style03LevelArray.push('assets/image/personal_center/img_personal_center_vip07_style03.png');
+    this.style03LevelArray.push('assets/image/personal_center/img_personal_center_vip08_style03.png');
+    this.style03LevelArray.push('assets/image/personal_center/img_personal_center_vip09_style03.png');
+    this.style03LevelArray.push('assets/image/personal_center/img_personal_center_vip10_style03.png');
 
-    this.style04LevelArray.push("assets/image/personal_center/img_personal_center_vip01_style04.png");
-    this.style04LevelArray.push("assets/image/personal_center/img_personal_center_vip02_style04.png");
-    this.style04LevelArray.push("assets/image/personal_center/img_personal_center_vip03_style04.png");
-    this.style04LevelArray.push("assets/image/personal_center/img_personal_center_vip04_style04.png");
-    this.style04LevelArray.push("assets/image/personal_center/img_personal_center_vip05_style04.png");
-    this.style04LevelArray.push("assets/image/personal_center/img_personal_center_vip06_style04.png");
-    this.style04LevelArray.push("assets/image/personal_center/img_personal_center_vip07_style04.png");
-    this.style04LevelArray.push("assets/image/personal_center/img_personal_center_vip08_style04.png");
-    this.style04LevelArray.push("assets/image/personal_center/img_personal_center_vip09_style04.png");
-    this.style04LevelArray.push("assets/image/personal_center/img_personal_center_vip10_style04.png");
+    this.style04LevelArray.push('assets/image/personal_center/img_personal_center_vip01_style04.png');
+    this.style04LevelArray.push('assets/image/personal_center/img_personal_center_vip02_style04.png');
+    this.style04LevelArray.push('assets/image/personal_center/img_personal_center_vip03_style04.png');
+    this.style04LevelArray.push('assets/image/personal_center/img_personal_center_vip04_style04.png');
+    this.style04LevelArray.push('assets/image/personal_center/img_personal_center_vip05_style04.png');
+    this.style04LevelArray.push('assets/image/personal_center/img_personal_center_vip06_style04.png');
+    this.style04LevelArray.push('assets/image/personal_center/img_personal_center_vip07_style04.png');
+    this.style04LevelArray.push('assets/image/personal_center/img_personal_center_vip08_style04.png');
+    this.style04LevelArray.push('assets/image/personal_center/img_personal_center_vip09_style04.png');
+    this.style04LevelArray.push('assets/image/personal_center/img_personal_center_vip10_style04.png');
 
     this.levelPresentArray.push([{value: 0, state: false}, {value: 0, state: false}, {value: 0, state: false}, {value: 0.59, state: true}]);
     this.levelPresentArray.push([{value: 28, state: false}, {value: 0, state: false}, {value: 0, state: false}, {value: 0.59, state: true}]);
@@ -145,13 +357,13 @@ export class PersonalCenterPage extends BaseView implements OnInit {
 
   getLevelIcon(levelStyle: number, level?: number) {
     let result = null;
-    if (levelStyle == 1) {
+    if (levelStyle === 1) {
       result = this.style01LevelArray[level ? level : this.currentLevel];
-    } else if (levelStyle == 2) {
+    } else if (levelStyle === 2) {
       result = this.style02LevelArray[level ? level : this.currentLevel];
-    } else if (levelStyle == 3) {
+    } else if (levelStyle === 3) {
       result = this.style03LevelArray[level ? level : this.currentLevel];
-    } else if (levelStyle == 4) {
+    } else if (levelStyle === 4) {
       result = this.style04LevelArray[level ? level : this.currentLevel];
     }
     return result;
@@ -160,8 +372,7 @@ export class PersonalCenterPage extends BaseView implements OnInit {
   switchBaseInfoEditMode() {
     if (this.isEditBaseInfo) {
       this.isEditBaseInfo = false;
-      //TODO 提交修改
-      
+      // TODO 提交修改
     } else {
       this.isEditBaseInfo = true;
     }
@@ -170,7 +381,7 @@ export class PersonalCenterPage extends BaseView implements OnInit {
   switchContactEditMode() {
     if (this.isEditContact) {
       this.isEditContact = false;
-      //TODO 提交修改
+      // TODO 提交修改
 
     } else {
       this.isEditContact = true;

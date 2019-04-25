@@ -69,7 +69,8 @@ export class PromotePage extends BaseView implements OnInit {
 
   ionViewDidEnter() {
     if (!this.runtime.user) {
-      this.presentLogin();
+      this.showToast('请先登录.');
+      this.mRouter.navigate(['/home']);
       return;
     }
     this.initData();

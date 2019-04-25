@@ -51,6 +51,11 @@ export class SafeBoxPage extends BaseView implements OnInit {
   }
 
   ionViewDidEnter() {
+    if (!this.runtime.user) {
+      this.showToast('请先登录.');
+      this.mRouter.navigate(['/home']);
+      return;
+    }
     this.wallet();
   }
 

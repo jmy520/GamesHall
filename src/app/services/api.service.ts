@@ -111,11 +111,21 @@ export class ApiService {
   }
 
   /** 拉取游戏列表 */
+  fetchApiInfoList(params: any): Promise<any> {
+    return this.buildGetPromise('/apiInfos', params);
+  }
+
+  /** 拉取游戏列表 */
   fetchGameList(params: any): Promise<any> {
     return this.buildGetPromise('/games', params);
   }
 
   // ------------------- 用户模块 -------------------
+
+  /** 数据字典列表 */
+  comdicts(params): Promise<any> {
+    return this.buildPostPromise('/front/comdicts', params, null, null, null, {});
+  }
 
   /** 获取游戏地址 */
   fetchGameLink(params: any): Promise<any> {
@@ -176,5 +186,10 @@ export class ApiService {
   /** 银行列表 */
   banks(): Promise<any> {
     return this.buildPostPromise('/front/banks', null, null, null, null, {});
+  }
+
+  /** 我的投注记录 */
+  betlogs(params): Promise<any> {
+    return this.buildPostPromise('/front/betlogs', params, null, null, null, {});
   }
 }

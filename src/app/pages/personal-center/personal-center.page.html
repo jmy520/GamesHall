@@ -177,22 +177,22 @@
                 <div class="content_right_container">
                   <div class="row01">
                     <span>账号：</span>
-                    <span>Jason</span>
+                    <span>{{runTime.user.userAccount}}</span>
                   </div>
                   <div class="row02">
                     <div class="name">
                       <span>姓名：</span>
-                      <span>杰森斯坦森</span>
+                      <span>{{runTime.user.nickName}}</span>
                     </div>
 
                     <div class="sex">
                       <span>性别：</span>
-                      <span [class]="isEditBaseInfo ? 'active' : ''">男</span>
+                      <span [class]="isEditBaseInfo ? 'active' : ''">{{runTime.user.userSex}}</span>
                     </div>
 
                     <div class="birthday">
                       <span>生日：</span>
-                      <span [class]="isEditBaseInfo ? 'active' : ''">1992/02/18</span>
+                      <span [class]="isEditBaseInfo ? 'active' : ''">{{runTime.user.userBirthday}}</span>
                     </div>
                   </div>
                 </div>
@@ -241,11 +241,7 @@
         <div *ngIf="tabIndex == 1" class="tab01_container">
           <div class="inner_tab_container">
             <div class="inner_tab_container_inner">
-              <span class="active">棋牌投注记录</span>
-              <span>视讯投注记录</span>
-              <span>电子游艺投注记录</span>
-              <span>体育投注记录</span>
-              <span>捕鱼投注记录</span>
+              <span *ngFor="let item of apiColumns.list" [class]="item.colCode==seachBetLogParam.gameType ? 'active' : ''" (click)="selectGameType(item.colCode)">{{item.colName}}投注记录</span>
             </div>
           </div>
 
@@ -254,24 +250,19 @@
               <div class="filter01">
                 <span>派彩时间：</span>
                 <div class="handler">
-                  <span>
-                    全部
-                  </span>
-                  <span>
-                    >
-                  </span>
+                    <ion-select okText="确定" cancelText="取消" (ionChange)="selectDate()" [(ngModel)]="myDay" [compareWith]="compareWithFn">
+                        <ion-select-option [value]="item" *ngFor="let item of timeSelectObjectArray">{{item.txt}}</ion-select-option>
+                    </ion-select>
                 </div>
               </div>
 
               <div class="filter02">
                 <span>游戏平台：</span>
                 <div class="handler">
-                  <span>
-                    全部
-                  </span>
-                  <span>
-                    >
-                  </span>
+                    <ion-select okText="确定" cancelText="取消"[(ngModel)]="seachBetLogParam.apiCode" >
+                        <ion-select-option value="">全部</ion-select-option>
+                        <ion-select-option [value]="item.api_code" *ngFor="let item of apiInfos.list">{{item.api_name}}</ion-select-option>
+                    </ion-select>
                 </div>
               </div>
             </div>
@@ -328,24 +319,19 @@
             <div class="filter01">
               <span>交易时间：</span>
               <div class="handler">
-                <span>
-                  全部
-                </span>
-                <span>
-                  >
-                </span>
+                  <ion-select okText="确定" cancelText="取消" (ionChange)="selectDate()" [(ngModel)]="myDay" [compareWith]="compareWithFn">
+                      <ion-select-option [value]="item" *ngFor="let item of timeSelectObjectArray">{{item.txt}}</ion-select-option>
+                  </ion-select>
               </div>
             </div>
 
             <div class="filter02">
               <span>交易状态：</span>
               <div class="handler">
-                <span>
-                  全部
-                </span>
-                <span>
-                  >
-                </span>
+                  <ion-select okText="确定" cancelText="取消"[(ngModel)]="seachBankItemParam.itemType" >
+                      <ion-select-option value="">全部</ion-select-option>
+                      <ion-select-option [value]="item.gid" *ngFor="let item of bankItemTypes">{{item.value1}}</ion-select-option>
+                  </ion-select>
               </div>
             </div>
           </div>
@@ -359,7 +345,7 @@
           </div>
 
           <div class="table_body">
-            <div class="no_data_container">
+            <div class="no_data_container" *ngIf="bankItems.totals <= 0">
               <div class="no_data_inner">
                 <img src="assets/image/personal_center/img_personal_center_no_data_icon.png">
                 <span>
@@ -368,27 +354,39 @@
               </div>
             </div>
 
-            <div class="table_content_container">
+            <div class="table_content_container" *ngIf="bankItems.totals > 0">
               <div class="table_content_inner">
-                <div class="table_content_row">
+                <div class="table_content_row" *ngFor="let item of bankItems.list">
                   <span>
-                    2019/02/01 08:00
+                    {{item.createrTime | date:'yy/MM/dd HH:mm'}}
                   </span>
 
-                  <span>
-                    完成
+                  <span *ngIf="'normal'==item.gStatus">
+                      正常
                   </span>
 
+                  
+                  <ng-container *ngIf="item.actMoney<0">
+                      <span >
+                          ￥{{item.actMoney}}
+                        </span>
+      
+                        <span>
+                          -
+                        </span>
+                  </ng-container>
+                  
+                  <ng-container *ngIf="item.actMoney > 0">
+                      <span >
+                          -
+                        </span>
+      
+                        <span>
+                            ￥{{item.actMoney}}
+                        </span>
+                  </ng-container>
                   <span>
-                    ￥1000.00
-                  </span>
-
-                  <span>
-                    -
-                  </span>
-
-                  <span>
-                    ￥8800.00
+                    ￥ {{item.afterMoney}}
                   </span>
                 </div>
               </div>
@@ -434,13 +432,9 @@
 
         <div *ngIf="tabIndex == 3" class="tab03_container">
           <div class="inner_tab_container">
-            <div class="inner_tab_container_inner">
-              <span class="active">棋牌平台报表</span>
-              <span>真人视讯报表</span>
-              <span>电子游艺报表</span>
-              <span>体育平台报表</span>
-              <span>捕鱼平台报表</span>
-            </div>
+              <div class="inner_tab_container_inner">
+                <span *ngFor="let item of apiColumns.list" [class]="item.colCode==seachReportParam.gameType ? 'active' : ''" (click)="selectGameType(item.colCode)">{{item.colName}}投注记录</span>
+              </div>
           </div>
 
           <div class="table_container">
@@ -448,12 +442,9 @@
               <div class="filter01">
                 <span>时间设置：</span>
                 <div class="handler">
-                  <span>
-                    今天
-                  </span>
-                  <span>
-                    >
-                  </span>
+                    <ion-select okText="确定" cancelText="取消" (ionChange)="selectDate()" [(ngModel)]="myDay" [compareWith]="compareWithFn">
+                        <ion-select-option [value]="item" *ngFor="let item of timeSelectObjectArray">{{item.txt}}</ion-select-option>
+                    </ion-select>
                 </div>
               </div>
             </div>
