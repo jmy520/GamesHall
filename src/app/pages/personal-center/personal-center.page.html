@@ -1,0 +1,472 @@
+<ion-content>
+  <div class="content_container">
+    <div class="header">
+      <div class="back" (click)="mRouter.navigate(['/home'])">
+        <img src="assets/image/personal_center/img_personal_center_back_button.png">
+        <img src="assets/image/personal_center/img_personal_center_back_text.png">
+      </div>
+
+      <img src="assets/image/personal_center/img_personal_center_title.png" class="page_title">
+    </div>
+
+    <div class="content_main">
+      <div class="personal_center_type_list_container">
+        <div class="list_inner">
+
+          <div [class]="tabIndex == 0 ? 'list_item active' : 'list_item'" (click)="tabIndex = 0">
+            <img src="assets/image/personal_center/img_personal_center_tab_icon_01.png">
+            <span>个人信息</span>
+          </div>
+
+          <div [class]="tabIndex == 1 ? 'list_item active' : 'list_item'" (click)="tabIndex = 1">
+            <img src="assets/image/personal_center/img_personal_center_tab_icon_02.png">
+            <span>投注记录</span>
+          </div>
+
+          <div [class]="tabIndex == 2 ? 'list_item active' : 'list_item'" (click)="tabIndex = 2">
+            <img src="assets/image/personal_center/img_personal_center_tab_icon_03.png">
+            <span>账户明细</span>
+          </div>
+
+          <div [class]="tabIndex == 3 ? 'list_item active' : 'list_item'" (click)="tabIndex = 3">
+            <img src="assets/image/personal_center/img_personal_center_tab_icon_04.png">
+            <span>个人报表</span>
+          </div>
+
+          <div [class]="tabIndex == 4 ? 'list_item active' : 'list_item'" (click)="tabIndex = 4">
+            <img src="assets/image/personal_center/img_personal_center_tab_icon_05.png">
+            <span>VIP详情</span>
+          </div>
+
+        </div>
+      </div>
+
+      <img src="assets/image/personal_center/img_split_line.png" class="split_line">
+
+      <div class="personal_center_content_container">
+        <div *ngIf="tabIndex == 0" class="tab00_container">
+          <div class="tab00_container_inner">
+            <div class="level_title">
+              <img src="assets/image/personal_center/img_personal_center_tag_icon.png">
+              <span>等级特权</span>
+            </div>
+
+            <div class="level_info">
+              <div class="level_view_container">
+                <img [src]="getLevelIcon(2)">
+              </div>
+              <div class="current_level_and_next_level">
+                <div class="level_text">
+                  <span>当前会员等级：</span>
+                  <img [src]="getLevelIcon(1)">
+                </div>
+
+                <div class="level_progress">
+                  <img [src]="getLevelIcon(3, currentLevel)">
+                  <ion-range min="0" max="100" step="1">
+                  </ion-range>
+                  <img [src]="getLevelIcon(3, currentLevel + 1)">
+                </div>
+              </div>
+            </div>
+
+            <div class="level_tips">
+              还差<span>10000.00打码</span>升级到<span>VIP2</span>
+            </div>
+
+            <div class="vip_pager_header">
+              <div class="previous_level">
+                <img src="assets/image/personal_center/img_personal_center_previous_icon.png">
+                <img [src]="getLevelIcon(4, currentLevelPager)">
+              </div>
+
+              <div class="level_tips">
+                尊敬的<span>VIP1</span>会员，您可以享受以下专属权益
+              </div>
+
+              <div class="next_level">
+                <img [src]="getLevelIcon(4, currentLevelPager + 1)">
+                <img src="assets/image/personal_center/img_personal_center_next_icon.png">
+              </div>
+            </div>
+
+            <ion-slides [options]="slideOpts">
+              <ion-slide *ngFor="let presentItem of levelPresentArray">
+                <div class="present_container">
+                  <div class="present_item">
+                    <img src="assets/image/personal_center/img_personal_center_case_icon_01.png">
+                    <div class="item_label">
+                      晋级彩金
+                    </div>
+                    <div class="price">
+                      <span>{{presentItem[0].value}}</span>元
+                    </div>
+                    <div class="tips">
+                      当前等级可领取
+                    </div>
+                    <img src="assets/image/personal_center/img_personal_center_commision_button_disable.png"
+                      [class]="presentItem[0].state ? 'button active' : 'button'">
+                  </div>
+
+                  <div class="present_item">
+                    <img src="assets/image/personal_center/img_personal_center_case_icon_02.png">
+                    <div class="item_label">
+                      月礼金
+                    </div>
+                    <div class="price">
+                      <span>{{presentItem[1].value}}</span>元
+                    </div>
+                    <div class="tips">
+                      当前等级可领取
+                    </div>
+                    <img src="assets/image/personal_center/img_personal_center_commision_button_disable.png"
+                      [class]="presentItem[1].state ? 'button active' : 'button'">
+                  </div>
+
+                  <div class="present_item">
+                    <img src="assets/image/personal_center/img_personal_center_case_icon_03.png">
+                    <div class="item_label">
+                      周礼金
+                    </div>
+                    <div class="price">
+                      <span>{{presentItem[2].value}}</span>元
+                    </div>
+                    <div class="tips">
+                      当前等级可领取
+                    </div>
+                    <img src="assets/image/personal_center/img_personal_center_commision_button_disable.png"
+                      [class]="presentItem[2].state ? 'button active' : 'button'">
+                  </div>
+
+                  <div class="present_item">
+                    <img src="assets/image/personal_center/img_personal_center_case_icon_04.png">
+                    <div class="item_label">
+                      自助洗码
+                    </div>
+                    <div class="price">
+                      <span>{{presentItem[3].value}}</span>%
+                    </div>
+                    <div class="tips">
+                      可享受自高比例
+                    </div>
+                    <img src="assets/image/personal_center/img_personal_center_refresh_chip_button.png"
+                      [class]="presentItem[3].state ? 'button active' : 'button'">
+                  </div>
+                </div>
+              </ion-slide>
+            </ion-slides>
+
+            <div class="base_info">
+              <div class="title_row">
+                <div class="left">
+                  <img src="assets/image/personal_center/img_personal_center_tag_icon.png">
+                  <span>基础信息</span>
+                </div>
+
+                <div class="right" (click)="switchBaseInfoEditMode()">
+                  <img
+                    [src]="isEditBaseInfo ? 'assets/image/personal_center/img_personal_center_confirm_edit_icon.png' : 'assets/image/personal_center/img_personal_center_edit_icon.png'">
+                  <span>{{isEditBaseInfo ? '完成' : '编辑'}}</span>
+                </div>
+              </div>
+
+              <div class="info_content_container">
+                <div class="header_img">
+                  <img src="assets/image/common/img_default_header.jpg">
+                </div>
+                <div class="content_right_container">
+                  <div class="row01">
+                    <span>账号：</span>
+                    <span>Jason</span>
+                  </div>
+                  <div class="row02">
+                    <div class="name">
+                      <span>姓名：</span>
+                      <span>杰森斯坦森</span>
+                    </div>
+
+                    <div class="sex">
+                      <span>性别：</span>
+                      <span [class]="isEditBaseInfo ? 'active' : ''">男</span>
+                    </div>
+
+                    <div class="birthday">
+                      <span>生日：</span>
+                      <span [class]="isEditBaseInfo ? 'active' : ''">1992/02/18</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="contact">
+              <div class="title_row">
+                <div class="left">
+                  <img src="assets/image/personal_center/img_personal_center_tag_icon.png">
+                  <span>联系方式</span>
+                </div>
+
+                <div class="right" (click)="switchContactEditMode()">
+                  <img
+                    [src]="isEditContact ? 'assets/image/personal_center/img_personal_center_confirm_edit_icon.png' : 'assets/image/personal_center/img_personal_center_edit_icon.png'">
+                  <span>{{isEditContact ? '完成' : '编辑'}}</span>
+                </div>
+              </div>
+
+              <div class="info_content_container">
+                <div class="info_item">
+                  <span>邮箱：</span>
+                  <span [class]="isEditContact ? 'active' : ''">未填写</span>
+                </div>
+
+                <div class="info_item">
+                  <span>电话：</span>
+                  <span>15888888888</span>
+                </div>
+
+                <div class="info_item">
+                  <span>QQ：</span>
+                  <span [class]="isEditContact ? 'active' : ''">未填写</span>
+                </div>
+
+                <div class="info_item">
+                  <span>微信：</span>
+                  <span [class]="isEditContact ? 'active' : ''">未填写</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="tabIndex == 1" class="tab01_container">
+          <div class="inner_tab_container">
+            <div class="inner_tab_container_inner">
+              <span class="active">棋牌投注记录</span>
+              <span>视讯投注记录</span>
+              <span>电子游艺投注记录</span>
+              <span>体育投注记录</span>
+              <span>捕鱼投注记录</span>
+            </div>
+          </div>
+
+          <div class="table_container">
+            <div class="table_filter_container">
+              <div class="filter01">
+                <span>派彩时间：</span>
+                <div class="handler">
+                  <span>
+                    全部
+                  </span>
+                  <span>
+                    >
+                  </span>
+                </div>
+              </div>
+
+              <div class="filter02">
+                <span>游戏平台：</span>
+                <div class="handler">
+                  <span>
+                    全部
+                  </span>
+                  <span>
+                    >
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <div class="table_header">
+              <span>派彩时间</span>
+              <span>主单号</span>
+              <span>游戏名称</span>
+              <span>投注金额</span>
+              <span>已派奖</span>
+            </div>
+
+            <div class="table_body">
+              <div class="no_data_container">
+                <div class="no_data_inner">
+                  <img src="assets/image/personal_center/img_personal_center_no_data_icon.png">
+                  <span>
+                    暂无数据
+                  </span>
+                </div>
+              </div>
+
+              <div class="table_content_container">
+                <div class="table_content_inner">
+                  <div class="table_content_row">
+                    <span>
+                      2019/02/01 08:00
+                    </span>
+
+                    <span>
+                      52648452
+                    </span>
+
+                    <span>
+                      乐游捕鱼
+                    </span>
+
+                    <span>
+                      ￥800
+                    </span>
+
+                    <span>
+                      86
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="tabIndex == 2" class="tab02_container">
+          <div class="table_filter_container">
+            <div class="filter01">
+              <span>交易时间：</span>
+              <div class="handler">
+                <span>
+                  全部
+                </span>
+                <span>
+                  >
+                </span>
+              </div>
+            </div>
+
+            <div class="filter02">
+              <span>交易状态：</span>
+              <div class="handler">
+                <span>
+                  全部
+                </span>
+                <span>
+                  >
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <div class="table_header">
+            <span>交易时间</span>
+            <span>状态</span>
+            <span>支出</span>
+            <span>收入</span>
+            <span>余额</span>
+          </div>
+
+          <div class="table_body">
+            <div class="no_data_container">
+              <div class="no_data_inner">
+                <img src="assets/image/personal_center/img_personal_center_no_data_icon.png">
+                <span>
+                  暂无数据
+                </span>
+              </div>
+            </div>
+
+            <div class="table_content_container">
+              <div class="table_content_inner">
+                <div class="table_content_row">
+                  <span>
+                    2019/02/01 08:00
+                  </span>
+
+                  <span>
+                    完成
+                  </span>
+
+                  <span>
+                    ￥1000.00
+                  </span>
+
+                  <span>
+                    -
+                  </span>
+
+                  <span>
+                    ￥8800.00
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="table_footer">
+            <div class="col01">
+              <span>— 合计 —</span>
+            </div>
+
+            <div class="col02">
+              <div class="row">
+                <span>充值：</span>
+                <span>0</span>
+              </div>
+
+              <div class="row">
+                <span>优惠：</span>
+                <span>0</span>
+              </div>
+            </div>
+
+            <div class="col03">
+              <div class="row">
+                <span>提现：</span>
+                <span>0</span>
+              </div>
+
+              <div class="row">
+                <span>返水：</span>
+                <span>0</span>
+              </div>
+            </div>
+
+            <div class="col04">
+              <span>余额</span>
+              <span>￥0</span>
+              <span>元</span>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="tabIndex == 3" class="tab03_container">
+          <div class="inner_tab_container">
+            <div class="inner_tab_container_inner">
+              <span class="active">棋牌平台报表</span>
+              <span>真人视讯报表</span>
+              <span>电子游艺报表</span>
+              <span>体育平台报表</span>
+              <span>捕鱼平台报表</span>
+            </div>
+          </div>
+
+          <div class="table_container">
+            <div class="table_filter_container">
+              <div class="filter01">
+                <span>时间设置：</span>
+                <div class="handler">
+                  <span>
+                    今天
+                  </span>
+                  <span>
+                    >
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div class="table_content">
+
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="tabIndex == 4" class="tab04_container">
+
+        </div>
+      </div>
+    </div>
+  </div>
+</ion-content>
