@@ -63,7 +63,7 @@
 
                 <div class="level_progress">
                   <img [src]="getLevelIcon(3, currentLevel)">
-                  <ion-range min="0" max="100" step="1">
+                  <ion-range min="0" [max]="nextLevel.betWeight" [value]="userWallet.betMoeny" step="1" disabled="true">
                   </ion-range>
                   <img [src]="getLevelIcon(3, currentLevel + 1)">
                 </div>
@@ -71,26 +71,26 @@
             </div>
 
             <div class="level_tips">
-              还差<span>10000.00打码</span>升级到<span>VIP2</span>
+              还差<span>{{nextLevel.betWeight-userWallet.betMoeny}}打码</span>升级到<span>{{nextLevel.levelName}}</span>
             </div>
 
             <div class="vip_pager_header">
-              <div class="previous_level">
+              <div class="previous_level" (click)="goLevel(-1)">
                 <img src="assets/image/personal_center/img_personal_center_previous_icon.png">
                 <img [src]="getLevelIcon(4, currentLevelPager)">
               </div>
 
               <div class="level_tips">
-                尊敬的<span>VIP1</span>会员，您可以享受以下专属权益
+                尊敬的<span>VIP{{currentLevelPager+1}}</span>会员，您可以享受以下专属权益
               </div>
 
-              <div class="next_level">
+              <div class="next_level" (click)="goLevel(1)" *ngIf="currentLevelPager<9">
                 <img [src]="getLevelIcon(4, currentLevelPager + 1)">
                 <img src="assets/image/personal_center/img_personal_center_next_icon.png">
               </div>
             </div>
 
-            <ion-slides [options]="slideOpts">
+            <ion-slides [options]="slideOpts" #levelSlides (ionSlideDidChange)="ionSlideDidChange()">
               <ion-slide *ngFor="let presentItem of levelPresentArray">
                 <div class="present_container">
                   <div class="present_item">
@@ -99,13 +99,13 @@
                       晋级彩金
                     </div>
                     <div class="price">
-                      <span>{{presentItem[0].value}}</span>元
+                      <span>{{presentItem.jjLj}}</span>元
                     </div>
                     <div class="tips">
                       当前等级可领取
                     </div>
                     <img src="assets/image/personal_center/img_personal_center_commision_button_disable.png"
-                      [class]="presentItem[0].state ? 'button active' : 'button'">
+                      [class]="presentItem.vipGrade==runTime.user.vipGrade ? 'button active' : 'button'">
                   </div>
 
                   <div class="present_item">
@@ -114,13 +114,13 @@
                       月礼金
                     </div>
                     <div class="price">
-                      <span>{{presentItem[1].value}}</span>元
+                      <span>{{presentItem.yLj}}</span>元
                     </div>
                     <div class="tips">
                       当前等级可领取
                     </div>
                     <img src="assets/image/personal_center/img_personal_center_commision_button_disable.png"
-                      [class]="presentItem[1].state ? 'button active' : 'button'">
+                      [class]="presentItem.vipGrade==runTime.user.vipGrade ? 'button active' : 'button'">
                   </div>
 
                   <div class="present_item">
@@ -129,13 +129,13 @@
                       周礼金
                     </div>
                     <div class="price">
-                      <span>{{presentItem[2].value}}</span>元
+                      <span>{{presentItem.zLj}}</span>元
                     </div>
                     <div class="tips">
                       当前等级可领取
                     </div>
                     <img src="assets/image/personal_center/img_personal_center_commision_button_disable.png"
-                      [class]="presentItem[2].state ? 'button active' : 'button'">
+                      [class]="presentItem.vipGrade==runTime.user.vipGrade ? 'button active' : 'button'">
                   </div>
 
                   <div class="present_item">
@@ -144,13 +144,13 @@
                       自助洗码
                     </div>
                     <div class="price">
-                      <span>{{presentItem[3].value}}</span>%
+                      <span>{{(presentItem.zzXmBl*100).toFixed(2)}}</span>%
                     </div>
                     <div class="tips">
                       可享受自高比例
                     </div>
                     <img src="assets/image/personal_center/img_personal_center_refresh_chip_button.png"
-                      [class]="presentItem[3].state ? 'button active' : 'button'">
+                      [class]="presentItem.vipGrade==runTime.user.vipGrade ? 'button active' : 'button'">
                   </div>
                 </div>
               </ion-slide>
@@ -177,22 +177,22 @@
                 <div class="content_right_container">
                   <div class="row01">
                     <span>账号：</span>
-                    <span>{{runTime.user.userAccount}}</span>
+                    <span>{{runTime.user!=null ? runTime.user.userAccount:''}}</span>
                   </div>
                   <div class="row02">
                     <div class="name">
                       <span>姓名：</span>
-                      <span>{{runTime.user.nickName}}</span>
+                      <span>{{runTime.user ? runTime.user.nickName:''}}</span>
                     </div>
 
                     <div class="sex">
                       <span>性别：</span>
-                      <span [class]="isEditBaseInfo ? 'active' : ''">{{runTime.user.userSex}}</span>
+                      <span [class]="isEditBaseInfo ? 'active' : ''">{{runTime.user ? runTime.user.userSex:''}}</span>
                     </div>
 
                     <div class="birthday">
                       <span>生日：</span>
-                      <span [class]="isEditBaseInfo ? 'active' : ''">{{runTime.user.userBirthday}}</span>
+                      <span [class]="isEditBaseInfo ? 'active' : ''">{{runTime.user ?runTime.user.userBirthday:''}}</span>
                     </div>
                   </div>
                 </div>
@@ -441,7 +441,7 @@
           <div class="inner_tab_container">
             <div class="inner_tab_container_inner">
               <span *ngFor="let item of apiColumns.list"
-                [class]="item.colCode==seachReportParam.gameType ? 'active' : ''"
+                [class]="item.colCode==seachReportParam.game_type ? 'active' : ''"
                 (click)="selectGameType(item.colCode)">{{item.colName}}投注记录</span>
             </div>
           </div>

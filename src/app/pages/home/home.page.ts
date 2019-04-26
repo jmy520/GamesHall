@@ -71,7 +71,7 @@ export class HomePage extends BaseView {
 
   ionViewDidEnter() {
     this.loginedUser = this.runtime.user;
-    if (this.loginedUser) {
+    if (this.runtime.user) {
       this.isLogined = true;
     }
 
@@ -265,5 +265,14 @@ export class HomePage extends BaseView {
     this.mRouter.navigate(['/promote']);
   }
 
+
+  goPersonalCenter() {
+    if (!this.isLogined) {
+      // this.showToast('请先登录');
+      this.presentLogin();
+      return;
+    }
+    this.mRouter.navigate(['/personal-center']);
+  }
 
 }

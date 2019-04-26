@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { LoadingController, ToastController, ModalController } from '@ionic/angular';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { LoadingController, ToastController, ModalController, IonSlides } from '@ionic/angular';
 import { BaseView } from 'src/common/base/BaseView';
 import { Router } from '@angular/router';
 import { Runtime } from 'src/app/services/Runtime';
@@ -51,9 +51,18 @@ export class PersonalCenterPage extends BaseView implements OnInit {
   };
 
   seachReportParam = {
-    gameType: '',
-    startTime: '',
-    endTime: ''
+    game_type: '',
+    insterTimeStart: '',
+    InsterTimeEnd: ''
+  };
+
+  nextLevel = {
+
+  };
+
+  userWallet = {
+    factMoney: 0.0,
+    betMoeny: 0.0
   };
 
   betLogs = {
@@ -76,6 +85,13 @@ export class PersonalCenterPage extends BaseView implements OnInit {
 
   bankItemTypes = [];
 
+  selfReport = {
+    bet: 0,
+    win: 0,
+    xima: 0,
+    yingli: 0
+  };
+
 
   bankItems = {
     totals: 0,
@@ -91,6 +107,9 @@ export class PersonalCenterPage extends BaseView implements OnInit {
   levelPresentArray: Array<any> = new Array();
 
   vipLevelInfoArray: Array<any> = new Array();
+
+  @ViewChild('levelSlides')
+  levelSlides: IonSlides;
 
   slidesOpts: any = {
     on: {
@@ -170,10 +189,28 @@ export class PersonalCenterPage extends BaseView implements OnInit {
       this.mRouter.navigate(['/home']);
       return;
     }
+    this.currentLevel = this.runTime.user.user.vipGrade - 1;
     this.initApiColumnsData();
     this.initApiInfosData();
     this.comdicts();
     this.initTimeArray();
+    this.selAllUsersVip();
+    this.nextUserVip();
+    this.wallet();
+  }
+
+  goLevel(val) {
+    this.runTime.payButtonVido();
+    if (val === -1) {
+      this.levelSlides.slidePrev();
+    } else if (val === 1) {
+      this.levelSlides.slideNext();
+    }
+  }
+  ionSlideDidChange() {
+    this.levelSlides.getActiveIndex().then(index => {
+      this.currentLevelPager = index;
+    });
   }
 
   initApiColumnsData() {
@@ -185,8 +222,8 @@ export class PersonalCenterPage extends BaseView implements OnInit {
         this.apiColumns = response.data;
         if (this.apiColumns.totals > 0) {
           this.seachBetLogParam.gameType = this.apiColumns.list[0].colCode;
+          this.seachReportParam.game_type = this.seachBetLogParam.gameType;
         }
-        this.getBetLogs();
       }
     }).catch(error => { });
   }
@@ -213,9 +250,42 @@ export class PersonalCenterPage extends BaseView implements OnInit {
     }).catch(error => { });
   }
 
+  wallet() {
+    this.api.wallet().then(response => {
+      const errorMessage = response.msg;
+      if (errorMessage) {
+        this.showToast(errorMessage);
+      } else {
+        this.userWallet = response.data;
+      }
+    }).catch(error => { });
+  }
+
+  selAllUsersVip() {
+    this.api.selAllUsersVip().then(response => {
+      const errorMessage = response.msg;
+      if (errorMessage) {
+        this.showToast(errorMessage);
+      } else {
+        this.levelPresentArray = response.data;
+      }
+    }).catch(error => { });
+  }
+
+  nextUserVip() {
+    this.api.nextUserVip().then(response => {
+      const errorMessage = response.msg;
+      if (errorMessage) {
+        this.showToast(errorMessage);
+      } else {
+        this.nextLevel = response.data;
+      }
+    }).catch(error => { });
+  }
+
   selectGameType(gameType) {
     if (this.tabIndex === 3) {
-      this.seachReportParam.gameType = gameType;
+      this.seachReportParam.game_type = gameType;
     } else {
       this.seachBetLogParam.gameType = gameType;
     }
@@ -262,8 +332,8 @@ export class PersonalCenterPage extends BaseView implements OnInit {
       this.seachBankItemParam.InsterTimeEnd = this.myDay.endTimeStr;
       this.bankItem();
     } else if (this.tabIndex === 3) {
-      this.seachReportParam.startTime = this.myDay.startTimeStr;
-      this.seachReportParam.endTime = this.myDay.endTimeStr;
+      this.seachReportParam.insterTimeStart = this.myDay.startTimeStr;
+      this.seachReportParam.InsterTimeEnd = this.myDay.endTimeStr;
       // this.getBetLogs();
     }
   }
@@ -298,6 +368,34 @@ export class PersonalCenterPage extends BaseView implements OnInit {
         loadinginstan.dismiss();
       });
     });
+  }
+
+  getReports() {
+    const loading = super.showLoading('加载中...');
+    this.api.selfTongji(this.seachReportParam).then(response => {
+      const errorMessage = response.msg;
+      if (errorMessage) {
+        this.showToast(errorMessage);
+      } else {
+        this.selfReport = response.data;
+      }
+    }).catch(error => { }).finally(() => {
+      loading.then((loadinginstan) => {
+        loadinginstan.dismiss();
+      });
+    });
+  }
+
+  tabSelect(tabIndex) {
+      this.tabIndex = tabIndex;
+      if (this.tabIndex === 0) {
+      } else if (this.tabIndex === 1) {
+        this.getBetLogs();
+      } else if (this.tabIndex === 2) {
+        this.bankItem();
+      } else if (this.tabIndex === 3) {
+        this.getReports();
+      }
   }
 
   ngOnInit() {
@@ -345,126 +443,6 @@ export class PersonalCenterPage extends BaseView implements OnInit {
     this.style04LevelArray.push('assets/image/personal_center/img_personal_center_vip09_style04.png');
     this.style04LevelArray.push('assets/image/personal_center/img_personal_center_vip10_style04.png');
 
-    this.levelPresentArray.push([{ value: 0, state: false }, { value: 0, state: false }, { value: 0, state: false }, { value: 0.59, state: true }]);
-    this.levelPresentArray.push([{ value: 28, state: false }, { value: 0, state: false }, { value: 0, state: false }, { value: 0.59, state: true }]);
-    this.levelPresentArray.push([{ value: 58, state: false }, { value: 38, state: false }, { value: 5, state: false }, { value: 0.64, state: false }]);
-    this.levelPresentArray.push([{ value: 188, state: false }, { value: 58, state: false }, { value: 10, state: false }, { value: 0.64, state: false }]);
-    this.levelPresentArray.push([{ value: 388, state: false }, { value: 188, state: false }, { value: 38, state: false }, { value: 0.7, state: false }]);
-    this.levelPresentArray.push([{ value: 888, state: false }, { value: 528, state: false }, { value: 88, state: false }, { value: 0.75, state: false }]);
-    this.levelPresentArray.push([{ value: 1888, state: false }, { value: 888, state: false }, { value: 188, state: false }, { value: 0.8, state: false }]);
-    this.levelPresentArray.push([{ value: 3888, state: false }, { value: 2888, state: false }, { value: 588, state: false }, { value: 0.85, state: false }]);
-    this.levelPresentArray.push([{ value: 8888, state: false }, { value: 5888, state: false }, { value: 1288, state: false }, { value: 0.9, state: false }]);
-    this.levelPresentArray.push([{ value: 18888, state: false }, { value: 8888, state: false }, { value: 2019, state: false }, { value: 0.95, state: false }]);
-
-    this.vipLevelInfoArray.push({
-      level: "VIP1",
-      cumulative: "-",
-      promotion: "-",
-      week: "-",
-      month: "-",
-      cumulative_promotion: "-",
-      save_speed: false,
-      personal_service: false
-    });
-
-    this.vipLevelInfoArray.push({
-      level: "VIP2",
-      cumulative: "1万",
-      promotion: "28",
-      week: "-",
-      month: "-",
-      cumulative_promotion: "28",
-      save_speed: false,
-      personal_service: false
-    });
-
-    this.vipLevelInfoArray.push({
-      level: "VIP3",
-      cumulative: "10万",
-      promotion: "58",
-      week: "5",
-      month: "38",
-      cumulative_promotion: "86",
-      save_speed: false,
-      personal_service: true
-    });
-
-    this.vipLevelInfoArray.push({
-      level: "VIP4",
-      cumulative: "50万",
-      promotion: "188",
-      week: "10",
-      month: "58",
-      cumulative_promotion: "274",
-      save_speed: true,
-      personal_service: true
-    });
-
-    this.vipLevelInfoArray.push({
-      level: "VIP5",
-      cumulative: "300万",
-      promotion: "388",
-      week: "38",
-      month: "188",
-      cumulative_promotion: "662",
-      save_speed: true,
-      personal_service: true
-    });
-
-    this.vipLevelInfoArray.push({
-      level: "VIP6",
-      cumulative: "1000万",
-      promotion: "888",
-      week: "88",
-      month: "528",
-      cumulative_promotion: "1550",
-      save_speed: true,
-      personal_service: true
-    });
-
-    this.vipLevelInfoArray.push({
-      level: "VIP7",
-      cumulative: "2000万",
-      promotion: "1888",
-      week: "188",
-      month: "888",
-      cumulative_promotion: "3438",
-      save_speed: true,
-      personal_service: true
-    });
-
-    this.vipLevelInfoArray.push({
-      level: "VIP8",
-      cumulative: "5000万",
-      promotion: "3888",
-      week: "588",
-      month: "2888",
-      cumulative_promotion: "1736",
-      save_speed: true,
-      personal_service: true
-    });
-
-    this.vipLevelInfoArray.push({
-      level: "VIP9",
-      cumulative: "1亿",
-      promotion: "8888",
-      week: "1288",
-      month: "5888",
-      cumulative_promotion: "16214",
-      save_speed: true,
-      personal_service: true
-    });
-
-    this.vipLevelInfoArray.push({
-      level: "VIP10",
-      cumulative: "3亿",
-      promotion: "18888",
-      week: "2019",
-      month: "8888",
-      cumulative_promotion: "35102",
-      save_speed: true,
-      personal_service: true
-    });
   }
 
   getLevelIcon(levelStyle: number, level?: number) {

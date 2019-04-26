@@ -38,8 +38,8 @@ export class ApiService {
           }
           if (data.hashError && data.status === 900) {
             this.runtime.postLogout();
-            this.mRouter.navigate(['/HomePage']);
-            reject(data);
+            this.mRouter.navigate(['/home']);
+            // reject(data);
           } else {
             resolve(data);
           }
@@ -71,8 +71,8 @@ export class ApiService {
           }
           if (data.hashError && data.status === 900) {
             this.runtime.postLogout();
-            this.mRouter.navigate(['/HomePage']);
-            reject(data);
+            this.mRouter.navigate(['/home']);
+            // reject(data);
           } else {
             resolve(data);
           }
@@ -192,4 +192,20 @@ export class ApiService {
   betlogs(params): Promise<any> {
     return this.buildPostPromise('/front/betlogs', params, null, null, null, {});
   }
+
+  /** 获取所有vip等级数据 */
+  selAllUsersVip(): Promise<any> {
+    return this.buildPostPromise('/front/selAllUsersVip', null, null, null, null, {});
+  }
+
+  /** 获取用户下一个vip等级 */
+  nextUserVip(): Promise<any> {
+    return this.buildPostPromise('/front/nextUserVip', null, null, null, null, {});
+  }
+
+  /** 个人报表 */
+  selfTongji(params): Promise<any> {
+    return this.buildPostPromise('/front/selfTongji', params, null, null, null, {});
+  }
+
 }
