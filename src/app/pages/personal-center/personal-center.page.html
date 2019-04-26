@@ -13,27 +13,27 @@
       <div class="personal_center_type_list_container">
         <div class="list_inner">
 
-          <div [class]="tabIndex == 0 ? 'list_item active' : 'list_item'" (click)="tabIndex = 0">
+          <div [class]="tabIndex == 0 ? 'list_item active' : 'list_item'" (click)="tabSelect(0)">
             <img src="assets/image/personal_center/img_personal_center_tab_icon_01.png">
             <span>个人信息</span>
           </div>
 
-          <div [class]="tabIndex == 1 ? 'list_item active' : 'list_item'" (click)="tabIndex = 1">
+          <div [class]="tabIndex == 1 ? 'list_item active' : 'list_item'" (click)="tabSelect(1)">
             <img src="assets/image/personal_center/img_personal_center_tab_icon_02.png">
             <span>投注记录</span>
           </div>
 
-          <div [class]="tabIndex == 2 ? 'list_item active' : 'list_item'" (click)="tabIndex = 2">
+          <div [class]="tabIndex == 2 ? 'list_item active' : 'list_item'" (click)="tabSelect(2)">
             <img src="assets/image/personal_center/img_personal_center_tab_icon_03.png">
             <span>账户明细</span>
           </div>
 
-          <div [class]="tabIndex == 3 ? 'list_item active' : 'list_item'" (click)="tabIndex = 3">
+          <div [class]="tabIndex == 3 ? 'list_item active' : 'list_item'" (click)="tabSelect(3)">
             <img src="assets/image/personal_center/img_personal_center_tab_icon_04.png">
             <span>个人报表</span>
           </div>
 
-          <div [class]="tabIndex == 4 ? 'list_item active' : 'list_item'" (click)="tabIndex = 4">
+          <div [class]="tabIndex == 4 ? 'list_item active' : 'list_item'" (click)="tabSelect(4)">
             <img src="assets/image/personal_center/img_personal_center_tab_icon_05.png">
             <span>VIP详情</span>
           </div>
@@ -177,22 +177,27 @@
                 <div class="content_right_container">
                   <div class="row01">
                     <span>账号：</span>
-                    <span>{{runTime.user!=null ? runTime.user.userAccount:''}}</span>
+                    <span>{{runTime.user!=null ? runTime.user.user.userAccount:''}}</span>
                   </div>
                   <div class="row02">
                     <div class="name">
                       <span>姓名：</span>
-                      <span>{{runTime.user ? runTime.user.nickName:''}}</span>
+                      <span *ngIf="!isEditContact">{{runTime.user?runTime.user.user.nickName:''}}</span>
+                      <ion-input type="text" *ngIf="isEditContact" [(ngModel)]="selfInfpParam.nickName"></ion-input>
                     </div>
 
                     <div class="sex">
-                      <span>性别：</span>
-                      <span [class]="isEditBaseInfo ? 'active' : ''">{{runTime.user ? runTime.user.userSex:''}}</span>
+                      <span *ngIf="!isEditBaseInfo">性别：</span>
+                      <span *ngIf="!isEditBaseInfo">{{runTime.user ? runTime.user.user.userSex:''}}</span>
+                      <ion-select placeholder="选择性别" *ngIf="isEditBaseInfo" [(ngModel)]="selfInfpParam.sex">
+                        <ion-select-option value="男">男</ion-select-option>
+                        <ion-select-option value="女">女</ion-select-option>
+                      </ion-select>
                     </div>
 
                     <div class="birthday">
                       <span>生日：</span>
-                      <span [class]="isEditBaseInfo ? 'active' : ''">{{runTime.user ?runTime.user.userBirthday:''}}</span>
+                      <span [class]="isEditBaseInfo ? 'active' : ''">{{runTime.user ?runTime.user.user.userBirthday:''}}</span>
                     </div>
                   </div>
                 </div>
@@ -216,22 +221,25 @@
               <div class="info_content_container">
                 <div class="info_item">
                   <span>邮箱：</span>
-                  <span [class]="isEditContact ? 'active' : ''">未填写</span>
+                  <span *ngIf="!isEditContact">{{runTime.user?runTime.user.user.userEmail:''}}</span>
+                  <ion-input type="email" *ngIf="isEditContact" [(ngModel)]="selfInfpParam.email"></ion-input>
                 </div>
 
                 <div class="info_item">
                   <span>电话：</span>
-                  <span>15888888888</span>
+                  <span>{{runTime.user?runTime.user.user.userPhone:''}}</span>
                 </div>
 
                 <div class="info_item">
                   <span>QQ：</span>
-                  <span [class]="isEditContact ? 'active' : ''">未填写</span>
+                  <span *ngIf="!isEditContact">{{runTime.user?runTime.user.user.userQq:''}}</span>
+                  <ion-input type="number" *ngIf="isEditContact" [(ngModel)]="selfInfpParam.qq"></ion-input>
                 </div>
 
                 <div class="info_item">
                   <span>微信：</span>
-                  <span [class]="isEditContact ? 'active' : ''">未填写</span>
+                  <span *ngIf="!isEditContact">{{runTime.user?runTime.user.user.userWx:''}}</span>
+                  <ion-input type="text" *ngIf="isEditContact" [(ngModel)]="selfInfpParam.wx"></ion-input>
                 </div>
               </div>
             </div>

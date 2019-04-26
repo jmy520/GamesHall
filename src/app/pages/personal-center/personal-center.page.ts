@@ -33,6 +33,15 @@ export class PersonalCenterPage extends BaseView implements OnInit {
 
   timeSelectObjectArray = [];
 
+  selfInfpParam = {
+    nickName: this.runTime.user.user.nickName,
+    sex: this.runTime.user.user.userSex,
+    birthday: this.runTime.user.user.userBirthday,
+    email: this.runTime.user.user.userEmail,
+    qq: this.runTime.user.user.userQq,
+    wx: this.runTime.user.user.userWx
+  };
+
   seachBetLogParam = {
     apiCode: '',
     gameType: '',
