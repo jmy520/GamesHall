@@ -67,7 +67,4 @@ export class SafeBoxValidateComponent extends BaseView implements OnInit {
     }).catch(error => { });
   }
 
-  onEnter(event) {
-console.log('--->' + JSON.stringify(event));
-  }
 }

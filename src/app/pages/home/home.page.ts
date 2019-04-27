@@ -146,7 +146,7 @@ export class HomePage extends BaseView {
   }
 
   wallet() {
-    this.runtime.payButtonVido();
+    // this.runtime.payButtonVido();
     if (this.runtime.user == null) {
       // this.showToast('请先登录');
       this.presentLogin();
@@ -213,6 +213,7 @@ export class HomePage extends BaseView {
       component: LoginComponent,
       cssClass: 'common_modal_dialog'
     }).then(modalInstance => {
+      modalInstance.present();
     });
   }
 

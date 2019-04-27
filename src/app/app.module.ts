@@ -63,6 +63,7 @@ import { MessageComponent } from './components/message/message.component';
     DateUtile,
     SafeBox,
     UserStore,
+    HTMLAudioElement,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]

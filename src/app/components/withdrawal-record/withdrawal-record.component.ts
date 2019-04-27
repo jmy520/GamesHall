@@ -1,16 +1,53 @@
 import { Component, OnInit } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { Router } from '@angular/router';
+import { ModalController, LoadingController, ToastController } from '@ionic/angular';
+import { BaseView } from 'src/common/base/BaseView';
+import { Runtime } from 'src/app/services/Runtime';
+import { ApiService } from 'src/app/services/api.service';
 
 @Component({
   selector: 'app-withdrawal-record',
   templateUrl: './withdrawal-record.component.html',
   styleUrls: ['./withdrawal-record.component.scss'],
 })
-export class WithdrawalRecordComponent implements OnInit {
+export class WithdrawalRecordComponent extends BaseView implements OnInit {
 
-  constructor(public mModal: ModalController) { }
+  bankItemParam = {
+    itemType: 'cashWithdrawal',
+    page: 1,
+    size: 1000,
+  };
+
+  bankItems = {};
+
+  constructor(
+    public mRouter: Router,
+    public mLoading: LoadingController,
+    public mToast: ToastController,
+    public mModal: ModalController,
+    public runtime: Runtime,
+    public api: ApiService) {
+      super(mLoading, mToast, mModal);
+     }
 
   ngOnInit() {}
+
+  bankItem() {
+    this.runtime.payButtonVido();
+    this.showLoading('加载中...');
+    this.api.bankItem(this.bankItemParam).then(response => {
+        const errorMessage = response.msg;
+        if (errorMessage) {
+          this.showToast(errorMessage);
+        } else {
+          this.bankItems = response.data;
+        }
+      }).catch(error => { }).finally(() => {
+        this.mLoading.getTop().then(instance => {
+          instance.dismiss();
+        }).catch(error => { });
+      });
+  }
 
   dismissDialog() {
     this.mModal.getTop().then(modalInstance => {
