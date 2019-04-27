@@ -7,7 +7,11 @@ import { BaseView } from 'src/common/base/BaseView';
 import { Runtime } from 'src/app/services/Runtime';
 import { ApiService } from 'src/app/services/api.service';
 import { PictureHelper } from 'src/common/helper/PictureHelper';
+<<<<<<< HEAD
 import { SafeBoxValidateComponent } from 'src/app/components/safe-box-validate/safe-box-validate.component';
+=======
+import { MessageComponent } from 'src/app/components/message/message.component';
+>>>>>>> 19e602e609b545581b32fe1ee302edaf675f64d5
 
 @Component({
   selector: 'app-home',
@@ -106,9 +110,13 @@ export class HomePage extends BaseView {
   }
 
   jumpToGamePage(gameGid: any) {
+<<<<<<< HEAD
     this.runtime.payButtonVido();
     if (this.runtime.user == null) {
       // this.showToast('请先登录');
+=======
+    if (!this.isLogined) {
+>>>>>>> 19e602e609b545581b32fe1ee302edaf675f64d5
       this.presentLogin();
       return;
     }
@@ -145,9 +153,13 @@ export class HomePage extends BaseView {
   }
 
   wallet() {
+<<<<<<< HEAD
     this.runtime.payButtonVido();
     if (this.runtime.user == null) {
       // this.showToast('请先登录');
+=======
+    if (!this.isLogined) {
+>>>>>>> 19e602e609b545581b32fe1ee302edaf675f64d5
       this.presentLogin();
       return;
     }
@@ -239,9 +251,13 @@ export class HomePage extends BaseView {
   }
 
   goSafeBox() {
+<<<<<<< HEAD
     this.runtime.payButtonVido();
     if (this.runtime.user == null) {
       // this.showToast('请先登录');
+=======
+    if (!this.isLogined) {
+>>>>>>> 19e602e609b545581b32fe1ee302edaf675f64d5
       this.presentLogin();
       return;
     }
@@ -261,25 +277,44 @@ export class HomePage extends BaseView {
   }
 
   goPromote() {
+<<<<<<< HEAD
     this.runtime.payButtonVido();
     if (this.runtime.user == null) {
       // this.showToast('请先登录');
+=======
+    if (!this.isLogined) {
+>>>>>>> 19e602e609b545581b32fe1ee302edaf675f64d5
       this.presentLogin();
       return;
     }
     this.mRouter.navigate(['/promote']);
   }
 
+  showMessage() {
+    this.mModal.create({
+      component: MessageComponent,
+      cssClass: 'common_modal_dialog'
+    }).then(
+      modalInstance => {
+        modalInstance.present();
+      }
+    );
+  }
 
   goPersonalCenter() {
+<<<<<<< HEAD
     this.runtime.payButtonVido();
     if (this.runtime.user == null) {
       // this.showToast('请先登录');
+=======
+    if (!this.isLogined) {
+>>>>>>> 19e602e609b545581b32fe1ee302edaf675f64d5
       this.presentLogin();
       return;
     }
     this.mRouter.navigate(['/personal-center']);
   }
+<<<<<<< HEAD
 
   goactivity() {
     this.runtime.payButtonVido();
@@ -342,4 +377,7 @@ export class HomePage extends BaseView {
   }
 
 
+=======
+  
+>>>>>>> 19e602e609b545581b32fe1ee302edaf675f64d5
 }

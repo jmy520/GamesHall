@@ -129,12 +129,21 @@
         <img src="assets/image/home/icon_refresh_chip.png">
       </div>
 
+<<<<<<< HEAD
       <div class="function_item">
         <img src="assets/image/home/icon_message.png" (click)="goMessage()">
       </div>
 
       <div class="function_item">
         <img src="assets/image/home/icon_customer_service.png" (click)="goCustomer()">
+=======
+      <div class="function_item" (click)="showMessage()">
+        <img src="assets/image/home/icon_message.png">
+      </div>
+
+      <div class="function_item" (click)="mRouter.navigate(['/customer-service'])">
+        <img src="assets/image/home/icon_customer_service.png">
+>>>>>>> 19e602e609b545581b32fe1ee302edaf675f64d5
       </div>
 
       <div class="function_item" (click)="goSafeBox()">

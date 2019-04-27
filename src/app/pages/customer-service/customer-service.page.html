@@ -1,0 +1,124 @@
+<ion-content>
+  <div class="content_container">
+    <div class="header">
+      <div class="back" (click)="mRouter.navigate(['/home'])">
+        <img src="assets/image/customer_service/img_customer_service_back_button.png">
+        <img src="assets/image/customer_service/img_customer_service_back_text.png">
+      </div>
+
+      <img src="assets/image/customer_service/img_customer_service_page_title.png" class="page_title">
+    </div>
+
+    <div class="content_main">
+      <div class="customer_service_type_list_container">
+        <div class="list_inner">
+
+          <div [class]="tabIndex == 0 ? 'list_item active' : 'list_item'" (click)="tabIndex = 0">
+            <img src="assets/image/customer_service/img_customer_service_tab_online.png">
+            <span>在线客服</span>
+          </div>
+
+          <div [class]="tabIndex == 1 ? 'list_item active' : 'list_item'" (click)="tabIndex = 1">
+            <img src="assets/image/customer_service/img_customer_service_tab_qq.png">
+            <span>QQ客服</span>
+          </div>
+
+          <div [class]="tabIndex == 2 ? 'list_item active' : 'list_item'" (click)="tabIndex = 2">
+            <img src="assets/image/customer_service/img_customer_service_tab_wx.png">
+            <span>微信客服</span>
+          </div>
+
+          <div [class]="tabIndex == 3 ? 'list_item active' : 'list_item'" (click)="tabIndex = 3">
+            <img src="assets/image/customer_service/img_customer_service_tab_issue.png">
+            <span>常见问题</span>
+          </div>
+
+        </div>
+      </div>
+
+      <img src="assets/image/customer_service/img_split_line.png" class="split_line">
+
+      <div class="customer_service_content_container">
+        <div *ngIf="tabIndex == 0" class="tab00_container">
+
+        </div>
+
+        <div *ngIf="tabIndex == 1" class="tab01_container">
+          <div class="tab01_inner">
+            <div class="tab01_item">
+              <img src="assets/image/common/img_default_header.jpg">
+              <span>QQ客服01</span>
+              <span>57865245</span>
+              <span>客服专员</span>
+              <img src="assets/image/customer_service/img_customer_service_make_contact.png">
+            </div>
+
+            <div class="tab01_item">
+              <img src="assets/image/common/img_default_header.jpg">
+              <span>QQ客服01</span>
+              <span>57865245</span>
+              <span>客服专员</span>
+              <img src="assets/image/customer_service/img_customer_service_make_contact.png">
+            </div>
+
+            <div class="tab01_item">
+              <img src="assets/image/common/img_default_header.jpg">
+              <span>QQ客服01</span>
+              <span>57865245</span>
+              <span>客服专员</span>
+              <img src="assets/image/customer_service/img_customer_service_make_contact.png">
+            </div>
+
+            <div class="tab01_item">
+              <img src="assets/image/common/img_default_header.jpg">
+              <span>QQ客服01</span>
+              <span>57865245</span>
+              <span>客服专员</span>
+              <img src="assets/image/customer_service/img_customer_service_make_contact.png">
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="tabIndex == 2" class="tab02_container">
+          <div class="tab02_inner">
+            <div class="tab02_item">
+              <img src="assets/image/customer_service/img_customer_service_qrcode.png">
+              <span>微信客服01</span>
+              <span>VIP专员服务</span>
+              <span>sv3834561</span>
+              <img src="assets/image/customer_service/img_customer_service_copy_wx_code.png">
+            </div>
+
+            <div class="tab02_item">
+              <img src="assets/image/customer_service/img_customer_service_qrcode.png">
+              <span>微信客服01</span>
+              <span>VIP专员服务</span>
+              <span>sv3834561</span>
+              <img src="assets/image/customer_service/img_customer_service_copy_wx_code.png">
+            </div>
+
+            <div class="tab02_item">
+              <img src="assets/image/customer_service/img_customer_service_qrcode.png">
+              <span>微信客服01</span>
+              <span>VIP专员服务</span>
+              <span>sv3834561</span>
+              <img src="assets/image/customer_service/img_customer_service_copy_wx_code.png">
+            </div>
+
+            <div class="tab02_item">
+              <img src="assets/image/customer_service/img_customer_service_qrcode.png">
+              <span>微信客服01</span>
+              <span>VIP专员服务</span>
+              <span>sv3834561</span>
+              <img src="assets/image/customer_service/img_customer_service_copy_wx_code.png">
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="tabIndex == 3" class="tab03_container">
+
+        </div>
+      </div>
+    </div>
+  </div>
+</ion-content>
