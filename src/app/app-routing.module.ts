@@ -11,6 +11,7 @@ const routes: Routes = [
   { path: 'safe-box', loadChildren: './pages/safe-box/safe-box.module#SafeBoxPageModule' },
   { path: 'withdrawal', loadChildren: './pages/withdrawal/withdrawal.module#WithdrawalPageModule' },
   { path: 'game', loadChildren: './pages/game/game.module#GamePageModule' },  { path: 'personal-center', loadChildren: './pages/personal-center/personal-center.module#PersonalCenterPageModule' },
+  { path: 'customer-service', loadChildren: './pages/customer-service/customer-service.module#CustomerServicePageModule' },
 
 
 ];
