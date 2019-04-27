@@ -15,7 +15,8 @@ export class SafeBoxPage extends BaseView implements OnInit {
 
   userWallet = { // 用户钱包对象
     factMoney: 0.0,
-    freezeMoney: 0.0
+    freezeMoney: 0.0,
+    payPwd: '111111'
   };
 
   bl = 0;
@@ -127,6 +128,10 @@ export class SafeBoxPage extends BaseView implements OnInit {
         this.showToast(errorMessage);
       } else {
         this.userWallet = response.data;
+        if (this.userWallet.payPwd === '111111') {
+          this.showToast('请先设置保险箱密码.');
+          this.mRouter.navigate(['/home']);
+        }
       }
     }).catch(error => { }).finally(() => {
       loading.then((loadinginstan) => {

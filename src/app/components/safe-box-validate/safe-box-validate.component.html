@@ -18,19 +18,19 @@
 
         <div class="password_content" (click)="getFoucs(1)">
           <div class="letter">    
-              {{setPwdParam.pwd.substr(0,1)}}     
+              {{setPwdParam.pwd.length>=1?'*':''}}     
           </div>
 
           <div class="letter">
-              {{setPwdParam.pwd.substr(1,1)}}
+              {{setPwdParam.pwd.length>=2?'*':''}}
           </div>
 
           <div class="letter">
-              {{setPwdParam.pwd.substr(2,1)}}
+              {{setPwdParam.pwd.length>=3?'*':''}}
           </div>
 
           <div class="letter">
-              {{setPwdParam.pwd.substr(3,1)}}
+              {{setPwdParam.pwd.length>=4?'*':''}}
           </div>
           <input class="pwd" type="password" autocomplete="off" maxlength="4" #pwdInput [(ngModel)]="setPwdParam.pwd">
         </div>
@@ -42,17 +42,21 @@
         </span>
 
         <div class="repassword_content" (click)="getFoucs(2)">
-          <div class="letter">
-          </div>
-
-          <div class="letter">
-          </div>
-
-          <div class="letter">
-          </div>
-
-          <div class="letter">
-          </div>
+            <div class="letter">    
+                {{setPwdParam.repwd.length>=1?'*':''}}     
+            </div>
+  
+            <div class="letter">
+                {{setPwdParam.repwd.length>=2?'*':''}}
+            </div>
+  
+            <div class="letter">
+                {{setPwdParam.repwd.length>=3?'*':''}}
+            </div>
+  
+            <div class="letter">
+                {{setPwdParam.repwd.length>=4?'*':''}}
+            </div>
           <input class="pwd" type="password" autocomplete="off" maxlength="4" #repwdInput [(ngModel)]="setPwdParam.repwd">
         </div>
       </div>

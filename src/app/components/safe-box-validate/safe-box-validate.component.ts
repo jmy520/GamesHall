@@ -45,6 +45,7 @@ export class SafeBoxValidateComponent extends BaseView implements OnInit {
 
   setPwd() {
     this.runtime.payButtonVido();
+    this.showLoading('加载中...');
     this.api.setPayPwd(this.setPwdParam).then(response => {
         const errorMessage = response.msg;
         if (errorMessage) {
