@@ -30,12 +30,14 @@ export class LoginComponent extends BaseView implements OnInit {
   ngOnInit() { }
 
   dismissDialog() {
+    this.runtime.payButtonVido();
     this.mModal.getTop().then(modalInstance => {
       modalInstance.dismiss();
     }).catch(error => { });
   }
 
   goRegister() {
+    this.runtime.payButtonVido();
     this.mModal.create({
       component: RegisterComponent,
       cssClass: 'common_modal_dialog'
@@ -47,6 +49,7 @@ export class LoginComponent extends BaseView implements OnInit {
   }
 
   login() {
+    this.runtime.payButtonVido();
     const loading = super.showLoading('正在登录...');
     this.api.login(this.loginParams).then(response => {
       loading.then((loadinginstan) => {

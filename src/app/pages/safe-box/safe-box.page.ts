@@ -151,14 +151,18 @@ export class SafeBoxPage extends BaseView implements OnInit {
     });
   }
 
-  tabBankItem() {
-    this.tabIndex = 2;
-    this.safeBoxSeachParam.page = 1;
-    this.safeBoxSeachParam.size = 6;
-    this.bankItemDatas();
+  tabBankItem(vl) {
+    this.runtime.payButtonVido();
+    if (vl === 2) {
+      this.safeBoxSeachParam.page = 1;
+      this.safeBoxSeachParam.size = 6;
+      this.bankItemDatas();
+    }
+    this.tabIndex = vl;
   }
 
   nextPage(page) {
+    this.runtime.payButtonVido();
     if ((this.safeBoxSeachParam.page + page) > 0 && (this.safeBoxSeachParam.page + page) <= this.bankItemObj.totalsPage) {
       this.safeBoxSeachParam.page = this.safeBoxSeachParam.page + page;
       this.bankItemDatas();
@@ -174,6 +178,7 @@ export class SafeBoxPage extends BaseView implements OnInit {
   }
 
   clearRange() {
+    this.runtime.payButtonVido();
     this.bl = 0;
     this.safeBoxActionParam.money = '0.0';
   }

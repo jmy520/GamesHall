@@ -16,22 +16,23 @@
           设置密码
         </span>
 
-        <div class="password_content">
-          <div class="letter">
-            <input type="password" autocomplete="off" maxlength="1">
+        <div class="password_content" (click)="getFoucs(1)">
+          <div class="letter">    
+              {{setPwdParam.pwd.substr(0,1)}}     
           </div>
 
           <div class="letter">
-            <input type="password" autocomplete="off" maxlength="1">
+              {{setPwdParam.pwd.substr(1,1)}}
           </div>
 
           <div class="letter">
-            <input type="password" autocomplete="off" maxlength="1">
+              {{setPwdParam.pwd.substr(2,1)}}
           </div>
 
           <div class="letter">
-            <input type="password" autocomplete="off" maxlength="1">
+              {{setPwdParam.pwd.substr(3,1)}}
           </div>
+          <input class="pwd" type="password" autocomplete="off" maxlength="4" #pwdInput [(ngModel)]="setPwdParam.pwd">
         </div>
       </div>
 
@@ -40,27 +41,24 @@
           确认密码
         </span>
 
-        <div class="repassword_content">
+        <div class="repassword_content" (click)="getFoucs(2)">
           <div class="letter">
-            <input type="password">
           </div>
 
           <div class="letter">
-            <input type="password">
           </div>
 
           <div class="letter">
-            <input type="password">
           </div>
 
           <div class="letter">
-            <input type="password">
           </div>
+          <input class="pwd" type="password" autocomplete="off" maxlength="4" #repwdInput [(ngModel)]="setPwdParam.repwd">
         </div>
       </div>
 
-      <img src="assets/image/safe_box_validate/img_submit_button.png" class="confirm_button">
+      <img src="assets/image/safe_box_validate/img_submit_button.png" class="confirm_button" (click)="setPwd()">
     </div>
   </div>
-  <img src="assets/image/safe_box_validate/img_close_button.png" class="close_button">
+  <img src="assets/image/safe_box_validate/img_close_button.png" class="close_button" (click)="dismissDialog()">
 </div>
