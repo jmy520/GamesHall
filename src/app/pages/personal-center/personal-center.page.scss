@@ -492,6 +492,10 @@
                     color: $main_color;
                     height: 6vh;
                     line-height: 6vh;
+                    ion-select{
+                      --padding-top:0px;
+                      color: $main_color;
+                    }
 
                     &>span{
                       display: inline-block;
@@ -716,7 +720,7 @@
 
               &>.handler{
                 display: inline-block;
-                width: auto;
+                width: 20vw;
                 height: 10vh;
                 margin-left: 1vh;
                 
@@ -761,7 +765,7 @@
 
               &>.handler{
                 display: inline-block;
-                width: auto;
+                width: 20vw;
                 height: 10vh;
                 margin-left: 1vh;
                 
@@ -899,7 +903,7 @@
 
             &>.handler{
               display: inline-block;
-              width: auto;
+              width: 20vw;
               height: 10vh;
               margin-left: 1vh;
               
@@ -944,7 +948,7 @@
 
             &>.handler{
               display: inline-block;
-              width: auto;
+              width: 20vw;
               height: 10vh;
               margin-left: 1vh;
               
@@ -1228,7 +1232,7 @@
 
               &>.handler{
                 display: inline-block;
-                width: auto;
+                width: 20vw;
                 height: 10vh;
                 margin-left: 1vh;
                 

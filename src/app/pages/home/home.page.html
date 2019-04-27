@@ -4,20 +4,20 @@
     <div class="header">
 
       <div class="user_info">
-        <div class="header_img_wapper" (click)="mRouter.navigate(['/personal-center'])">
+        <div class="header_img_wapper" (click)="goPersonalCenter()">
           <img src="assets/image/home/img_default_header.jpg">
         </div>
 
         <div *ngIf="!isLogined" class="login_and_register">
-          <h4>未登录</h4>
+          <h4>游客</h4>
           <div class="jump_oper">
             <img src="assets/image/home/img_login_button.png" (click)="presentLogin()">
             <img src="assets/image/home/img_register_button.png" (click)="presentRegister()">
           </div>
         </div>
 
-        <div *ngIf="isLogined" class="name_and_level">
-          <h4>{{isLogined ? loginedUser.user.userAccount : "游客"}}</h4>
+        <div *ngIf="isLogined" class="name_and_level" (click)="goPersonalCenter()">
+          <h4>{{loginedUser ? loginedUser.user.userAccount : "游客"}}</h4>
           <div class="level">
             <img src="assets/image/home/icon_vip_icon_01.png">
             <img src="assets/image/home/icon_vip_text_01.png">
