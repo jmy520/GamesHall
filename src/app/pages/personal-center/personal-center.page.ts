@@ -311,6 +311,7 @@ export class PersonalCenterPage extends BaseView implements OnInit {
   }
 
   selectGameType(gameType) {
+    this.runTime.payButtonVido();
     if (this.tabIndex === 3) {
       this.seachReportParam.game_type = gameType;
       this.getReports();
@@ -433,6 +434,7 @@ export class PersonalCenterPage extends BaseView implements OnInit {
   }
 
   tabSelect(tabIndex) {
+    this.runTime.payButtonVido();
       this.tabIndex = tabIndex;
       if (this.tabIndex === 0) {
       } else if (this.tabIndex === 1) {
@@ -506,6 +508,7 @@ export class PersonalCenterPage extends BaseView implements OnInit {
   }
 
   switchBaseInfoEditMode() {
+    this.runTime.payButtonVido();
     if (this.isEditBaseInfo) {
       this.isEditBaseInfo = false;
       // TODO 提交修改
@@ -515,6 +518,7 @@ export class PersonalCenterPage extends BaseView implements OnInit {
   }
 
   switchContactEditMode() {
+    this.runTime.payButtonVido();
     if (this.isEditContact) {
       this.isEditContact = false;
       // TODO 提交修改
