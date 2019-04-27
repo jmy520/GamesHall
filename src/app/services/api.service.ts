@@ -208,4 +208,9 @@ export class ApiService {
     return this.buildPostPromise('/front/selfTongji', params, null, null, null, {});
   }
 
+  /** 流水统计 */
+  bankItemTongji(params): Promise<any> {
+    return this.buildPostPromise('/front/bankItemTongji', params, null, null, null, {});
+  }
+
 }

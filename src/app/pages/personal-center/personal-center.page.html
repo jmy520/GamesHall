@@ -271,7 +271,7 @@
               <div class="filter02">
                 <span>游戏平台：</span>
                 <div class="handler">
-                  <ion-select okText="确定" cancelText="取消" [(ngModel)]="seachBetLogParam.apiCode">
+                  <ion-select okText="确定" cancelText="取消" [(ngModel)]="seachBetLogParam.apiCode" (ionChange)="getBetLogs()">
                     <ion-select-option value="">全部</ion-select-option>
                     <ion-select-option [value]="item.api_code" *ngFor="let item of apiInfos.list">{{item.api_name}}
                     </ion-select-option>
@@ -289,7 +289,7 @@
             </div>
 
             <div class="table_body">
-              <div class="no_data_container">
+              <div class="no_data_container" *ngIf="betLogs.totals<=0">
                 <div class="no_data_inner">
                   <img src="assets/image/personal_center/img_personal_center_no_data_icon.png">
                   <span>
@@ -298,27 +298,27 @@
                 </div>
               </div>
 
-              <div class="table_content_container">
+              <div class="table_content_container" *ngIf="betLogs.totals>0">
                 <div class="table_content_inner">
-                  <div class="table_content_row">
+                  <div class="table_content_row" *ngFor="let item of betLogs.list">
                     <span>
-                      2019/02/01 08:00
+                        {{item.GameEndTime | date:'yy/MM/dd HH:mm'}}
                     </span>
 
                     <span>
-                      52648452
+                        {{item.game_order}}
                     </span>
 
                     <span>
-                      乐游捕鱼
+                        {{item.game_name}}
                     </span>
 
                     <span>
-                      ￥800
+                      ￥{{item.cell_score}}
                     </span>
 
                     <span>
-                      86
+                        {{item.profit}}
                     </span>
                   </div>
                 </div>
@@ -343,7 +343,7 @@
             <div class="filter02">
               <span>交易状态：</span>
               <div class="handler">
-                <ion-select okText="确定" cancelText="取消" [(ngModel)]="seachBankItemParam.itemType">
+                <ion-select okText="确定" cancelText="取消" [(ngModel)]="seachBankItemParam.itemType" (ionChange)="bankItem()">
                   <ion-select-option value="">全部</ion-select-option>
                   <ion-select-option [value]="item.gid" *ngFor="let item of bankItemTypes">{{item.value1}}
                   </ion-select-option>
@@ -355,9 +355,9 @@
           <div class="table_header">
             <span>交易时间</span>
             <span>状态</span>
-            <span>支出</span>
-            <span>收入</span>
-            <span>余额</span>
+            <span>支出(￥)</span>
+            <span>收入(￥)</span>
+            <span>余额(￥)</span>
           </div>
 
           <div class="table_body">
@@ -383,7 +383,7 @@
 
                   <ng-container *ngIf="item.actMoney<0">
                     <span>
-                      ￥{{item.actMoney}}
+                      {{item.actMoney}}
                     </span>
 
                     <span>
@@ -397,11 +397,11 @@
                     </span>
 
                     <span>
-                      ￥{{item.actMoney}}
+                      {{item.actMoney}}
                     </span>
                   </ng-container>
                   <span>
-                    ￥ {{item.afterMoney}}
+                    {{item.afterMoney}}
                   </span>
                 </div>
               </div>
@@ -416,30 +416,30 @@
             <div class="col02">
               <div class="row">
                 <span>充值：</span>
-                <span>0</span>
+                <span>{{sumByTime.chongzhi}}</span>
               </div>
 
               <div class="row">
                 <span>优惠：</span>
-                <span>0</span>
+                <span>{{sumByTime.youhui}}</span>
               </div>
             </div>
 
             <div class="col03">
               <div class="row">
                 <span>提现：</span>
-                <span>0</span>
+                <span>{{sumByTime.tixian}}</span>
               </div>
 
               <div class="row">
                 <span>返水：</span>
-                <span>0</span>
+                <span>{{sumByTime.fanshui}}</span>
               </div>
             </div>
 
             <div class="col04">
               <span>余额</span>
-              <span>￥0</span>
+              <span>￥{{userWallet.factMoney}}</span>
               <span>元</span>
             </div>
           </div>
@@ -450,7 +450,7 @@
             <div class="inner_tab_container_inner">
               <span *ngFor="let item of apiColumns.list"
                 [class]="item.colCode==seachReportParam.game_type ? 'active' : ''"
-                (click)="selectGameType(item.colCode)">{{item.colName}}投注记录</span>
+                (click)="selectGameType(item.colCode)">{{item.colName}}报表</span>
             </div>
           </div>
 
@@ -470,21 +470,21 @@
             <div class="table_content">
               <div class="total_amount">
                 <span>盈利总额：</span>
-                <span>0.00</span>
+                <span>{{selfReport.yingli}}</span>
               </div>
               <div class="amount_items">
                 <div class="amount_item">
-                  <span>0.00</span>
+                  <span>{{selfReport.bet}}</span>
                   <span>有效投注总额</span>
                 </div>
 
                 <div class="amount_item">
-                  <span>0.00</span>
+                  <span>{{selfReport.win}}</span>
                   <span>派彩总额</span>
                 </div>
 
                 <div class="amount_item">
-                  <span>0.00</span>
+                  <span>{{selfReport.xima}}</span>
                   <span>返点总额</span>
                 </div>
               </div>
@@ -509,28 +509,28 @@
           </div>
 
           <div class="table_body">
-            <div *ngFor="let item of vipLevelInfoArray" class="table_row">
-              <span>{{item.level}}</span>
-              <span>{{item.cumulative}}</span>
-              <span>{{item.promotion}}</span>
-              <span>{{item.week}}</span>
-              <span>{{item.month}}</span>
-              <span>{{item.cumulative_promotion}}</span>
+            <div *ngFor="let item of levelPresentArray" class="table_row">
+              <span>{{item.levelName}}</span>
+              <span>{{item.betWeight}}</span>
+              <span>{{item.jjLj}}</span>
+              <span>{{item.zLj}}</span>
+              <span>{{item.yLj}}</span>
+              <span>{{item.ljlj}}</span>
               <span>
-                <ng-container *ngIf="item.save_speed">
+                <ng-container *ngIf="item.vipGrade>3">
                   <img src="assets/image/personal_center/img_personal_center_vip_detail_selected_tag.png">
                 </ng-container>
 
-                <ng-container *ngIf="!item.save_speed">
+                <ng-container *ngIf="item.vipGrade<=3">
                   -
                 </ng-container>
               </span>
               <span>
-                <ng-container *ngIf="item.personal_service">
+                <ng-container *ngIf="item.vipGrade>2">
                   <img src="assets/image/personal_center/img_personal_center_vip_detail_selected_tag.png">
                 </ng-container>
 
-                <ng-container *ngIf="!item.personal_service">
+                <ng-container *ngIf="item.vipGrade<=2">
                   -
                 </ng-container>
               </span>

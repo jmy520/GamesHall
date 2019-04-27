@@ -18,6 +18,7 @@ export class PersonalCenterPage extends BaseView implements OnInit {
   currentLevelPager: number = 0;
   isEditBaseInfo: boolean = false;
   isEditContact: boolean = false;
+  jjljLeiji = 0;
 
   tabIndex: number = 0;
 
@@ -99,6 +100,13 @@ export class PersonalCenterPage extends BaseView implements OnInit {
     win: 0,
     xima: 0,
     yingli: 0
+  };
+
+  sumByTime = {
+    chongzhi: 0.0,
+    tixian: 0.0,
+    youhui: 0.0,
+    fanshui: 0.0
   };
 
 
@@ -277,6 +285,16 @@ export class PersonalCenterPage extends BaseView implements OnInit {
         this.showToast(errorMessage);
       } else {
         this.levelPresentArray = response.data;
+        const _this = this;
+        this.levelPresentArray.forEach((item, idx) => {
+          if (item.vipGrade === 1 ) {
+            item.ljlj = 0;
+          } else if (item.vipGrade === 2 ) {
+            item.ljlj = item.jjLj;
+          } else {
+            item.ljlj = item.jjLj + _this.levelPresentArray[idx - 1].ljlj;
+          }
+        });
       }
     }).catch(error => { });
   }
@@ -295,8 +313,10 @@ export class PersonalCenterPage extends BaseView implements OnInit {
   selectGameType(gameType) {
     if (this.tabIndex === 3) {
       this.seachReportParam.game_type = gameType;
+      this.getReports();
     } else {
       this.seachBetLogParam.gameType = gameType;
+      this.getBetLogs();
     }
   }
 
@@ -306,7 +326,6 @@ export class PersonalCenterPage extends BaseView implements OnInit {
 
 
   initTimeArray() {
-    const now: Date = new Date();
     this.timeSelectObjectArray.push({
       id: 0,
       txt: '全部',
@@ -314,6 +333,7 @@ export class PersonalCenterPage extends BaseView implements OnInit {
       endTimeStr: ''
     });
     for (let i = 0; i < this.timeSelectNumberArray.length; i++) {
+      const now: Date = new Date();
       const num = this.timeSelectNumberArray[i];
       const endTimeStr = this.datePipe.transform(now, 'yyyy-MM-dd HH:mm:ss');
       const endTimeShowStr = this.datePipe.transform(now, 'yyyy/MM/dd');
@@ -343,7 +363,7 @@ export class PersonalCenterPage extends BaseView implements OnInit {
     } else if (this.tabIndex === 3) {
       this.seachReportParam.insterTimeStart = this.myDay.startTimeStr;
       this.seachReportParam.InsterTimeEnd = this.myDay.endTimeStr;
-      // this.getBetLogs();
+      this.getBetLogs();
     }
   }
 
@@ -361,6 +381,7 @@ export class PersonalCenterPage extends BaseView implements OnInit {
         loadinginstan.dismiss();
       });
     });
+    this.getSumByTimes();
   }
 
   getBetLogs() {
@@ -387,6 +408,22 @@ export class PersonalCenterPage extends BaseView implements OnInit {
         this.showToast(errorMessage);
       } else {
         this.selfReport = response.data;
+      }
+    }).catch(error => { }).finally(() => {
+      loading.then((loadinginstan) => {
+        loadinginstan.dismiss();
+      });
+    });
+  }
+
+  getSumByTimes() {
+    const loading = super.showLoading('加载中...');
+    this.api.bankItemTongji(this.seachReportParam).then(response => {
+      const errorMessage = response.msg;
+      if (errorMessage) {
+        this.showToast(errorMessage);
+      } else {
+        this.sumByTime = response.data;
       }
     }).catch(error => { }).finally(() => {
       loading.then((loadinginstan) => {
@@ -485,5 +522,10 @@ export class PersonalCenterPage extends BaseView implements OnInit {
     } else {
       this.isEditContact = true;
     }
+  }
+
+  leiji(vl: number) {
+    this.jjljLeiji = this.jjljLeiji + vl;
+    return this.jjljLeiji;
   }
 }
