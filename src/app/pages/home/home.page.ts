@@ -7,6 +7,7 @@ import { BaseView } from 'src/common/base/BaseView';
 import { Runtime } from 'src/app/services/Runtime';
 import { ApiService } from 'src/app/services/api.service';
 import { PictureHelper } from 'src/common/helper/PictureHelper';
+import { MessageComponent } from 'src/app/components/message/message.component';
 
 @Component({
   selector: 'app-home',
@@ -111,7 +112,6 @@ export class HomePage extends BaseView {
 
   jumpToGamePage(gameGid: any) {
     if (!this.isLogined) {
-      // this.showToast('请先登录');
       this.presentLogin();
       return;
     }
@@ -149,7 +149,6 @@ export class HomePage extends BaseView {
 
   wallet() {
     if (!this.isLogined) {
-      // this.showToast('请先登录');
       this.presentLogin();
       return;
     }
@@ -249,7 +248,6 @@ export class HomePage extends BaseView {
 
   goSafeBox() {
     if (!this.isLogined) {
-      // this.showToast('请先登录');
       this.presentLogin();
       return;
     }
@@ -258,12 +256,20 @@ export class HomePage extends BaseView {
 
   goPromote() {
     if (!this.isLogined) {
-      // this.showToast('请先登录');
       this.presentLogin();
       return;
     }
     this.mRouter.navigate(['/promote']);
   }
 
-
+  showMessage() {
+    this.mModal.create({
+      component: MessageComponent,
+      cssClass: 'common_modal_dialog'
+    }).then(
+      modalInstance => {
+        modalInstance.present();
+      }
+    );
+  }
 }
