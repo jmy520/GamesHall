@@ -491,10 +491,6 @@
                     color: $main_color;
                     height: 6vh;
                     line-height: 6vh;
-                    ion-select{
-                      --padding-top:0px;
-                      color: $main_color;
-                    }
 
                     &>span{
                       display: inline-block;
@@ -655,8 +651,10 @@
                 }
 
                 ion-input{
-                  --padding-top: 0;
-                  --padding-bottom: 0;
+                  --padding-top: 1vh;
+                  --padding-bottom: 1vh;
+                  --padding-start: 2vh;
+                  --padding-end: 2vh;
                   display: inline-block;
                   box-sizing: border-box;
                   font-size: 3.6vh;
@@ -664,7 +662,6 @@
                   vertical-align: middle;
                   color: white;
                   width: calc(100% - 22vh);
-                  padding: 1vh 2vh;
                   overflow: hidden;
                   white-space: nowrap;
                   text-overflow: ellipsis;
