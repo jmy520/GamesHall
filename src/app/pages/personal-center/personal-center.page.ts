@@ -547,14 +547,14 @@ export class PersonalCenterPage extends BaseView implements OnInit {
       },
       cssClass: 'common_modal_dialog'
     }).then(modalInstance => {
-      modalInstance.onDidDismiss().then(data => {
-        if (!data) {
+      modalInstance.onDidDismiss().then(result => {
+        if (!result) {
           return;
         }
-        if (data == "男") {
+        if (result.data == "男") {
           this.selfInfpParam.sex = "男";
           this.runTime.user.user.userSex = "男";
-        } else if(data == "女") {
+        } else if(result.data == "女") {
           this.selfInfpParam.sex = "女";
           this.runTime.user.user.userSex = "女";
         }
