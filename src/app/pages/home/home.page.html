@@ -8,7 +8,7 @@
           <img src="assets/image/home/img_default_header.jpg">
         </div>
 
-        <div *ngIf="!isLogined" class="login_and_register">
+        <div *ngIf="runtime.user==null" class="login_and_register">
           <h4>游客</h4>
           <div class="jump_oper">
             <img src="assets/image/home/img_login_button.png" (click)="presentLogin()">
@@ -16,8 +16,8 @@
           </div>
         </div>
 
-        <div *ngIf="isLogined" class="name_and_level" (click)="goPersonalCenter()">
-          <h4>{{loginedUser ? loginedUser.user.userAccount : "游客"}}</h4>
+        <div *ngIf="runtime.user" class="name_and_level" (click)="goPersonalCenter()">
+          <h4>{{runtime.user ? runtime.user.user.userAccount : "游客"}}</h4>
           <div class="level">
             <img src="assets/image/home/icon_vip_icon_01.png">
             <img src="assets/image/home/icon_vip_text_01.png">
@@ -121,20 +121,20 @@
     </div>
 
     <div class="function_list">
-      <div class="function_item" (click)="mRouter.navigate(['/activity'])">
+      <div class="function_item" (click)="goactivity()">
         <img src="assets/image/home/icon_activity.png">
       </div>
 
-      <div class="function_item" (click)="mRouter.navigate(['/refresh-chip'])">
+      <div class="function_item" (click)="gorefreshChip()">
         <img src="assets/image/home/icon_refresh_chip.png">
       </div>
 
-      <div class="function_item" (click)="showMessage()">
-        <img src="assets/image/home/icon_message.png">
+      <div class="function_item">
+        <img src="assets/image/home/icon_message.png" (click)="goMessage()">
       </div>
 
-      <div class="function_item" (click)="mRouter.navigate(['/customer-service'])">
-        <img src="assets/image/home/icon_customer_service.png">
+      <div class="function_item">
+        <img src="assets/image/home/icon_customer_service.png" (click)="goCustomer()">
       </div>
 
       <div class="function_item" (click)="goSafeBox()">
@@ -142,12 +142,12 @@
       </div>
     </div>
 
-    <div class="withdrawal" (click)="mRouter.navigate(['/withdrawal'])">
+    <div class="withdrawal" (click)="gowithdrawal()">
       <img src="assets/image/home/icon_withdrawal.png">
     </div>
 
     <div class="recharge">
-      <img src="assets/image/home/icon_recharge.png" (click)="mRouter.navigate(['/recharge'])">
+      <img src="assets/image/home/icon_recharge.png" (click)="gorecharge()">
     </div>
   </div>
 </ion-footer>

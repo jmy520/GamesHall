@@ -15,7 +15,8 @@ export class SafeBoxPage extends BaseView implements OnInit {
 
   userWallet = { // 用户钱包对象
     factMoney: 0.0,
-    freezeMoney: 0.0
+    freezeMoney: 0.0,
+    payPwd: '111111'
   };
 
   bl = 0;
@@ -127,6 +128,10 @@ export class SafeBoxPage extends BaseView implements OnInit {
         this.showToast(errorMessage);
       } else {
         this.userWallet = response.data;
+        if (this.userWallet.payPwd === '111111') {
+          this.showToast('请先设置保险箱密码.');
+          this.mRouter.navigate(['/home']);
+        }
       }
     }).catch(error => { }).finally(() => {
       loading.then((loadinginstan) => {
@@ -151,14 +156,18 @@ export class SafeBoxPage extends BaseView implements OnInit {
     });
   }
 
-  tabBankItem() {
-    this.tabIndex = 2;
-    this.safeBoxSeachParam.page = 1;
-    this.safeBoxSeachParam.size = 6;
-    this.bankItemDatas();
+  tabBankItem(vl) {
+    this.runtime.payButtonVido();
+    if (vl === 2) {
+      this.safeBoxSeachParam.page = 1;
+      this.safeBoxSeachParam.size = 6;
+      this.bankItemDatas();
+    }
+    this.tabIndex = vl;
   }
 
   nextPage(page) {
+    this.runtime.payButtonVido();
     if ((this.safeBoxSeachParam.page + page) > 0 && (this.safeBoxSeachParam.page + page) <= this.bankItemObj.totalsPage) {
       this.safeBoxSeachParam.page = this.safeBoxSeachParam.page + page;
       this.bankItemDatas();
@@ -174,6 +183,7 @@ export class SafeBoxPage extends BaseView implements OnInit {
   }
 
   clearRange() {
+    this.runtime.payButtonVido();
     this.bl = 0;
     this.safeBoxActionParam.money = '0.0';
   }

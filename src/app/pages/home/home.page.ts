@@ -7,6 +7,7 @@ import { BaseView } from 'src/common/base/BaseView';
 import { Runtime } from 'src/app/services/Runtime';
 import { ApiService } from 'src/app/services/api.service';
 import { PictureHelper } from 'src/common/helper/PictureHelper';
+import { SafeBoxValidateComponent } from 'src/app/components/safe-box-validate/safe-box-validate.component';
 import { MessageComponent } from 'src/app/components/message/message.component';
 
 @Component({
@@ -15,9 +16,7 @@ import { MessageComponent } from 'src/app/components/message/message.component';
   styleUrls: ['./home.page.scss'],
 })
 export class HomePage extends BaseView {
-  isLogined = false;
 
-  loginedUser: any = null;
   currentGameType = 0;
 
   getGameTypeListParams: any = {
@@ -41,7 +40,8 @@ export class HomePage extends BaseView {
   gongaoList: any;
 
   userWallet: any = {
-    factMoney: 0.0
+    factMoney: 0.0,
+    payPwd: null
   };
 
   gongGaoSeachParam: any = {
@@ -71,11 +71,7 @@ export class HomePage extends BaseView {
   }
 
   ionViewDidEnter() {
-    this.loginedUser = this.runtime.user;
-    if (this.runtime.user) {
-      this.isLogined = true;
-    }
-
+    this.wallet();
     this.getGameTypeList();
 
     this.gameTypeArray.set("buyu_game", "assets/image/home/img_fishing_game_icon.png");
@@ -111,7 +107,9 @@ export class HomePage extends BaseView {
   }
 
   jumpToGamePage(gameGid: any) {
-    if (!this.isLogined) {
+    this.runtime.payButtonVido();
+    if (this.runtime.user == null) {
+      // this.showToast('请先登录');
       this.presentLogin();
       return;
     }
@@ -148,7 +146,9 @@ export class HomePage extends BaseView {
   }
 
   wallet() {
-    if (!this.isLogined) {
+    // this.runtime.payButtonVido();
+    if (this.runtime.user == null) {
+      // this.showToast('请先登录');
       this.presentLogin();
       return;
     }
@@ -214,12 +214,6 @@ export class HomePage extends BaseView {
       cssClass: 'common_modal_dialog'
     }).then(modalInstance => {
       modalInstance.present();
-      modalInstance.onDidDismiss().then(result => {
-        this.loginedUser = this.runtime.user;
-        if (this.loginedUser) {
-          this.isLogined = true;
-        }
-      }).catch(error => { });
     });
   }
 
@@ -247,22 +241,65 @@ export class HomePage extends BaseView {
   }
 
   goSafeBox() {
-    if (!this.isLogined) {
+    this.runtime.payButtonVido();
+    if (this.runtime.user == null) {
+      // this.showToast('请先登录');
       this.presentLogin();
+      return;
+    }
+    if (this.userWallet.payPwd === '111111') {
+      this.mModal.create({
+        component: SafeBoxValidateComponent,
+        cssClass: 'common_modal_dialog'
+      }).then(modalInstance => {
+        modalInstance.present();
+        modalInstance.onDidDismiss().then(result => {
+          this.wallet();
+        }).catch(error => { });
+      });
       return;
     }
     this.mRouter.navigate(['/safe-box']);
   }
 
   goPromote() {
-    if (!this.isLogined) {
+    this.runtime.payButtonVido();
+    if (this.runtime.user == null) {
+      // this.showToast('请先登录');
       this.presentLogin();
       return;
     }
     this.mRouter.navigate(['/promote']);
   }
 
-  showMessage() {
+
+  goPersonalCenter() {
+    this.runtime.payButtonVido();
+    if (this.runtime.user == null) {
+      // this.showToast('请先登录');
+      this.presentLogin();
+      return;
+    }
+    this.mRouter.navigate(['/personal-center']);
+  }
+
+  goactivity() {
+    this.runtime.payButtonVido();
+    if (this.runtime.user == null) {
+      // this.showToast('请先登录');
+      this.presentLogin();
+      return;
+    }
+    this.mRouter.navigate(['/activity']);
+  }
+
+  goMessage() {
+    this.runtime.payButtonVido();
+    if (this.runtime.user == null) {
+      // this.showToast('请先登录');
+      this.presentLogin();
+      return;
+    }
     this.mModal.create({
       component: MessageComponent,
       cssClass: 'common_modal_dialog'
@@ -273,12 +310,45 @@ export class HomePage extends BaseView {
     );
   }
 
-  goPersonalCenter() {
-    if (!this.isLogined) {
+  goCustomer() {
+    this.runtime.payButtonVido();
+    if (this.runtime.user == null) {
+      // this.showToast('请先登录');
       this.presentLogin();
       return;
     }
-    this.mRouter.navigate(['/personal-center']);
+    this.mRouter.navigate(['/customer-service']);
   }
-  
+
+  gorefreshChip() {
+    this.runtime.payButtonVido();
+    if (this.runtime.user == null) {
+      // this.showToast('请先登录');
+      this.presentLogin();
+      return;
+    }
+    this.mRouter.navigate(['/refresh-chip']);
+  }
+
+  gowithdrawal() {
+    this.runtime.payButtonVido();
+    if (this.runtime.user == null) {
+      // this.showToast('请先登录');
+      this.presentLogin();
+      return;
+    }
+    this.mRouter.navigate(['/withdrawal']);
+  }
+
+  gorecharge() {
+    this.runtime.payButtonVido();
+    if (this.runtime.user == null) {
+      // this.showToast('请先登录');
+      this.presentLogin();
+      return;
+    }
+    this.mRouter.navigate(['/recharge']);
+  }
+
+
 }

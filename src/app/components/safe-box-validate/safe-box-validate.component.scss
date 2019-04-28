@@ -73,6 +73,7 @@
         }
 
         &>.password_content{
+          position: relative;
           width: calc(100% - 18vw);
           height: 100%;
           float: left;
@@ -88,21 +89,22 @@
             background-position: right;
             background-size: auto 100%;
             text-align: center;
-
-            &>input{
-              width: 90%;
-              height: 90%;
-              line-height: 100%;
-              outline: none;
-              border: none;
-              text-align: center;
-              background: transparent;
-              color: white;
-              font-size: 3.6vh;
-    
-              &:-webkit-autofill { 
-                box-shadow: 0 0 0px 1000px $main_color inset;
-              }
+          }
+          &>input{
+            left: 0;
+            width: 0;
+            height: 0;
+            line-height: 0;
+            position: absolute;
+            outline: none;
+            border: none;
+            text-align: center;
+            background: transparent;
+            color:transparent;
+            caret-color:transparent;
+  
+            &:-webkit-autofill { 
+              box-shadow: 0 0 0px 1000px $main_color inset;
             }
           }
         }
@@ -129,6 +131,7 @@
         }
 
         &>.repassword_content{
+          position: relative;
           width: calc(100% - 18vw);
           height: 100%;
           float: left;
@@ -144,21 +147,22 @@
             background-position: right;
             background-size: auto 100%;
             text-align: center;
-
-            &>input{
-              width: 90%;
-              height: 90%;
-              line-height: 100%;
-              outline: none;
-              border: none;
-              text-align: center;
-              background: transparent;
-              color: white;
-              font-size: 3.6vh;
-    
-              &:-webkit-autofill { 
-                box-shadow: 0 0 0px 1000px $main_color inset;
-              }
+          }
+          &>input{
+            left: 0;
+            width: 0;
+            height: 0;
+            line-height: 0;
+            position: absolute;
+            outline: none;
+            border: none;
+            text-align: center;
+            background: transparent;
+            color:transparent;
+            caret-color:transparent;
+  
+            &:-webkit-autofill { 
+              box-shadow: 0 0 0px 1000px $main_color inset;
             }
           }
         }

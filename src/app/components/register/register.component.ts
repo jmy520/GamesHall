@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ModalController, ToastController, LoadingController } from '@ionic/angular';
 import { BaseView } from 'src/common/base/BaseView';
 import { ApiService } from 'src/app/services/api.service';
+import { Runtime } from 'src/app/services/Runtime';
 
 
 @Component({
@@ -29,6 +30,7 @@ export class RegisterComponent extends BaseView implements OnInit {
     public mLoading: LoadingController,
     public mToast: ToastController,
     public mModal: ModalController,
+    public runtime: Runtime,
     public api: ApiService) {
     super(mLoading, mToast, mModal);
   }
@@ -36,6 +38,7 @@ export class RegisterComponent extends BaseView implements OnInit {
   ngOnInit() { }
 
   sendValidCode() {
+    this.runtime.payButtonVido();
     this.sendValidateCodeParams.phoneNo = this.registerParams.phoneNo;
     this.api.fetchValidateCode(this.sendValidateCodeParams).then(response => {
       const hasError = response.hashError;
@@ -65,6 +68,7 @@ export class RegisterComponent extends BaseView implements OnInit {
   }
 
   register() {
+    this.runtime.payButtonVido();
     this.showLoading("请稍后...");
     this.api.register(this.registerParams).then(response => {
       const hasError = response.hashError;

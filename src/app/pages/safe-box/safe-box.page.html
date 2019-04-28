@@ -13,15 +13,15 @@
       <div class="safe_box_type_list_container">
         <div class="list_inner">
 
-          <div [class]="tabIndex == 0 ? 'list_item active' : 'list_item'" (click)="tabIndex = 0">
+          <div [class]="tabIndex == 0 ? 'list_item active' : 'list_item'" (click)="tabBankItem(0)">
             <img src="assets/image/safe_box/img_deposit_icon.png">转入
           </div>
 
-          <div [class]="tabIndex == 1 ? 'list_item active' : 'list_item'" (click)="tabIndex = 1">
+          <div [class]="tabIndex == 1 ? 'list_item active' : 'list_item'" (click)="tabBankItem(1)">
             <img src="assets/image/safe_box/img_take_out_icon.png">取出
           </div>
 
-          <div [class]="tabIndex == 2 ? 'list_item active' : 'list_item'" (click)="tabBankItem()">
+          <div [class]="tabIndex == 2 ? 'list_item active' : 'list_item'" (click)="tabBankItem(2)">
             <img src="assets/image/safe_box/img_detail_icon.png">明细
           </div>
 

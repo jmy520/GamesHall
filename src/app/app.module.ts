@@ -66,6 +66,7 @@ import { SingleSelectComponent } from './components/single-select/single-select.
     DateUtile,
     SafeBox,
     UserStore,
+    HTMLAudioElement,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]

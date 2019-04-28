@@ -8,23 +8,23 @@
 
     <div class="dialog_content_container">
       <div class="tabs">
-        <img (click)="tabIndex = 0" [src]="tabIndex == 0 ? 'assets/image/message/img_message_tab00_selected_bg.png' : 'assets/image/message/img_message_tab00_unselect_bg.png'">
+        <img (click)="tabSelect(339)" [src]="gongGaoSeachParam.colGid == 339 ? 'assets/image/message/img_message_tab00_selected_bg.png' : 'assets/image/message/img_message_tab00_unselect_bg.png'">
 
-        <img (click)="tabIndex = 1" [src]="tabIndex == 1 ? 'assets/image/message/img_message_tab01_selected_bg.png' : 'assets/image/message/img_message_tab01_unselect_bg.png'">
+        <img (click)="tabSelect(340)" [src]="gongGaoSeachParam.colGid == 340 ? 'assets/image/message/img_message_tab01_selected_bg.png' : 'assets/image/message/img_message_tab01_unselect_bg.png'">
       </div>
 
       <div class="message_list_container">
         <div class="message_list_inner">
-          <div class="message_item">
+          <div class="message_item" *ngFor="let item of gongaoList">
             <div class="title_row">
-              <span>383棋牌</span>
-              <span>2019-03-28 08:28</span>
+              <span>{{item.title}}</span>
+              <span>{{item.showTime}}</span>
             </div>
-            <div class="subtitle">
+            <!-- <div class="subtitle">
               幸运降临！最高好运得主86880元
-            </div>
+            </div> -->
             <div class="message_content">
-              幸运降临，好运到你！最高可获86880元好运金！本轮亿万彩金已经派送完成！请各位亲们登录查看一下你的额度变动哦！感谢您长期对我们的支持与信任！祝各位老铁好运连连！
+                {{item.contentTxt}}
             </div>
           </div>
         </div>

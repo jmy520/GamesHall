@@ -132,6 +132,7 @@ export class PromotePage extends BaseView implements OnInit {
   }
 
   nextPage(page) {
+    this.runtime.payButtonVido();
     if ((this.seachParam.page + page) > 0 && (this.seachParam.page + page) <= this.homeData.totalsPage) {
       this.seachParam.page = this.seachParam.page + page;
       if (this.tabIndex === 1) {
@@ -204,6 +205,7 @@ export class PromotePage extends BaseView implements OnInit {
   }
 
   switchTab(tabIndex: number) {
+    this.runtime.payButtonVido();
     this.seachParam = {
       page: 1,
       size: 7,

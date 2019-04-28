@@ -213,4 +213,9 @@ export class ApiService {
     return this.buildPostPromise('/front/bankItemTongji', params, null, null, null, {});
   }
 
+  /** 设置支付密码 */
+  setPayPwd(params): Promise<any> {
+    return this.buildPostPromise('/front/setPayPwd', params, null, null, null, {});
+  }
+
 }

@@ -53,6 +53,7 @@ export class WithdrawalPage extends BaseView implements OnInit {
   }
 
   clearMoney() {
+    this.runtime.payButtonVido();
     this.withDrawalParam.money = '';
   }
   cashIndex() {
