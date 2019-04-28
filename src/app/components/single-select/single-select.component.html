@@ -1,0 +1,20 @@
+<div class="content_container">
+    <div class="dialog_container">
+      <div class="header">
+        <img src="assets/image/single_select/img_dialog_single_select_title.png" class="title">
+      </div>
+  
+      <img class="split_line" src="assets/image/single_select/img_split_line.png">
+  
+      <div class="dialog_content_container">
+        <div class="single_select_list_container">
+          <div class="single_select_list_inner">
+            <div *ngFor="let item of itemsData" (click)="onSelectItem(item)" class="single_select_item">
+              {{item}}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <img src="assets/image/single_select/img_close_button.png" class="close_button" (click)="dismissDialog()">
+  </div>

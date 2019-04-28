@@ -53,7 +53,7 @@
             </div>
           </div>
 
-          <div class="binding_ic_card">
+          <div *ngIf="!isCardBinded" class="binding_ic_card">
             <img src="assets/image/withdrawal/img_ic_card_default.png">
             <div>
               <h4>
@@ -65,6 +65,17 @@
             </div>
             <div class="binding_button">
               绑定银行卡
+            </div>
+          </div>
+
+          <div *ngIf="isCardBinded" class="current_card_info">
+            <div class="row01">
+              <img src="assets/image/withdrawal/img_withdrawal_bank_item_01_icon.png">
+              <span>邮政银行</span>
+              <span>更换银行卡></span>
+            </div>
+            <div class="row02">
+              6212********3682
             </div>
           </div>
 

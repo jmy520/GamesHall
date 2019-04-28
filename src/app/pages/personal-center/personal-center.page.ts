@@ -7,6 +7,7 @@ import { DatePipe } from '@angular/common';
 import { DateUtile } from 'src/common/helper/DateUtile';
 import { ApiService } from 'src/app/services/api.service';
 import { LoginComponent } from 'src/app/components/login/login.component';
+import { SingleSelectComponent } from 'src/app/components/single-select/single-select.component';
 
 @Component({
   selector: 'app-personal-center',
@@ -287,9 +288,9 @@ export class PersonalCenterPage extends BaseView implements OnInit {
         this.levelPresentArray = response.data;
         const _this = this;
         this.levelPresentArray.forEach((item, idx) => {
-          if (item.vipGrade === 1 ) {
+          if (item.vipGrade === 1) {
             item.ljlj = 0;
-          } else if (item.vipGrade === 2 ) {
+          } else if (item.vipGrade === 2) {
             item.ljlj = item.jjLj;
           } else {
             item.ljlj = item.jjLj + _this.levelPresentArray[idx - 1].ljlj;
@@ -435,15 +436,15 @@ export class PersonalCenterPage extends BaseView implements OnInit {
 
   tabSelect(tabIndex) {
     this.runTime.payButtonVido();
-      this.tabIndex = tabIndex;
-      if (this.tabIndex === 0) {
-      } else if (this.tabIndex === 1) {
-        this.getBetLogs();
-      } else if (this.tabIndex === 2) {
-        this.bankItem();
-      } else if (this.tabIndex === 3) {
-        this.getReports();
-      }
+    this.tabIndex = tabIndex;
+    if (this.tabIndex === 0) {
+    } else if (this.tabIndex === 1) {
+      this.getBetLogs();
+    } else if (this.tabIndex === 2) {
+      this.bankItem();
+    } else if (this.tabIndex === 3) {
+      this.getReports();
+    }
   }
 
   ngOnInit() {
@@ -532,4 +533,35 @@ export class PersonalCenterPage extends BaseView implements OnInit {
     this.jjljLeiji = this.jjljLeiji + vl;
     return this.jjljLeiji;
   }
+
+  selectSex() {
+    console.log(this.runTime.user);
+    
+    if (!this.isEditBaseInfo) {
+      return;
+    }
+    this.mModal.create({
+      component: SingleSelectComponent,
+      componentProps: {
+        itemsData: ["男", "女"]
+      },
+      cssClass: 'common_modal_dialog'
+    }).then(modalInstance => {
+      modalInstance.onDidDismiss().then(data => {
+        if (!data) {
+          return;
+        }
+        if (data == "男") {
+          this.selfInfpParam.sex = "男";
+          this.runTime.user.user.userSex = "男";
+        } else if(data == "女") {
+          this.selfInfpParam.sex = "女";
+          this.runTime.user.user.userSex = "女";
+        }
+      }).catch(error => { });
+      modalInstance.present();
+    });
+  }
+
+
 }

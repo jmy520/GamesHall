@@ -478,7 +478,6 @@
                       &:nth-of-type(2){
                         padding: 0 2vh;
                         color: white;
-                        margin-top: 1vh;
                         @include getBorder(all, 0.55px, transparent);
                       }
                     }
@@ -508,7 +507,6 @@
                       &:nth-of-type(2){
                         padding: 0 2vh;
                         color: white;
-                        margin-top: 1vh;
                         @include getBorder(all, 0.55px, transparent);
 
                         &.active{
@@ -539,12 +537,18 @@
                       &:nth-of-type(2){
                         padding: 0 2vh;
                         color: white;
-                        margin-top: 1vh;
                         @include getBorder(all, 0.55px, transparent);
 
                         &.active{
                           @include getBorder(all, 0.55px, $main_color);
                         }
+                      }
+
+                      ion-datetime{
+                        min-height: 6vh;
+                        margin-top: 0;
+                        margin-bottom: o;
+                        padding: 0 2vh;
                       }
                     }
                   }
@@ -648,6 +652,23 @@
                       @include getBorder(all, 0.55px, $main_color);
                     }
                   }
+                }
+
+                ion-input{
+                  --padding-top: 0;
+                  --padding-bottom: 0;
+                  display: inline-block;
+                  box-sizing: border-box;
+                  font-size: 3.6vh;
+                  border-radius: 2.8vh;
+                  vertical-align: middle;
+                  color: white;
+                  width: calc(100% - 22vh);
+                  padding: 1vh 2vh;
+                  overflow: hidden;
+                  white-space: nowrap;
+                  text-overflow: ellipsis;
+                  @include getBorder(all, 0.55px, $main_color);
                 }
               }
             }

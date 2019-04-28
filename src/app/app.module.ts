@@ -29,6 +29,7 @@ import { ReceiveCommisionComponent } from './components/receive-commision/receiv
 import { WithdrawalRecordComponent } from './components/withdrawal-record/withdrawal-record.component';
 import { SafeBoxValidateComponent } from './components/safe-box-validate/safe-box-validate.component';
 import { MessageComponent } from './components/message/message.component';
+import { SingleSelectComponent } from './components/single-select/single-select.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { MessageComponent } from './components/message/message.component';
     ReceiveCommisionComponent,
     WithdrawalRecordComponent,
     SafeBoxValidateComponent,
-    MessageComponent
+    MessageComponent,
+    SingleSelectComponent
   ],
 
   entryComponents: [
@@ -47,7 +49,8 @@ import { MessageComponent } from './components/message/message.component';
     ReceiveCommisionComponent,
     WithdrawalRecordComponent,
     SafeBoxValidateComponent,
-    MessageComponent
+    MessageComponent,
+    SingleSelectComponent
   ],
 
   imports: [BrowserModule, IonicModule.forRoot(), IonicStorageModule.forRoot(), AppRoutingModule, FormsModule, HttpClientModule],

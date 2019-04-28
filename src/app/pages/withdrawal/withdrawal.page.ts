@@ -12,9 +12,10 @@ import { WithdrawalRecordComponent } from 'src/app/components/withdrawal-record/
   styleUrls: ['./withdrawal.page.scss'],
 })
 export class WithdrawalPage extends BaseView implements OnInit {
-  tabIndex = 0;
-  innerTabIndex = 0;
-  isAddingBankCard = false;
+  tabIndex: number = 0;
+  innerTabIndex: number = 0;
+  isAddingBankCard: boolean = false;
+  isCardBinded: boolean = true;
 
   userWallet = {
     factMoney: 0.0,

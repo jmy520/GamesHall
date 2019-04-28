@@ -248,6 +248,55 @@
           }
         }
 
+        &>.current_card_info{
+          width: 100%;
+          height: 22vh;
+          margin-top: 2vh;
+          background: url("src/assets/image/withdrawal/img_withdrawal_bank_item_01_bg.png") no-repeat;
+          background-size: 100% 100%;
+          padding: 2vh 3vh;
+
+          &>.row01{
+            width: 100%;
+            height: auto;
+
+            &>img{
+              width: 6vh;
+              height: 6vh;
+              vertical-align: middle;
+            }
+
+            &>span{
+              font-size: 3.6vh;
+              vertical-align: middle;
+              display: inline-block;
+              white-space: nowrap;
+              text-overflow: ellipsis;
+              box-sizing: border-box;
+
+              &:nth-of-type(1){
+                width: 60%;
+                text-align: left;
+                color: white;
+              }
+
+              &:nth-of-type(2){
+                width: calc(40% - 6vh);
+                text-align: right;
+                color: #CCC;
+              }
+            }
+          }
+
+          &>.row02{
+            width: 100%;
+            padding-left: 6vh;
+            font-size: 3.6vh;
+            color: white;
+            margin-top: 3vh;
+          }
+        }
+
         &>.confirm_withdrawal{
           display: block;
           width: auto;

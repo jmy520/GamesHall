@@ -187,17 +187,23 @@
                     </div>
 
                     <div class="sex">
-                      <span *ngIf="!isEditBaseInfo">性别：</span>
-                      <span *ngIf="!isEditBaseInfo">{{runTime.user ? runTime.user.user.userSex:''}}</span>
-                      <ion-select placeholder="选择性别" *ngIf="isEditBaseInfo" [(ngModel)]="selfInfpParam.sex">
-                        <ion-select-option value="男">男</ion-select-option>
-                        <ion-select-option value="女">女</ion-select-option>
-                      </ion-select>
+                      <span>性别：</span>
+                      <span [class]="isEditBaseInfo ? 'active' : ''"
+                        (click)="selectSex()">{{runTime.user && runTime.user.user.userSex ? runTime.user.user.userSex : isEditBaseInfo ? '请选择' : '未填写'}}</span>
                     </div>
 
                     <div class="birthday">
                       <span>生日：</span>
-                      <span [class]="isEditBaseInfo ? 'active' : ''">{{runTime.user ?runTime.user.user.userBirthday:''}}</span>
+                      <ng-container *ngIf="isEditBaseInfo">
+                        <span [class]="isEditBaseInfo ? 'active' : ''">
+                          <ion-datetime display-format="YYYY/MM/DD"></ion-datetime>
+                        </span>
+                      </ng-container>
+                      <ng-container *ngIf="!isEditBaseInfo">
+                        <span [class]="isEditBaseInfo ? 'active' : ''">
+                          {{runTime.user && runTime.user.user.userBirthday ? runTime.user.user.userBirthday : '未填写'}}
+                        </span>
+                      </ng-container>
                     </div>
                   </div>
                 </div>
@@ -221,24 +227,24 @@
               <div class="info_content_container">
                 <div class="info_item">
                   <span>邮箱：</span>
-                  <span *ngIf="!isEditContact">{{runTime.user?runTime.user.user.userEmail:''}}</span>
+                  <span *ngIf="!isEditContact">{{runTime.user && runTime.user.user.userEmail ? runTime.user.user.userEmail : '未填写'}}</span>
                   <ion-input type="email" *ngIf="isEditContact" [(ngModel)]="selfInfpParam.email"></ion-input>
                 </div>
 
                 <div class="info_item">
                   <span>电话：</span>
-                  <span>{{runTime.user?runTime.user.user.userPhone:''}}</span>
+                  <span>{{runTime.user && runTime.user.user.userPhone ? runTime.user.user.userPhone : '未填写'}}</span>
                 </div>
 
                 <div class="info_item">
                   <span>QQ：</span>
-                  <span *ngIf="!isEditContact">{{runTime.user?runTime.user.user.userQq:''}}</span>
+                  <span *ngIf="!isEditContact">{{runTime.user && runTime.user.user.userQq ? runTime.user.user.userQq : '未填写'}}</span>
                   <ion-input type="number" *ngIf="isEditContact" [(ngModel)]="selfInfpParam.qq"></ion-input>
                 </div>
 
                 <div class="info_item">
                   <span>微信：</span>
-                  <span *ngIf="!isEditContact">{{runTime.user?runTime.user.user.userWx:''}}</span>
+                  <span *ngIf="!isEditContact">{{runTime.user && runTime.user.user.userWx ? runTime.user.user.userWx : '未填写'}}</span>
                   <ion-input type="text" *ngIf="isEditContact" [(ngModel)]="selfInfpParam.wx"></ion-input>
                 </div>
               </div>
@@ -271,7 +277,8 @@
               <div class="filter02">
                 <span>游戏平台：</span>
                 <div class="handler">
-                  <ion-select okText="确定" cancelText="取消" [(ngModel)]="seachBetLogParam.apiCode" (ionChange)="getBetLogs()">
+                  <ion-select okText="确定" cancelText="取消" [(ngModel)]="seachBetLogParam.apiCode"
+                    (ionChange)="getBetLogs()">
                     <ion-select-option value="">全部</ion-select-option>
                     <ion-select-option [value]="item.api_code" *ngFor="let item of apiInfos.list">{{item.api_name}}
                     </ion-select-option>
@@ -302,15 +309,15 @@
                 <div class="table_content_inner">
                   <div class="table_content_row" *ngFor="let item of betLogs.list">
                     <span>
-                        {{item.GameEndTime | date:'yy/MM/dd HH:mm'}}
+                      {{item.GameEndTime | date:'yy/MM/dd HH:mm'}}
                     </span>
 
                     <span>
-                        {{item.game_order}}
+                      {{item.game_order}}
                     </span>
 
                     <span>
-                        {{item.game_name}}
+                      {{item.game_name}}
                     </span>
 
                     <span>
@@ -318,7 +325,7 @@
                     </span>
 
                     <span>
-                        {{item.profit}}
+                      {{item.profit}}
                     </span>
                   </div>
                 </div>
@@ -343,7 +350,8 @@
             <div class="filter02">
               <span>交易状态：</span>
               <div class="handler">
-                <ion-select okText="确定" cancelText="取消" [(ngModel)]="seachBankItemParam.itemType" (ionChange)="bankItem()">
+                <ion-select okText="确定" cancelText="取消" [(ngModel)]="seachBankItemParam.itemType"
+                  (ionChange)="bankItem()">
                   <ion-select-option value="">全部</ion-select-option>
                   <ion-select-option [value]="item.gid" *ngFor="let item of bankItemTypes">{{item.value1}}
                   </ion-select-option>
