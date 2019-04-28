@@ -434,6 +434,29 @@ export class PersonalCenterPage extends BaseView implements OnInit {
     });
   }
 
+  updateInfo() {
+    const loading = super.showLoading('处理中...');
+    this.api.updataInfo(this.selfInfpParam).then(response => {
+      const errorMessage = response.msg;
+      if (errorMessage) {
+        this.showToast(errorMessage);
+      } else {
+        this.showToast('成功!');
+        this.runTime.user.user.nickName = this.selfInfpParam.nickName;
+        this.runTime.user.user.userSex = this.selfInfpParam.sex;
+        this.runTime.user.user.userBirthday = this.selfInfpParam.birthday;
+        this.runTime.user.user.userEmail = this.selfInfpParam.email;
+        this.runTime.user.user.userQq = this.selfInfpParam.qq;
+        this.runTime.user.user.userWx = this.selfInfpParam.wx;
+        this.runTime.postLogin(this.runTime.user);
+      }
+    }).catch(error => { }).finally(() => {
+      loading.then((loadinginstan) => {
+        loadinginstan.dismiss();
+      });
+    });
+  }
+
   tabSelect(tabIndex) {
     this.runTime.payButtonVido();
     this.tabIndex = tabIndex;
@@ -512,7 +535,7 @@ export class PersonalCenterPage extends BaseView implements OnInit {
     this.runTime.payButtonVido();
     if (this.isEditBaseInfo) {
       this.isEditBaseInfo = false;
-      // TODO 提交修改
+      this.updateInfo();
     } else {
       this.isEditBaseInfo = true;
     }
@@ -522,8 +545,7 @@ export class PersonalCenterPage extends BaseView implements OnInit {
     this.runTime.payButtonVido();
     if (this.isEditContact) {
       this.isEditContact = false;
-      // TODO 提交修改
-
+      this.updateInfo();
     } else {
       this.isEditContact = true;
     }
@@ -536,14 +558,13 @@ export class PersonalCenterPage extends BaseView implements OnInit {
 
   selectSex() {
     console.log(this.runTime.user);
-    
     if (!this.isEditBaseInfo) {
       return;
     }
     this.mModal.create({
       component: SingleSelectComponent,
       componentProps: {
-        itemsData: ["男", "女"]
+        itemsData: ['男', '女']
       },
       cssClass: 'common_modal_dialog'
     }).then(modalInstance => {
@@ -551,12 +572,12 @@ export class PersonalCenterPage extends BaseView implements OnInit {
         if (!result) {
           return;
         }
-        if (result.data == "男") {
-          this.selfInfpParam.sex = "男";
-          this.runTime.user.user.userSex = "男";
-        } else if(result.data == "女") {
-          this.selfInfpParam.sex = "女";
-          this.runTime.user.user.userSex = "女";
+        if (result.data === '男') {
+          this.selfInfpParam.sex = '男';
+          this.runTime.user.user.userSex = '男';
+        } else if(result.data === '女') {
+          this.selfInfpParam.sex = '女';
+          this.runTime.user.user.userSex = '女';
         }
       }).catch(error => { });
       modalInstance.present();

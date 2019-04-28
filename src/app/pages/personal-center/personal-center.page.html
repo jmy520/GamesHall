@@ -182,8 +182,7 @@
                   <div class="row02">
                     <div class="name">
                       <span>姓名：</span>
-                      <span *ngIf="!isEditContact">{{runTime.user?runTime.user.user.nickName:''}}</span>
-                      <ion-input type="text" *ngIf="isEditContact" [(ngModel)]="selfInfpParam.nickName"></ion-input>
+                      <span >{{runTime.user?runTime.user.user.nickName:''}}</span>
                     </div>
 
                     <div class="sex">
@@ -196,7 +195,7 @@
                       <span>生日：</span>
                       <ng-container *ngIf="isEditBaseInfo">
                         <span [class]="isEditBaseInfo ? 'active' : ''">
-                          <ion-datetime placeholder="选择日期" display-format="YYYY/MM/DD"></ion-datetime>
+                          <ion-datetime placeholder="选择日期" display-format="YYYY/MM/DD" [(ngModel)]="selfInfpParam.birthday"></ion-datetime>
                         </span>
                       </ng-container>
                       <ng-container *ngIf="!isEditBaseInfo">

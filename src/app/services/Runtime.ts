@@ -7,8 +7,8 @@ import { Platform } from '@ionic/angular';
 @Injectable()
 export class Runtime {
     user: User = null;
-    butAudioElement: HTMLAudioElement;
-    bgAudioElement: HTMLAudioElement;
+    butAudioElement: HTMLAudioElement = null;
+    bgAudioElement: HTMLAudioElement  = null;
 
     isNaticeAudio = false;
 
@@ -19,22 +19,23 @@ export class Runtime {
       // tslint:disable-next-line:max-line-length
       // this.nativeAudio.preloadComplex('bgAudio', RestConfig.BASE_VIDIO_URL + '/bg-audio.wav', 1, 1, 0).then(this.onSuccess, this.onError);
       console.log('---->' + this.platform.platforms());
-      if (this.platform.is('android') || this.platform.is('ios')) {
+      if (this.platform.is('android') || this.platform.is('ios')  || this.platform.is('mobileweb')) {
         // tslint:disable-next-line:max-line-length
-        this.nativeAudio.preloadComplex('butAudio', RestConfig.BASE_VIDIO_URL + '/bubble-2.mp3', 1, 1, 0).then(this.onSuccess, this.onError).catch(() => {
+        this.nativeAudio.preloadComplex('butAudio', 'assets/vido/bubble-2.mp3', 1, 1, 0).then(this.onSuccess, this.onError).catch(() => {
           console.log('butAudio catch');
         });
         this.nativeAudio.preloadComplex('bgAudio', 'assets/vido/bg-audio.wav', 1, 1, 0).then(this.onSuccess, this.onError).catch(() => {
-          console.log('bgAudio catch');
+          this.nativeAudio.play('bgAudio');
         });
       } else {
         if (this.butAudioElement == null) {
           this.butAudioElement = document.createElement('audio');
-          this.butAudioElement.setAttribute('src', RestConfig.BASE_VIDIO_URL + '/bubble-2.mp3');
+          this.butAudioElement.setAttribute('src', 'assets/vido/bubble-2.mp3');
         }
         if (this.bgAudioElement == null) {
           this.bgAudioElement = document.createElement('audio');
-          this.bgAudioElement.setAttribute('src', RestConfig.BASE_VIDIO_URL + '/bg-audio.wav');
+          this.bgAudioElement.setAttribute('src', 'assets/vido/bg-audio.wav');
+          this.bgAudioElement.play();
         }
       }
     }
@@ -49,11 +50,11 @@ export class Runtime {
       console.log('onError' + val);
       if (this.butAudioElement == null) {
         this.butAudioElement = document.createElement('audio');
-        this.butAudioElement.setAttribute('src', RestConfig.BASE_VIDIO_URL + '/bubble-2.mp3');
+        this.butAudioElement.setAttribute('src', 'assets/vido/bubble-2.mp3');
       }
       if (this.bgAudioElement == null) {
         this.bgAudioElement = document.createElement('audio');
-        this.bgAudioElement.setAttribute('src', RestConfig.BASE_VIDIO_URL + '/bg-audio.wav');
+        this.bgAudioElement.setAttribute('src', 'assets/vido/bg-audio.wav');
       }
     }
 
@@ -77,7 +78,7 @@ export class Runtime {
   }
 
   payButtonVido() {
-    if (this.platform.is('android') || this.platform.is('ios')) {
+    if (this.platform.is('android') || this.platform.is('ios') || this.platform.is('mobileweb')) {
       if (this.isNaticeAudio) {
         this.nativeAudio.play('butAudio').then(() => {
           console.log('butAudio--->play');
@@ -96,31 +97,6 @@ export class Runtime {
     }
    }
 
-  payBgVido() {
-    if (this.platform.is('android') || this.platform.is('ios')) {
-      if (this.isNaticeAudio) {
-        this.nativeAudio.loop('bgAudio').then(() => {
-          console.log('bgAudio--->loop');
-        }).catch(() => {
-          console.log('bgAudio loop catch');
-        });
-        // this.nativeAudio.play('bgAudio').then(() => {
-        //   console.log('bgAudio--->play');
-        // }).catch(() => {
-        //   console.log('bgAudio play catch');
-        // });
-      } else {
-        if (this.bgAudioElement) {
-          this.bgAudioElement.play();
-        }
-      }
-    } else {
-      if (this.bgAudioElement) {
-        this.bgAudioElement.play();
-      }
-    }
-  }
-
   /**
    *  设置音量
    * @param type 1 背景音量设置 0 按钮音效音量
@@ -128,23 +104,23 @@ export class Runtime {
    */
   setVolume(type: Number = 1, value: number = 1) {
      if (type === 1) {// 背景音乐
-      if (this.platform.is('android') || this.platform.is('ios')) {
+      if (this.platform.is('android') || this.platform.is('ios')  || this.platform.is('mobileweb')) {
         if (this.isNaticeAudio) {
           this.nativeAudio.setVolumeForComplexAsset('bgAudio', value);
         } else {
           this.bgAudioElement.volume = value;
         }
-      } else if (this.platform.is('mobileweb')) {
+      } else {
         this.bgAudioElement.volume = value;
       }
      } else if (type === 0) {// 按钮音效
-      if (this.platform.is('android') || this.platform.is('ios')) {
+      if (this.platform.is('android') || this.platform.is('ios')  || this.platform.is('mobileweb')) {
         if (this.isNaticeAudio) {
           this.nativeAudio.setVolumeForComplexAsset('butAudio', value);
         } else {
           this.butAudioElement.volume = value;
         }
-      } else if (this.platform.is('mobileweb')) {
+      } else {
         this.butAudioElement.volume = value;
       }
      }

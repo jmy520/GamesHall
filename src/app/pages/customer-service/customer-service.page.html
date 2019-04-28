@@ -13,22 +13,22 @@
       <div class="customer_service_type_list_container">
         <div class="list_inner">
 
-          <div [class]="tabIndex == 0 ? 'list_item active' : 'list_item'" (click)="tabIndex = 0">
+          <div [class]="seachParam.bcode == 'online' ? 'list_item active' : 'list_item'" (click)="tabSelect('online')">
             <img src="assets/image/customer_service/img_customer_service_tab_online.png">
             <span>在线客服</span>
           </div>
 
-          <div [class]="tabIndex == 1 ? 'list_item active' : 'list_item'" (click)="tabIndex = 1">
+          <div [class]="seachParam.bcode == 'qq' ? 'list_item active' : 'list_item'" (click)="tabSelect('qq')">
             <img src="assets/image/customer_service/img_customer_service_tab_qq.png">
             <span>QQ客服</span>
           </div>
 
-          <div [class]="tabIndex == 2 ? 'list_item active' : 'list_item'" (click)="tabIndex = 2">
+          <div [class]="seachParam.bcode == 'wx' ? 'list_item active' : 'list_item'" (click)="tabSelect('wx')">
             <img src="assets/image/customer_service/img_customer_service_tab_wx.png">
             <span>微信客服</span>
           </div>
 
-          <div [class]="tabIndex == 3 ? 'list_item active' : 'list_item'" (click)="tabIndex = 3">
+          <div [class]="seachParam.bcode == 'wt' ? 'list_item active' : 'list_item'" (click)="tabSelect('wt')">
             <img src="assets/image/customer_service/img_customer_service_tab_issue.png">
             <span>常见问题</span>
           </div>
@@ -39,83 +39,35 @@
       <img src="assets/image/customer_service/img_split_line.png" class="split_line">
 
       <div class="customer_service_content_container">
-        <div *ngIf="tabIndex == 0" class="tab00_container">
-
+        <div *ngIf="seachParam.bcode == 'online'" class="tab00_container">
+          <iframe  [src]="targetUrl" frameborder="0"  scroll="true" overflow-scroll="true" style="width:100%;height:100%;min-height: 100%;min-width: 100%;"></iframe>
         </div>
 
-        <div *ngIf="tabIndex == 1" class="tab01_container">
+        <div *ngIf="seachParam.bcode == 'qq'" class="tab01_container">
           <div class="tab01_inner">
-            <div class="tab01_item">
-              <img src="assets/image/common/img_default_header.jpg">
-              <span>QQ客服01</span>
-              <span>57865245</span>
-              <span>客服专员</span>
-              <img src="assets/image/customer_service/img_customer_service_make_contact.png">
-            </div>
-
-            <div class="tab01_item">
-              <img src="assets/image/common/img_default_header.jpg">
-              <span>QQ客服01</span>
-              <span>57865245</span>
-              <span>客服专员</span>
-              <img src="assets/image/customer_service/img_customer_service_make_contact.png">
-            </div>
-
-            <div class="tab01_item">
-              <img src="assets/image/common/img_default_header.jpg">
-              <span>QQ客服01</span>
-              <span>57865245</span>
-              <span>客服专员</span>
-              <img src="assets/image/customer_service/img_customer_service_make_contact.png">
-            </div>
-
-            <div class="tab01_item">
-              <img src="assets/image/common/img_default_header.jpg">
-              <span>QQ客服01</span>
-              <span>57865245</span>
-              <span>客服专员</span>
+            <div class="tab01_item" *ngFor="let item of kefuList">
+              <img [src]="item.relation1">
+              <span>{{item.value1}}</span>
+              <span>{{item.relation2}}</span>
+              <span>{{item.gid}}</span>
               <img src="assets/image/customer_service/img_customer_service_make_contact.png">
             </div>
           </div>
         </div>
 
-        <div *ngIf="tabIndex == 2" class="tab02_container">
+        <div *ngIf="seachParam.bcode == 'wx'" class="tab02_container">
           <div class="tab02_inner">
-            <div class="tab02_item">
-              <img src="assets/image/customer_service/img_customer_service_qrcode.png">
-              <span>微信客服01</span>
-              <span>VIP专员服务</span>
-              <span>sv3834561</span>
-              <img src="assets/image/customer_service/img_customer_service_copy_wx_code.png">
-            </div>
-
-            <div class="tab02_item">
-              <img src="assets/image/customer_service/img_customer_service_qrcode.png">
-              <span>微信客服01</span>
-              <span>VIP专员服务</span>
-              <span>sv3834561</span>
-              <img src="assets/image/customer_service/img_customer_service_copy_wx_code.png">
-            </div>
-
-            <div class="tab02_item">
-              <img src="assets/image/customer_service/img_customer_service_qrcode.png">
-              <span>微信客服01</span>
-              <span>VIP专员服务</span>
-              <span>sv3834561</span>
-              <img src="assets/image/customer_service/img_customer_service_copy_wx_code.png">
-            </div>
-
-            <div class="tab02_item">
-              <img src="assets/image/customer_service/img_customer_service_qrcode.png">
-              <span>微信客服01</span>
-              <span>VIP专员服务</span>
-              <span>sv3834561</span>
-              <img src="assets/image/customer_service/img_customer_service_copy_wx_code.png">
+            <div class="tab02_item" *ngFor="let item of kefuList">
+              <img [src]="item.relation1">
+              <span>{{item.value1}}</span>
+              <span>{{item.relation2}}</span>
+              <span>{{item.gid}}</span>
+              <img src="assets/image/customer_service/img_customer_service_make_contact.png">
             </div>
           </div>
         </div>
 
-        <div *ngIf="tabIndex == 3" class="tab03_container">
+        <div *ngIf="seachParam.bcode == 'wt'" class="tab03_container">
 
         </div>
       </div>

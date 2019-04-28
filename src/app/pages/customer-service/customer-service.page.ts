@@ -4,7 +4,7 @@ import { PopoverController, ModalController, LoadingController, ToastController 
 import { BaseView } from 'src/common/base/BaseView';
 import { Runtime } from 'src/app/services/Runtime';
 import { ApiService } from 'src/app/services/api.service';
-import { PictureHelper } from 'src/common/helper/PictureHelper';
+import { SafeResourceUrl, DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-customer-service',
@@ -12,7 +12,12 @@ import { PictureHelper } from 'src/common/helper/PictureHelper';
   styleUrls: ['./customer-service.page.scss'],
 })
 export class CustomerServicePage extends BaseView implements OnInit {
-  tabIndex: number = 1;
+  targetUrl: SafeResourceUrl = '';
+  seachParam = {
+    bcode: 'qq',
+  };
+
+  kefuList = [];
 
   constructor(
     public mRouter: Router,
@@ -21,11 +26,42 @@ export class CustomerServicePage extends BaseView implements OnInit {
     public mModal: ModalController,
     public runtime: Runtime,
     public api: ApiService,
+    private sanitizer: DomSanitizer,
     public mPopover: PopoverController) {
     super(mLoading, mToast, mModal);
   }
 
   ngOnInit() {
+  }
+  ionViewDidEnter() {
+    this.getKefus();
+  }
+
+  tabSelect(vl) {
+    this.seachParam.bcode = vl;
+    if ('wt' !== vl) {
+      this.getKefus();
+    }
+  }
+
+  getKefus() {
+    const loading = super.showLoading('VIP请求中...');
+    this.api.customerServer(this.seachParam).then(response => {
+      const hasError = response.hashError;
+      if (hasError) {
+        this.showToast(response.msg);
+      }
+      this.kefuList = response.data;
+      if ('online' === this.seachParam.bcode) {
+        this.targetUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.kefuList[0].relation1);
+      }
+    }).catch(error => {
+      console.error(error);
+    }).finally(() => {
+      loading.then((loadinginstan) => {
+        loadinginstan.dismiss();
+      });
+    });
   }
 
 }
