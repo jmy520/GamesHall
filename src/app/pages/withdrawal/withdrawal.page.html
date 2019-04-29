@@ -212,75 +212,15 @@
             <div class="bank_card_list_container">
               <div class="bank_card_list_inner">
 
-                <div class="bank_card_item">
+                <div class="bank_card_item" *ngFor="let item of bankCards">
                   <div class="row01">
-                    <img src="assets/image/withdrawal/img_withdrawal_bank_item_01_icon.png">
+                    <img [src]="fetchImage(item.bankCode)">
                     <span>
-                      邮政银行
+                      {{item.bankName}}
                     </span>
                   </div>
                   <div class="row02">
-                    6210********7257
-                  </div>
-                </div>
-
-                <div class="bank_card_item">
-                  <div class="row01">
-                    <img src="assets/image/withdrawal/img_withdrawal_bank_item_01_icon.png">
-                    <span>
-                      邮政银行
-                    </span>
-                  </div>
-                  <div class="row02">
-                    6210********7257
-                  </div>
-                </div>
-
-                <div class="bank_card_item">
-                  <div class="row01">
-                    <img src="assets/image/withdrawal/img_withdrawal_bank_item_01_icon.png">
-                    <span>
-                      邮政银行
-                    </span>
-                  </div>
-                  <div class="row02">
-                    6210********7257
-                  </div>
-                </div>
-
-                <div class="bank_card_item">
-                  <div class="row01">
-                    <img src="assets/image/withdrawal/img_withdrawal_bank_item_01_icon.png">
-                    <span>
-                      邮政银行
-                    </span>
-                  </div>
-                  <div class="row02">
-                    6210********7257
-                  </div>
-                </div>
-
-                <div class="bank_card_item">
-                  <div class="row01">
-                    <img src="assets/image/withdrawal/img_withdrawal_bank_item_01_icon.png">
-                    <span>
-                      邮政银行
-                    </span>
-                  </div>
-                  <div class="row02">
-                    6210********7257
-                  </div>
-                </div>
-
-                <div class="bank_card_item">
-                  <div class="row01">
-                    <img src="assets/image/withdrawal/img_withdrawal_bank_item_01_icon.png">
-                    <span>
-                      邮政银行
-                    </span>
-                  </div>
-                  <div class="row02">
-                    6210********7257
+                    {{item.cardNo.substr(0,4)}}********{{item.cardNo.substr(item.cardNo.length-4,4)}}
                   </div>
                 </div>
 
@@ -296,31 +236,28 @@
               <span>
                 持卡人姓名
               </span>
-              <input type="text" placeholder="请输入姓名">
+              <input type="text" placeholder="请输入姓名" [(ngModel)]="bindCardParam.realName">
             </div>
 
             <div class="row02">
-              <span>
-                选择银行
-              </span>
-              <input disabled type="text" placeholder="请选择银行卡">
-              <span>
-                选择
-              </span>
+                <label>选择银行</label>
+                <ion-select  interface="popover" [compareWith]="compareWithFn" placeholder="选择" (ionChange)="bankSelected()" [(ngModel)]="currentBank" cancelText="取消" okText="确定">
+                  <ion-select-option [value]="item" *ngFor="let item of bankList">{{item.value1}}</ion-select-option>
+                </ion-select>
             </div>
 
             <div class="row03">
               <span>
                 银行卡账号
               </span>
-              <input type="text" placeholder="请输入银行卡号">
+              <input type="text" placeholder="请输入银行卡号" [(ngModel)]="bindCardParam.cardNo">
             </div>
 
             <div class="row04">
               <span>
                 开户地址
               </span>
-              <input type="text" placeholder="请输入银行卡开户地址">
+              <input type="text" placeholder="请输入银行卡开户地址" [(ngModel)]="bindCardParam.bankSubName">
             </div>
 
             <div class="tips">
@@ -330,7 +267,7 @@
             <div class="buttons">
               <img src="assets/image/withdrawal/img_withdrawal_previous_step_button.png"
                 (click)="isAddingBankCard = false">
-              <img src="assets/image/withdrawal/img_withdrawal_cnfirm_bingding_button.png">
+              <img src="assets/image/withdrawal/img_withdrawal_cnfirm_bingding_button.png" (click)="bind()">
             </div>
           </div>
         </div>

@@ -287,7 +287,7 @@ export class HomePage extends BaseView {
     this.mRouter.navigate(['/activity']);
   }
 
-  goMessage() {
+  goMessageXx() {
     this.runtime.payButtonVido();
     if (this.runtime.user == null) {
       this.presentLogin();
@@ -296,14 +296,13 @@ export class HomePage extends BaseView {
     this.mModal.create({
       component: MessageComponent,
       cssClass: 'common_modal_dialog'
-    }).then(
-      modalInstance => {
+    }).then(modalInstance => {
         modalInstance.present();
       }
     );
   }
 
-  goCustomer() {
+  goCustomerKf() {
     this.runtime.payButtonVido();
     if (this.runtime.user == null) {
       this.presentLogin();

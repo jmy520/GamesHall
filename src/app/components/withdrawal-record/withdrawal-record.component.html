@@ -15,7 +15,7 @@
       </div>
 
       <div class="table_body">
-        <div class="no_data_container">
+        <div class="no_data_container" *ngIf="bankItems.totals<=0">
           <div class="no_data_inner">
             <img src="assets/image/promote/img_promote_no_data_icon.png">
             <span>
@@ -24,19 +24,22 @@
           </div>
         </div>
 
-        <div class="table_content_container">
+        <div class="table_content_container" *ngIf="bankItems.totals>0">
           <div class="table_content_inner">
-            <div class="table_content_row">
+            <div class="table_content_row" *ngFor="let item of bankItems.list">
               <span>
-                2019/02/01 08:00
+                {{item.createrTime | date:'yy/MM/dd HH:mm'}}
               </span>
 
-              <span>
+              <span *ngIf="'normal'==item.gStatus">
                 转出成功
               </span>
+              <span *ngIf="'processing'==item.gStatus">
+                处理中
+              </span>
 
               <span>
-                ￥1000.00
+                ￥ {{item.actMoney}}
               </span>
 
               <span>

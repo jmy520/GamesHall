@@ -32,6 +32,10 @@ export class WithdrawalRecordComponent extends BaseView implements OnInit {
 
   ngOnInit() {}
 
+  ionViewDidEnter() {
+    this.bankItem();
+  }
+
   bankItem() {
     this.runtime.payButtonVido();
     this.showLoading('加载中...');

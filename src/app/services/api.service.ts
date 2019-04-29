@@ -120,6 +120,11 @@ export class ApiService {
     return this.buildGetPromise('/games', params);
   }
 
+  /** 客服列表 */
+  customerServer(params: any): Promise<any> {
+    return this.buildGetPromise('/customerServer', params);
+  }
+
   // ------------------- 用户模块 -------------------
 
   /** 数据字典列表 */
@@ -171,6 +176,11 @@ export class ApiService {
    /** 提现 */
    cash(params): Promise<any> {
     return this.buildPostPromise('/front/cash', params, null, null, null, {});
+  }
+
+   /** 更新个人信息 */
+   updataInfo(params): Promise<any> {
+    return this.buildPostPromise('/front/updataInfo', params, null, null, null, {});
   }
 
   /** 绑卡 */
