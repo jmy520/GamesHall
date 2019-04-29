@@ -1,0 +1,332 @@
+@import "src/common/styles/index.scss";
+
+.content_container{
+  @extend .base_container;
+
+  &>.dialog_container{
+    position: absolute;
+    width: 138vh;
+    height: 80vh;
+    left: calc(50% - 69vh);
+    top: 10vh;
+    background-image: url("src/assets/image/settings/img_settings_content_bg.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 100% 100%;
+
+    &>.header{
+      width: 100%;
+      height: 12vh;
+      line-height: 12vh;
+      text-align: center;
+      background-image: url("src/assets/image/settings/img_high_light_bg.png");
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: 100% 100%;
+      border-top-left-radius: 6vh;
+      border-top-right-radius: 6vh;
+
+      &>.title{
+        height: 10vh;
+        width: auto;
+        margin-top: 2vh;
+      }
+    }
+
+    &>.split_line{
+      display: block;
+      width: 100%;
+      height: auto;
+      margin-top: -0.4vh;
+    }
+
+    &>.dialog_content_container{
+      width: 100%;
+      height: calc(100% - 12vh);
+      padding: 3vh 0;
+
+      &>.tab_container{
+        width: 30%;
+        height: 100%;
+        float: left;
+        box-sizing: border-box;
+        padding-right: 2vh;
+
+        &>.tab_item{
+          width: 100%;
+          height: 10vh;
+          line-height: 10vh;
+          text-align: center;
+          background: url("src/assets/image/settings/img_settings_tab_item_default_bg.png") no-repeat;
+          background-size: 100% 100%;
+          color: $main_color;
+          font-size: 3.6vh;
+          @include press_effect;
+
+          &.active{
+            background-image: url("src/assets/image/settings/img_settings_tab_item_selected_bg.png");
+            color: #301F01;
+          }
+        }
+      }
+
+      &>.tab_content_container{
+        width: 70%;
+        height: 100%;
+        float: left;
+
+        &>.tab01_container{
+          width: 100%;
+          height: 100%;
+  
+          &>.base_info_title{
+            width: 100%;
+            height: auto;
+            font-size: 3.6vh;
+            color: $main_color;
+            font-weight: bold;
+          }
+  
+          &>.base_info_content{
+            width: 100%;
+            height: auto;
+            margin-top: 2vh;
+            @include clearfix;
+  
+            &>.header_img{
+              width: 10vh;
+              height: 10vh;
+              float: left;
+              border-radius: 50%;
+              @include getBorder(all, 1vh, $main_color);
+  
+              &>img{
+                width: 100%;
+                height: 100%;
+                border-radius: 50%;
+              }
+            }
+  
+            &>.account{
+              width: 30%;
+              height: 10vh;
+              float: left;
+              margin-left: 2vh;
+  
+              &>span{
+                display: block;
+                width: 100%;
+                font-size: 3.6vh;
+                height: 5vh;
+                line-height: 5vh;
+  
+                &:nth-of-type(1){
+                  color: $main_color;
+                }
+  
+                &:nth-of-type(2){
+                  color: white;
+                  padding: 0 2vh;
+                  border-radius: 2.5vh;
+                  @include getBorder(all, 0.55px, $main_color);
+                }
+              }
+            }
+  
+            &>.level{
+              width: 30%;
+              height: 10vh;
+              float: left;
+              margin-left: 2vh;
+  
+              &>span{
+                display: block;
+                width: 100%;
+                font-size: 3.6vh;
+                height: 5vh;
+                line-height: 5vh;
+  
+                &:nth-of-type(1){
+                  color: $main_color;
+                }
+  
+                &:nth-of-type(2){
+                  color: white;
+                  padding: 0 2vh;
+                  border-radius: 2.5vh;
+                  @include getBorder(all, 0.55px, $main_color);
+                }
+              }
+            }
+          }
+  
+          &>.audio_settings_title{
+            width: 100%;
+            height: auto;
+            font-size: 3.6vh;
+            color: $main_color;
+            font-weight: bold;
+            margin-top: 4vh;
+          }
+  
+          &>.audio_settings_content{
+            width: 100%;
+            height: auto;
+            margin-top: 2vh;
+            @include clearfix;
+  
+            &>.music{
+              width: 50%;
+              height: auto;
+              float: left;
+              display: flex;
+              align-items: center;
+              box-sizing: border-box;
+  
+              &>span{
+                display: inline-block;
+                height: 5vh;
+                line-height: 5vh;
+                font-size: 3.6vh;
+                color: $main_color;
+              }
+  
+              ion-range{
+                --height: 4vh;
+    
+                --bar-background: #333;
+                --bar-background-active: #{$main_color};
+                --bar-height: 2vh;
+                --bar-border-radius: 1vh;
+  
+                --knob-background: white;
+                --knob-size: 4vh;
+
+                width: auto;
+                flex: 1;
+              }
+            }
+  
+            &>.sound{
+              width: 50%;
+              height: auto;
+              float: left;
+              display: flex;
+              align-items: center;
+              box-sizing: border-box;
+  
+              &>span{
+                display: inline-block;
+                height: 5vh;
+                line-height: 5vh;
+                font-size: 3.6vh;
+                color: $main_color;
+              }
+  
+              ion-range{
+                --height: 4vh;
+    
+                --bar-background: #333;
+                --bar-background-active: #{$main_color};
+                --bar-height: 2vh;
+                --bar-border-radius: 1vh;
+  
+                --knob-background: white;
+                --knob-size: 4vh;
+
+                width: auto;
+                flex: 1;
+              }
+            }
+          }
+
+          &>img{
+            display: block;
+            width: auto;
+            height: 10vh;
+            margin: 0 auto;
+            margin-top: 4vh;
+            @include press_effect;
+          }
+        }
+  
+        &>.tab02_container{
+          width: 100%;
+          height: 100%;
+
+          &>.input_item{
+            width: 70%;
+            height: auto;
+            display: flex;
+            align-items: center;
+            margin: 0 auto;
+            
+            &:not(:first-of-type){
+              margin-top: 4vh;
+            }
+
+            &>span{
+              display: block;
+              width: 20vh;
+              font-size: 3.6vh;
+              text-align: right;
+              color: $main_color;
+            }
+  
+            ion-input{
+              --padding-start: 2vh;
+              --padding-end: 2vh;
+
+              width: auto;
+              height: 6vh;
+              line-height: 6vh;
+              color: white;
+              flex: 1;
+              border-radius: 2.5vh;
+              @include getBorder(all, 0.55px, $main_color);
+            }
+          }
+  
+          &>img{
+            display: block;
+            width: auto;
+            height: 10vh;
+            margin: 0 auto;
+            margin-top: 4vh;
+            @include press_effect;
+          }
+        }
+  
+        &>.tab03_container{
+          width: 100%;
+          height: 100%;
+
+          &>.newest{
+            width: 100%;
+            height: 100%;
+
+            &>span{
+              display: inline-block;
+              margin-top: 26vh;
+              width: 100%;
+              height: auto;
+              font-size: 3.6vh;
+              color: white;
+              text-align: center;
+            }
+          }
+        }
+      }
+
+    }
+  }
+
+  &>.close_button{
+    position: absolute;
+    width: 10vh;
+    height: 10vh;
+    left: calc(50% + 69vh - 5vh);
+    top: calc(10vh - 5vh);
+    @include press_effect;
+  }
+}

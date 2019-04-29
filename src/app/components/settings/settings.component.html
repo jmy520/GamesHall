@@ -1,0 +1,105 @@
+<div class="content_container">
+  <div class="dialog_container">
+    <div class="header">
+      <img src="assets/image/settings/img_settings_page_title.png" class="title">
+    </div>
+
+    <img class="split_line" src="assets/image/settings/img_split_line.png">
+
+    <div class="dialog_content_container">
+      <div class="tab_container">
+        <div (click)="tabIndex = 0" [class]="tabIndex == 0 ? 'tab_item active' : 'tab_item'">
+          音量设置
+        </div>
+
+        <div (click)="tabIndex = 1" [class]="tabIndex == 1 ? 'tab_item active' : 'tab_item'">
+          修改密码
+        </div>
+
+        <div (click)="tabIndex = 2" [class]="tabIndex == 2 ? 'tab_item active' : 'tab_item'">
+          APP更新
+        </div>
+      </div>
+
+      <div class="tab_content_container">
+        <div *ngIf="tabIndex == 0" class="tab01_container">
+          <div class="base_info_title">
+            基础信息：
+          </div>
+          <div class="base_info_content">
+            <div class="header_img">
+              <img src="assets/image/common/img_default_header.jpg">
+            </div>
+
+            <div class="account">
+              <span>
+                账号：
+              </span>
+
+              <span>
+                Jason
+              </span>
+            </div>
+
+            <div class="level">
+              <span>
+                等级：
+              </span>
+
+              <span>
+                VIP1
+              </span>
+            </div>
+          </div>
+
+          <div class="audio_settings_title">
+            声音设置：
+          </div>
+          <div class="audio_settings_content">
+            <div class="music">
+              <span>音乐</span>
+              <ion-range min="0" max="100" [value]="50">
+              </ion-range>
+            </div>
+
+            <div class="sound">
+              <span>音效</span>
+              <ion-range min="0" max="100" [value]="50">
+              </ion-range>
+            </div>
+          </div>
+
+          <img src="assets/image/settings/img_settings_logout_button.png">
+        </div>
+
+        <div *ngIf="tabIndex == 1" class="tab02_container">
+          <div class="input_item">
+            <span>现密码：</span>
+            <ion-input></ion-input>
+          </div>
+
+          <div class="input_item">
+            <span>新密码：</span>
+            <ion-input></ion-input>
+          </div>
+
+          <div class="input_item">
+            <span>确认密码：</span>
+            <ion-input></ion-input>
+          </div>
+
+          <img src="assets/image/settings/img_settings_confirm_update_button.png">
+        </div>
+
+        <div *ngIf="tabIndex == 2" class="tab03_container">
+          <div class="newest">
+            <span>
+              当前已经是最新版本！
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <img src="assets/image/settings/img_close_button.png" class="close_button" (click)="dismissDialog()">
+</div>

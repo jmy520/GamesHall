@@ -9,6 +9,7 @@ import { ApiService } from 'src/app/services/api.service';
 import { PictureHelper } from 'src/common/helper/PictureHelper';
 import { SafeBoxValidateComponent } from 'src/app/components/safe-box-validate/safe-box-validate.component';
 import { MessageComponent } from 'src/app/components/message/message.component';
+import { SettingsComponent } from 'src/app/components/settings/settings.component';
 
 @Component({
   selector: 'app-home',
@@ -109,7 +110,6 @@ export class HomePage extends BaseView {
   jumpToGamePage(gameGid: any) {
     this.runtime.payButtonVido();
     if (this.runtime.user == null) {
-      // this.showToast('请先登录');
       this.presentLogin();
       return;
     }
@@ -148,7 +148,6 @@ export class HomePage extends BaseView {
   wallet() {
     // this.runtime.payButtonVido();
     if (this.runtime.user == null) {
-      // this.showToast('请先登录');
       this.presentLogin();
       return;
     }
@@ -243,7 +242,6 @@ export class HomePage extends BaseView {
   goSafeBox() {
     this.runtime.payButtonVido();
     if (this.runtime.user == null) {
-      // this.showToast('请先登录');
       this.presentLogin();
       return;
     }
@@ -265,18 +263,15 @@ export class HomePage extends BaseView {
   goPromote() {
     this.runtime.payButtonVido();
     if (this.runtime.user == null) {
-      // this.showToast('请先登录');
       this.presentLogin();
       return;
     }
     this.mRouter.navigate(['/promote']);
   }
 
-
   goPersonalCenter() {
     this.runtime.payButtonVido();
     if (this.runtime.user == null) {
-      // this.showToast('请先登录');
       this.presentLogin();
       return;
     }
@@ -286,7 +281,6 @@ export class HomePage extends BaseView {
   goactivity() {
     this.runtime.payButtonVido();
     if (this.runtime.user == null) {
-      // this.showToast('请先登录');
       this.presentLogin();
       return;
     }
@@ -296,7 +290,6 @@ export class HomePage extends BaseView {
   goMessage() {
     this.runtime.payButtonVido();
     if (this.runtime.user == null) {
-      // this.showToast('请先登录');
       this.presentLogin();
       return;
     }
@@ -313,7 +306,6 @@ export class HomePage extends BaseView {
   goCustomer() {
     this.runtime.payButtonVido();
     if (this.runtime.user == null) {
-      // this.showToast('请先登录');
       this.presentLogin();
       return;
     }
@@ -323,7 +315,6 @@ export class HomePage extends BaseView {
   gorefreshChip() {
     this.runtime.payButtonVido();
     if (this.runtime.user == null) {
-      // this.showToast('请先登录');
       this.presentLogin();
       return;
     }
@@ -333,7 +324,6 @@ export class HomePage extends BaseView {
   gowithdrawal() {
     this.runtime.payButtonVido();
     if (this.runtime.user == null) {
-      // this.showToast('请先登录');
       this.presentLogin();
       return;
     }
@@ -343,12 +333,26 @@ export class HomePage extends BaseView {
   gorecharge() {
     this.runtime.payButtonVido();
     if (this.runtime.user == null) {
-      // this.showToast('请先登录');
       this.presentLogin();
       return;
     }
     this.mRouter.navigate(['/recharge']);
   }
 
+  goSettings() {
+    this.runtime.payButtonVido();
+    if (this.runtime.user == null) {
+      this.presentLogin();
+      return;
+    }
+    this.mModal.create({
+      component: SettingsComponent,
+      cssClass: 'common_modal_dialog'
+    }).then(
+      modalInstance => {
+        modalInstance.present();
+      }
+    );
+  }
 
 }
