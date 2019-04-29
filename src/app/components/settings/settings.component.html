@@ -58,13 +58,13 @@
           <div class="audio_settings_content">
             <div class="music">
               <span>音乐</span>
-              <ion-range min="0" max="100" [value]="50">
+              <ion-range min="0" max="1" [value]="1" step="0.1" (ionChange)="volw(1)" [(ngModel)]="bgv">
               </ion-range>
             </div>
 
             <div class="sound">
               <span>音效</span>
-              <ion-range min="0" max="100" [value]="50">
+              <ion-range min="0" max="1" [value]="1" step="0.1" (ionChange)="volw(0)" [(ngModel)]="btv">
               </ion-range>
             </div>
           </div>

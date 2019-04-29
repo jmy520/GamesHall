@@ -7,10 +7,11 @@ import { Platform } from '@ionic/angular';
 @Injectable()
 export class Runtime {
     user: User = null;
-    butAudioElement: HTMLAudioElement = null;
+    butAudioElement: HTMLAudioElement;
     bgAudioElement: HTMLAudioElement  = null;
 
-    isNaticeAudio = false;
+    isButNaticeAudio = false;
+    isBgNaticeAudio = false;
 
 
     constructor(private platform: Platform, private storage: UserStore, public nativeAudio: NativeAudio) {
@@ -19,44 +20,68 @@ export class Runtime {
       // tslint:disable-next-line:max-line-length
       // this.nativeAudio.preloadComplex('bgAudio', RestConfig.BASE_VIDIO_URL + '/bg-audio.wav', 1, 1, 0).then(this.onSuccess, this.onError);
       console.log('---->' + this.platform.platforms());
+      const _this = this;
       if (this.platform.is('android') || this.platform.is('ios')  || this.platform.is('mobileweb')) {
         // tslint:disable-next-line:max-line-length
-        this.nativeAudio.preloadComplex('butAudio', 'assets/vido/bubble-2.mp3', 1, 1, 0).then(this.onSuccess, this.onError).catch(() => {
-          console.log('butAudio catch');
+        this.nativeAudio.preloadComplex('butAudio', 'assets/vido/bubble-2.mp3', 1, 1, 0).then(() => {
+          console.log('butAudio success');
+          _this.isButNaticeAudio = true;
+          _this.storage.getKey('butAudio').then((vl) => {
+            if (vl !== null) {
+              _this.nativeAudio.setVolumeForComplexAsset('butAudio', parseFloat(vl));
+            }
+          });
+        }).catch((e) => {
+          console.log('butAudio catch' + e);
+          this.initAudioElement();
         });
-        this.nativeAudio.preloadComplex('bgAudio', 'assets/vido/bg-audio.wav', 1, 1, 0).then(this.onSuccess, this.onError).catch(() => {
-          this.nativeAudio.play('bgAudio');
+        this.nativeAudio.preloadComplex('bgAudio', 'assets/vido/bg-audio.wav', 1, 1, 0).then(() => {
+          console.log('bgAudio success');
+          _this.isBgNaticeAudio = true;
+          _this.storage.getKey('bgAudio').then((vl) => {
+            if (vl !== null) {
+              _this.nativeAudio.setVolumeForComplexAsset('butAudio', parseFloat(vl));
+            }
+          });
+          _this.nativeAudio.loop('bgAudio');
+        }).catch((e) => {
+          console.error('bgAudio catch ' + e);
+          this.initAudioElement();
         });
       } else {
-        if (this.butAudioElement == null) {
-          this.butAudioElement = document.createElement('audio');
-          this.butAudioElement.setAttribute('src', 'assets/vido/bubble-2.mp3');
-        }
-        if (this.bgAudioElement == null) {
-          this.bgAudioElement = document.createElement('audio');
-          this.bgAudioElement.setAttribute('src', 'assets/vido/bg-audio.wav');
-          this.bgAudioElement.play();
-        }
+        this.initAudioElement();
       }
     }
 
-    onSuccess (val) {
-      console.log('onSuccess');
-      this.isNaticeAudio = true;
-    }
-
-    onError (val) {
-      this.isNaticeAudio = false;
-      console.log('onError' + val);
+    initAudioElement () {
+      console.log('init AudioElement');
       if (this.butAudioElement == null) {
         this.butAudioElement = document.createElement('audio');
         this.butAudioElement.setAttribute('src', 'assets/vido/bubble-2.mp3');
+        this.storage.getKey('butAudio').then((vl) => {
+          if (vl !== null) {
+            const c =  Number.parseFloat(vl);
+            console.log('c-------------->' + c);
+            this.bgAudioElement.volume = c;
+          }
+        });
       }
       if (this.bgAudioElement == null) {
         this.bgAudioElement = document.createElement('audio');
         this.bgAudioElement.setAttribute('src', 'assets/vido/bg-audio.wav');
+        this.bgAudioElement.setAttribute('loop', 'loop');
+        this.storage.getKey('bgAudio').then((vl) => {
+          if (vl !== null) {
+            const c =  Number.parseFloat(vl);
+            console.log('c-------------->' + c);
+            this.bgAudioElement.volume = c;
+          }
+          this.bgAudioElement.play();
+        });
+        this.bgAudioElement.play();
       }
     }
+
 
   /** 登录的处理 */
   async postLogin(user: User, persistentStorage = true) {
@@ -79,7 +104,7 @@ export class Runtime {
 
   payButtonVido() {
     if (this.platform.is('android') || this.platform.is('ios') || this.platform.is('mobileweb')) {
-      if (this.isNaticeAudio) {
+      if (this.isButNaticeAudio) {
         this.nativeAudio.play('butAudio').then(() => {
           console.log('butAudio--->play');
         }).catch((e) => {
@@ -97,32 +122,55 @@ export class Runtime {
     }
    }
 
+   saveKey(key: string, obj: string) {
+     return this.storage.saveKey(key, obj);
+   }
+
+   getKey(key: string) {
+    return this.storage.getKey(key);
+   }
+
+
   /**
    *  设置音量
    * @param type 1 背景音量设置 0 按钮音效音量
    * @param value 设置音量的值 0.1 - 1 之间
    */
   setVolume(type: Number = 1, value: number = 1) {
+    console.log(value + '---isNaticeAudio----->' +  this.isBgNaticeAudio + ':' +  this.isButNaticeAudio);
+    console.log('---butAudioElement----->' +  this.butAudioElement);
+    console.log('----bgAudioElement---->' +  this.bgAudioElement);
      if (type === 1) {// 背景音乐
       if (this.platform.is('android') || this.platform.is('ios')  || this.platform.is('mobileweb')) {
-        if (this.isNaticeAudio) {
+        if (this.isBgNaticeAudio) {
           this.nativeAudio.setVolumeForComplexAsset('bgAudio', value);
         } else {
+          if (this.bgAudioElement) {
+            this.bgAudioElement.volume = value;
+          }
+        }
+      } else {
+        if (this.bgAudioElement) {
           this.bgAudioElement.volume = value;
         }
-      } else {
-        this.bgAudioElement.volume = value;
       }
+      this.bgAudioElement.play();
+      this.storage.saveKey('bgAudio', value.toFixed(1));
      } else if (type === 0) {// 按钮音效
       if (this.platform.is('android') || this.platform.is('ios')  || this.platform.is('mobileweb')) {
-        if (this.isNaticeAudio) {
+        if (this.isButNaticeAudio) {
           this.nativeAudio.setVolumeForComplexAsset('butAudio', value);
         } else {
-          this.butAudioElement.volume = value;
+          if (this.butAudioElement) {
+            this.butAudioElement.volume = value;
+          }
         }
       } else {
-        this.butAudioElement.volume = value;
+        if (this.butAudioElement) {
+          this.butAudioElement.volume = value;
+        }
       }
+      this.storage.saveKey('butAudio', value.toFixed(1));
      }
   }
 }

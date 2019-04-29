@@ -13,15 +13,15 @@
       <div class="withdrawal_type_list_container">
         <div class="list_inner">
 
-          <div (click)="tabIndex = 0" [class]="tabIndex == 0 ? 'list_item active' : 'list_item'">
+          <div (click)="tabLeft(0)" [class]="tabIndex == 0 ? 'list_item active' : 'list_item'">
             <img src="assets/image/withdrawal/img_withdrawal_ic_card_icon.png">提现到银行
           </div>
 
-          <div (click)="tabIndex = 1" [class]="tabIndex == 1 ? 'list_item active' : 'list_item'">
+          <div (click)="tabLeft(1)" [class]="tabIndex == 1 ? 'list_item active' : 'list_item'">
             <img src="assets/image/withdrawal/img_withdrawal_amount_transfer_icon.png">资金流水
           </div>
 
-          <div (click)="tabIndex = 2" [class]="tabIndex == 2 ? 'list_item active' : 'list_item'">
+          <div (click)="tabLeft(2)" [class]="tabIndex == 2 ? 'list_item active' : 'list_item'">
             <img src="assets/image/withdrawal/img_withdrawal_bank_card_icon.png">银行卡管理
           </div>
 
@@ -53,7 +53,7 @@
             </div>
           </div>
 
-          <div *ngIf="!isCardBinded" class="binding_ic_card">
+          <div *ngIf="!currentBankCard" class="binding_ic_card">
             <img src="assets/image/withdrawal/img_ic_card_default.png">
             <div>
               <h4>
@@ -63,32 +63,35 @@
                 您暂时未绑定银行卡，请前往绑定。
               </h4>
             </div>
-            <div class="binding_button">
+            <div class="binding_button" (click)="goBind()">
               绑定银行卡
             </div>
           </div>
 
-          <div *ngIf="isCardBinded" class="current_card_info">
+          <div *ngIf="currentBankCard" class="current_card_info">
             <div class="row01">
-              <img src="assets/image/withdrawal/img_withdrawal_bank_item_01_icon.png">
-              <span>邮政银行</span>
-              <span>更换银行卡></span>
+              <img [src]="fetchImage(currentBankCard.bankCode)">
+              <span>{{currentBankCard?currentBankCard.bankName:''}}</span>
+              <!-- <span>更换银行卡></span> -->
+              <ion-select  interface="popover" [compareWith]="compareWithBankCardFn" placeholder="更换银行卡>" selectedText="更换银行卡>" (ionChange)="bankCardSelected()" [(ngModel)]="currentBankCard" >
+                  <ion-select-option [value]="item.gid" *ngFor="let item of bankCards">{{item.bankName}}</ion-select-option>
+              </ion-select>
             </div>
             <div class="row02">
-              6212********3682
+                {{currentBankCard?currentBankCard.cardNo.substr(0,4):''}}********{{currentBankCard?currentBankCard.cardNo.substr(currentBankCard.cardNo.length-4,4):''}}
             </div>
           </div>
 
-          <img src="assets/image/withdrawal/img_confirm_button.png" class="confirm_withdrawal">
+          <img src="assets/image/withdrawal/img_confirm_button.png" class="confirm_withdrawal" (click)="cash()">
         </div>
 
         <div *ngIf="tabIndex == 1" class="content_tab_01">
           <div class="inner_tab">
-            <div (click)="innerTabIndex = 0" [class]="innerTabIndex == 0 ? 'tab01 active' : 'tab01'">
+            <div (click)="liushuiTab(0)" [class]="innerTabIndex == 0 ? 'tab01 active' : 'tab01'">
               流水详情
             </div>
 
-            <div (click)="innerTabIndex = 1" [class]="innerTabIndex == 1 ? 'tab02 active' : 'tab02'">
+            <div (click)="liushuiTab(1)" [class]="innerTabIndex == 1 ? 'tab02 active' : 'tab02'">
               资金明细
             </div>
           </div>
@@ -102,7 +105,7 @@
             </div>
 
             <div class="table_body">
-              <div class="no_data_container">
+              <div class="no_data_container" *ngIf="cashDetails.totals <= 0">
                 <div class="no_data_inner">
                   <img src="assets/image/promote/img_promote_no_data_icon.png">
                   <span>
@@ -111,23 +114,26 @@
                 </div>
               </div>
 
-              <div class="table_content_container">
+              <div class="table_content_container" *ngIf="cashDetails.totals <= 0">
                 <div class="table_content_inner">
-                  <div class="table_content_row">
+                  <div class="table_content_row" *ngFor="let item of cashDetails.list">
                     <span>
-                      2019/02/01 08:00
+                        {{item.createrTime | date:'yy/MM/dd HH:mm'}}
                     </span>
 
                     <span>
-                      868
+                      {{item.betUppperLimit}}
                     </span>
 
                     <span>
-                      868
+                      {{item.cellScoreLj}}
                     </span>
 
-                    <span>
-                      转出成功
+                    <span *ngIf="item.status=='normal'">
+                      未达标
+                    </span>
+                    <span *ngIf="item.status=='complete'">
+                      完成
                     </span>
                   </div>
                 </div>
@@ -136,17 +142,17 @@
 
             <div class="table_footer">
               <div class="total">
-                一共{{dataTotal}}条
+                一共{{cashDetails.totals}}条
               </div>
-              <div class="next_page">
+              <div class="next_page" (click)="nextPageLimit(1)">
                 下一页
               </div>
 
               <div class="page_counter">
-                1/1
+                  {{seachCashDetailParam.page}}/{{cashDetails.totalsPage}}
               </div>
 
-              <div class="pre_page">
+              <div class="pre_page" (click)="nextPageLimit(-1)">
                 上一页
               </div>
             </div>
@@ -160,7 +166,7 @@
             </div>
 
             <div class="table_body">
-              <div class="no_data_container">
+              <div class="no_data_container" *ngIf="bankItems.totals <= 0">
                 <div class="no_data_inner">
                   <img src="assets/image/promote/img_promote_no_data_icon.png">
                   <span>
@@ -169,11 +175,11 @@
                 </div>
               </div>
 
-              <div class="table_content_container">
+              <div class="table_content_container" *ngIf="bankItems.totals > 0">
                 <div class="table_content_inner">
-                  <div class="table_content_row">
+                  <div class="table_content_row" *ngFor="let item of bankItems.list">
                     <span>
-                      2019/02/01 08:00
+                      {{item.createrTime | date:'yy/MM/dd HH:mm'}}
                     </span>
 
                     <span>
@@ -181,7 +187,7 @@
                     </span>
 
                     <span>
-                      ￥1000.00
+                      ￥{{item.actMoney}}
                     </span>
                   </div>
                 </div>
@@ -190,17 +196,17 @@
 
             <div class="table_footer">
               <div class="total">
-                一共{{dataTotal}}条
+                一共{{bankItems.totals}}条
               </div>
-              <div class="next_page">
+              <div class="next_page" (click)="nextPage(1)">
                 下一页
               </div>
 
               <div class="page_counter">
-                1/1
+                  {{seachBankItemParam.page}}/{{bankItems.totalsPage}}
               </div>
 
-              <div class="pre_page">
+              <div class="pre_page" (click)="nextPage(-1)">
                 上一页
               </div>
             </div>

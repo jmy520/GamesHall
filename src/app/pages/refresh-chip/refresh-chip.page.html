@@ -13,24 +13,8 @@
       <div class="refresh_chip_type_list_container">
         <div class="list_inner">
 
-          <div class="list_item active">
-            <img src="assets/image/common/img_default_icon.png">棋牌游戏
-          </div>
-
-          <div class="list_item">
-            <img src="assets/image/common/img_default_icon.png">捕鱼游戏
-          </div>
-
-          <div class="list_item">
-            <img src="assets/image/common/img_default_icon.png">电子游戏
-          </div>
-
-          <div class="list_item">
-            <img src="assets/image/common/img_default_icon.png">真人视讯
-          </div>
-
-          <div class="list_item">
-            <img src="assets/image/common/img_default_icon.png">体育投注
+          <div [class]="item.colCode == ximaSeachParam.game_type ? 'list_item active':'list_item'" *ngFor="let item of apiColumns.list" (click)="tabGame(item.colCode)">
+            <img src="assets/image/common/img_default_icon.png">{{item.colName}}游戏
           </div>
 
         </div>
@@ -45,7 +29,7 @@
               总计游戏投注：
             </span>
             <span>
-              ￥0.00
+              ￥{{ximaObj.bettotal}}
             </span>
             <span>
               <img src="assets/image/refresh_chip/img_history_icon.png">
@@ -70,108 +54,18 @@
           <div class="content_table">
             <div class="content_table_inner">
 
-              <div class="table_row">
+              <div class="table_row" *ngFor="let item of ximaObj.apiXimaLjs">
                 <span>
-                  夺宝棋牌
+                  {{item.api_name}}
                 </span>
                 <span>
-                  0.0
+                  {{item.bet_all?item.bet_all:'0.0'}}
                 </span>
                 <span>
-                  0.56%
+                  {{item.xm_bl?item.xm_bl:'0.0'}}%
                 </span>
                 <span>
-                  0.0
-                </span>
-              </div>
-
-              <div class="table_row">
-                <span>
-                  乐游棋牌
-                </span>
-                <span>
-                  0.0
-                </span>
-                <span>
-                  0.56%
-                </span>
-                <span>
-                  0.0
-                </span>
-              </div>
-
-              <div class="table_row">
-                <span>
-                  开元棋牌
-                </span>
-                <span>
-                  0.0
-                </span>
-                <span>
-                  0.56%
-                </span>
-                <span>
-                  0.0
-                </span>
-              </div>
-
-              <div class="table_row">
-                <span>
-                  永乐棋牌
-                </span>
-                <span>
-                  0.0
-                </span>
-                <span>
-                  0.56%
-                </span>
-                <span>
-                  0.0
-                </span>
-              </div>
-
-              <div class="table_row">
-                <span>
-                  汇美棋牌
-                </span>
-                <span>
-                  0.0
-                </span>
-                <span>
-                  0.56%
-                </span>
-                <span>
-                  0.0
-                </span>
-              </div>
-
-              <div class="table_row">
-                <span>
-                  福壹棋牌
-                </span>
-                <span>
-                  0.0
-                </span>
-                <span>
-                  0.56%
-                </span>
-                <span>
-                  0.0
-                </span>
-              </div>
-
-              <div class="table_row">
-                <span>
-                  大广棋牌
-                </span>
-                <span>
-                  0.0
-                </span>
-                <span>
-                  0.56%
-                </span>
-                <span>
-                  0.0
+                  {{item.xm_money?item.xm_money:'0.0'}}
                 </span>
               </div>
 
@@ -185,7 +79,7 @@
               上次结算时间：
             </span>
             <span>
-              2019-0
+                {{ximaObj.lastJsTime?ximaObj.lastJsTime:'未结算'}}
             </span>
           </div>
           <div class="amount">
@@ -193,7 +87,7 @@
               洗码金额：
             </span>
             <span>
-              ￥0.0
+              ￥{{ximaObj.ximatotal}}
             </span>
           </div>
 

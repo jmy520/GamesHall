@@ -266,6 +266,15 @@
               vertical-align: middle;
             }
 
+            ion-select{
+              float: right;
+              font-size: 3.6vh;
+              white-space: nowrap;
+              text-overflow: ellipsis;
+              box-sizing: border-box;
+              color: white;
+            }
+
             &>span{
               font-size: 3.6vh;
               vertical-align: middle;

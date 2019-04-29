@@ -228,4 +228,18 @@ export class ApiService {
     return this.buildPostPromise('/front/setPayPwd', params, null, null, null, {});
   }
 
+  /** 统计活动打码是否满足提现 进入提现页面请求，不需要做返回处理 */
+  betUpperLImit(): Promise<any> {
+    return this.buildPostPromise('/front/betUpperLImit', null, null, null, null, {});
+  }
+
+  /** 提现页面流水详情 */
+  cashDetail(params): Promise<any> {
+    return this.buildPostPromise('/front/cashDetail', params, null, null, null, {});
+  }
+
+  /** 洗码首页 */
+  ximaLijiList(params): Promise<any> {
+    return this.buildPostPromise('/front/ximaLijiList', params, null, null, null, {});
+  }
 }
