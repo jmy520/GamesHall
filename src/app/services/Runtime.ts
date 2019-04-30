@@ -130,7 +130,9 @@ export class Runtime {
     return this.storage.getKey(key);
    }
 
-
+   clearKey(key: string) {
+    this.storage.clearKey(key);
+  }
   /**
    *  设置音量
    * @param type 1 背景音量设置 0 按钮音效音量

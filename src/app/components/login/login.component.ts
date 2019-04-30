@@ -29,6 +29,13 @@ export class LoginComponent extends BaseView implements OnInit {
 
   ngOnInit() { }
 
+  ionViewDidEnter() {
+    this.runtime.getKey('ac').then((vl) => {
+      this.loginParams.inputStr = vl;
+      this.isSaveAccount = true;
+    });
+  }
+
   dismissDialog() {
     this.runtime.payButtonVido();
     this.mModal.getTop().then(modalInstance => {
@@ -51,6 +58,11 @@ export class LoginComponent extends BaseView implements OnInit {
   login() {
     this.runtime.payButtonVido();
     const loading = super.showLoading('正在登录...');
+    if (this.isSaveAccount) {
+      this.runtime.saveKey('ac', this.loginParams.inputStr);
+    } else {
+      this.runtime.clearKey('ac');
+    }
     this.api.login(this.loginParams).then(response => {
       loading.then((loadinginstan) => {
         loadinginstan.dismiss();

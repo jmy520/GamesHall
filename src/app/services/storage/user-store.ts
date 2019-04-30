@@ -73,6 +73,17 @@ export class UserStore {
     });
   }
 
+  clearKey(key: string) {
+    this.storage
+      .remove(key)
+      .then(val => {
+        console.log('[' + key + '] clear() complete');
+      })
+      .catch(err => {
+        console.log('[' + key + '] clear() error:', err);
+      });
+  }
+
   /** 清除用户信息*/
   clear() {
     this.storage
