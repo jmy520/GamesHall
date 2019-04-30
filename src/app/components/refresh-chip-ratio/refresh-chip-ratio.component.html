@@ -1,0 +1,64 @@
+<div class="content_container">
+  <div class="dialog_container">
+    <div class="header">
+      <img src="assets/image/refresh_chip_ratio/img_refresh_chip_ratio_page_title.png" class="title">
+    </div>
+
+    <img class="split_line" src="assets/image/refresh_chip_ratio/img_split_line.png">
+
+    <div class="dialog_content_container">
+      <div class="tab_container">
+        <div class="tab_inner">
+          <span (click)="tabIndex = 0" [class]="tabIndex == 0 ? 'active' : ''">FG棋牌</span>
+          <span (click)="tabIndex = 1" [class]="tabIndex == 1 ? 'active' : ''">夺宝棋牌</span>
+          <span (click)="tabIndex = 2" [class]="tabIndex == 2 ? 'active' : ''">开元棋牌</span>
+          <span (click)="tabIndex = 3" [class]="tabIndex == 3 ? 'active' : ''">新世界棋牌</span>
+          <span (click)="tabIndex = 4" [class]="tabIndex == 4 ? 'active' : ''">乐游棋牌</span>
+          <span (click)="tabIndex = 5" [class]="tabIndex == 5 ? 'active' : ''">VG棋牌</span>
+        </div>
+      </div>
+
+      <div class="table_header">
+        <span>洗码范围</span>
+        <span>当前等级</span>
+        <span>当前比例</span>
+        <span>下一级</span>
+        <span>下一级比例</span>
+      </div>
+
+      <div class="table_container">
+        <div class="no_data">
+          <img src="assets/image/refresh_chip_ratio/img_refresh_chip_ratio_no_data_icon.png">
+          <span>暂无数据</span>
+        </div>
+        
+        <div class="table_inner">
+          <div class="table_row">
+            <span>5000+</span>
+            <span>VIP1</span>
+            <span>0.55%</span>
+            <span>VIP2</span>
+            <span>0.56%</span>
+          </div>
+
+          <div class="table_row">
+            <span>5000+</span>
+            <span>VIP1</span>
+            <span>0.55%</span>
+            <span>VIP2</span>
+            <span>0.56%</span>
+          </div>
+
+          <div class="table_row">
+            <span>5000+</span>
+            <span>VIP1</span>
+            <span>0.55%</span>
+            <span>VIP2</span>
+            <span>0.56%</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <img src="assets/image/refresh_chip_ratio/img_close_button.png" class="close_button" (click)="dismissDialog()">
+</div>

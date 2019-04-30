@@ -13,24 +13,24 @@
       <div class="refresh_chip_type_list_container">
         <div class="list_inner">
 
-          <div class="list_item active">
-            <img src="assets/image/common/img_default_icon.png">棋牌游戏
+          <div (click)="tabIndex = 0" [class]="tabIndex == 0 ? 'list_item active' : 'list_item'">
+            <img src="assets/image/refresh_chip/img_refresh_chip_poker_icon.png">棋牌游戏
           </div>
 
-          <div class="list_item">
-            <img src="assets/image/common/img_default_icon.png">捕鱼游戏
+          <div (click)="tabIndex = 1" [class]="tabIndex == 1 ? 'list_item active' : 'list_item'">
+            <img src="assets/image/refresh_chip/img_refresh_chip_fishing_icon.png">捕鱼游戏
           </div>
 
-          <div class="list_item">
-            <img src="assets/image/common/img_default_icon.png">电子游戏
+          <div (click)="tabIndex = 2" [class]="tabIndex == 2 ? 'list_item active' : 'list_item'">
+            <img src="assets/image/refresh_chip/img_refresh_chip_arcade_game_icon.png">电子游戏
           </div>
 
-          <div class="list_item">
-            <img src="assets/image/common/img_default_icon.png">真人视讯
+          <div (click)="tabIndex = 3" [class]="tabIndex == 3 ? 'list_item active' : 'list_item'">
+            <img src="assets/image/refresh_chip/img_refresh_chip_real_game_icon.png">真人视讯
           </div>
 
-          <div class="list_item">
-            <img src="assets/image/common/img_default_icon.png">体育投注
+          <div (click)="tabIndex = 4" [class]="tabIndex == 4 ? 'list_item active' : 'list_item'">
+            <img src="assets/image/refresh_chip/img_refresh_chip_ball_icon.png">体育投注
           </div>
 
         </div>
@@ -47,7 +47,7 @@
             <span>
               ￥0.00
             </span>
-            <span>
+            <span (click)="goRefreshChipRecord()">
               <img src="assets/image/refresh_chip/img_history_icon.png">
               历史洗码记录
             </span>
@@ -63,7 +63,7 @@
           <div class="table_header">
             <span>全部游戏</span>
             <span>游戏洗码量</span>
-            <span>比例<img src="assets/image/refresh_chip/img_help_icon.png"></span>
+            <span>比例<img (click)="goRefreshChipRatio()" src="assets/image/refresh_chip/img_help_icon.png"></span>
             <span>洗码金额</span>
           </div>
 

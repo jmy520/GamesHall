@@ -1,0 +1,169 @@
+@import "src/common/styles/index.scss";
+
+.content_container{
+  @extend .base_container;
+
+  &>.dialog_container{
+    position: absolute;
+    width: 138vh;
+    height: 80vh;
+    left: calc(50% - 69vh);
+    top: 10vh;
+    background-image: url("src/assets/image/refresh_chip_ratio/img_refresh_chip_ratio_content_bg.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 100% 100%;
+
+    &>.header{
+      width: 100%;
+      height: 12vh;
+      line-height: 12vh;
+      text-align: center;
+      background-image: url("src/assets/image/refresh_chip_ratio/img_high_light_bg.png");
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: 100% 100%;
+      border-top-left-radius: 6vh;
+      border-top-right-radius: 6vh;
+
+      &>.title{
+        height: 10vh;
+        width: auto;
+        margin-top: 2vh;
+      }
+    }
+
+    &>.split_line{
+      display: block;
+      width: 100%;
+      height: auto;
+      margin-top: -0.4vh;
+    }
+
+    &>.dialog_content_container{
+      width: 100%;
+      height: calc(100% - 12vh);
+      padding: 3vh 0;
+
+      &>.tab_container{
+        width: calc(100% - 2vh);
+        height: auto;
+        margin: 0 1vh;
+        overflow-x: scroll;
+        
+        &>.tab_inner{
+          width: auto;
+          height: auto;
+          white-space: nowrap;
+
+          &>span{
+            display: inline-block;
+            width: 28vh;
+            height: 10vh;
+            line-height: 10vh;
+            font-size: 3.6vh;
+            color: #CCC;
+            text-align: center;
+            background: url("src/assets/image/refresh_chip_ratio/img_refresh_chip_ratio_top_tab_unselect_bg.png") no-repeat;
+            background-size: 100% 100%;
+  
+            &.active{
+              background-image: url("src/assets/image/refresh_chip_ratio/img_refresh_chip_ratiol_top_tab_selected_bg.png");
+              color: #301F01;
+            }
+          }
+        }
+      }
+
+      &>.table_header{
+        width: 100%;
+        height: 8vh;
+        box-sizing: border-box;
+        padding: 0 1vh;
+        background: url("src/assets/image/refresh_chip_ratio/img_refresh_chip_ratio_table_header_bg.png") no-repeat;
+        background-size: 100% 100%;
+
+        &>span{
+          display: inline-block;
+          width: 20%;
+          height: 8vh;
+          line-height: 8vh;
+          text-align: center;
+          font-size: 3.6vh;
+          color: $main_color;
+        }
+      }
+
+      &>.table_container{
+        position: relative;
+        width: 100%;
+        height: calc(100% - 10vh - 8vh);
+
+        &>.no_data{
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+
+          &>img{
+            display: block;
+            width: 16vh;
+            height: auto;
+            margin: 0 auto;
+            margin-top: 8vh;
+          }
+
+          &>span{
+            display: block;
+            width: 100%;
+            height: auto;
+            font-size: 3.2vh;
+            color: #CCC;
+            text-align: center;
+            margin-top: 1vh;
+          }
+        }
+
+        &>.table_inner{
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          box-sizing: border-box;
+          padding: 0 1vh;
+
+          &>.table_row{
+            width: 100%;
+            height: auto;
+            padding: 1vh 0;
+
+            &:nth-of-type(2n){
+              background-color: #333;
+            }
+
+            &>span{
+              display: inline-block;
+              width: 20%;
+              height: auto;
+              vertical-align: middle;
+              font-size: 3.6vh;
+              color: white;
+              text-align: center;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  &>.close_button{
+    position: absolute;
+    width: 10vh;
+    height: 10vh;
+    left: calc(50% + 69vh - 5vh);
+    top: calc(10vh - 5vh);
+    @include press_effect;
+  }
+}

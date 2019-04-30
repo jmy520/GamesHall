@@ -31,6 +31,8 @@ import { SafeBoxValidateComponent } from './components/safe-box-validate/safe-bo
 import { MessageComponent } from './components/message/message.component';
 import { SingleSelectComponent } from './components/single-select/single-select.component';
 import { SettingsComponent } from './components/settings/settings.component';
+import { RefreshChipRatioComponent } from './components/refresh-chip-ratio/refresh-chip-ratio.component';
+import { RefreshChipRecordComponent } from './components/refresh-chip-record/refresh-chip-record.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +44,9 @@ import { SettingsComponent } from './components/settings/settings.component';
     SafeBoxValidateComponent,
     MessageComponent,
     SingleSelectComponent,
-    SettingsComponent
+    SettingsComponent,
+    RefreshChipRatioComponent,
+    RefreshChipRecordComponent
   ],
 
   entryComponents: [
@@ -53,7 +57,9 @@ import { SettingsComponent } from './components/settings/settings.component';
     SafeBoxValidateComponent,
     MessageComponent,
     SingleSelectComponent,
-    SettingsComponent
+    SettingsComponent,
+    RefreshChipRatioComponent,
+    RefreshChipRecordComponent
   ],
 
   imports: [BrowserModule, IonicModule.forRoot(), IonicStorageModule.forRoot(), AppRoutingModule, FormsModule, HttpClientModule],
