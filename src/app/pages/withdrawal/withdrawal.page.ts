@@ -96,6 +96,7 @@ export class WithdrawalPage extends BaseView implements OnInit {
   }
 
   tabLeft(vl) {
+    this.runtime.payButtonVido();
     this.tabIndex = vl;
     if (vl === 1) {
       this.liushuiTab(0); // 调用流水切换
@@ -138,6 +139,7 @@ export class WithdrawalPage extends BaseView implements OnInit {
   }
 
   cash() {
+    this.runtime.payButtonVido();
     if (this.withDrawalParam.money <= 0) {
       this.showToast('请输入提现金额.');
       return;
@@ -217,6 +219,7 @@ export class WithdrawalPage extends BaseView implements OnInit {
   }
 
   liushuiTab(vl) {
+    this.runtime.payButtonVido();
     this.innerTabIndex = vl;
     if (this.innerTabIndex === 0) {
       this.bankItem();
@@ -225,9 +228,13 @@ export class WithdrawalPage extends BaseView implements OnInit {
     }
   }
 
-
+  tep_button() {
+    this.runtime.payButtonVido();
+    this.isAddingBankCard = false;
+  }
 
   bind() {
+    this.runtime.payButtonVido();
     if (this.bindCardParam.bankGid === undefined || this.bindCardParam.bankGid === '') {
       this.showToast('请选择开户银行');
       return;
@@ -282,6 +289,7 @@ export class WithdrawalPage extends BaseView implements OnInit {
   }
 
   goBind() {
+    this.runtime.payButtonVido();
     this.tabIndex = 2;
     this.isAddingBankCard = true;
   }

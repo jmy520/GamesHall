@@ -65,6 +65,7 @@ export class SafeBoxPage extends BaseView implements OnInit {
    * 从保险箱转出
    */
   outSafeBox() {
+    this.runtime.payButtonVido();
     if (parseFloat(this.safeBoxActionParam.money) <= this.userWallet.freezeMoney) {
       const loading = super.showLoading('正在转出,请稍后...');
       this.api.safeBox(this.safeBoxActionParam).then(response => {
@@ -94,6 +95,7 @@ export class SafeBoxPage extends BaseView implements OnInit {
    * 转入到保险箱中
    */
   inSafeBox() {
+    this.runtime.payButtonVido();
     if (parseFloat(this.safeBoxActionParam.money) <= this.userWallet.factMoney) {
       const loading = super.showLoading('转入中,请稍后...');
       this.safeBoxActionParam.money = '-' + this.safeBoxActionParam.money;
@@ -123,6 +125,9 @@ export class SafeBoxPage extends BaseView implements OnInit {
   wallet() {
     const loading = super.showLoading('加载中...');
     this.api.wallet().then(response => {
+      loading.then((loadinginstan) => {
+        loadinginstan.dismiss();
+      });
       const errorMessage = response.msg;
       if (errorMessage) {
         this.showToast(errorMessage);
@@ -175,6 +180,7 @@ export class SafeBoxPage extends BaseView implements OnInit {
   }
 
   selectBl() {
+    this.runtime.payButtonVido();
     if (this.tabIndex === 0) {
       this.safeBoxActionParam.money = (this.userWallet.factMoney * (this.bl / 100)).toFixed(2);
     } else if (this.tabIndex === 1) {
@@ -189,6 +195,7 @@ export class SafeBoxPage extends BaseView implements OnInit {
   }
 
   maxRage() {
+    this.runtime.payButtonVido();
     this.bl = 100;
   }
 

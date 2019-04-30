@@ -74,7 +74,7 @@
               <span>{{currentBankCard?currentBankCard.bankName:''}}</span>
               <!-- <span>更换银行卡></span> -->
               <ion-select  interface="popover" [compareWith]="compareWithBankCardFn" placeholder="更换银行卡>" selectedText="更换银行卡>" (ionChange)="bankCardSelected()" [(ngModel)]="currentBankCard" >
-                  <ion-select-option [value]="item.gid" *ngFor="let item of bankCards">{{item.bankName}}</ion-select-option>
+                  <ion-select-option [value]="item" *ngFor="let item of bankCards">{{item.bankName}}</ion-select-option>
               </ion-select>
             </div>
             <div class="row02">
@@ -272,7 +272,7 @@
 
             <div class="buttons">
               <img src="assets/image/withdrawal/img_withdrawal_previous_step_button.png"
-                (click)="isAddingBankCard = false">
+                (click)="tep_button()">
               <img src="assets/image/withdrawal/img_withdrawal_cnfirm_bingding_button.png" (click)="bind()">
             </div>
           </div>

@@ -38,6 +38,7 @@ export class CustomerServicePage extends BaseView implements OnInit {
   }
 
   tabSelect(vl) {
+    this.runtime.payButtonVido();
     this.seachParam.bcode = vl;
     if ('wt' !== vl) {
       this.getKefus();

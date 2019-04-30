@@ -37,7 +37,7 @@
               </span>
 
               <span>
-                Jason
+                {{runTime.user?runTime.user.user.userAccount:'游客'}}
               </span>
             </div>
 
@@ -47,7 +47,7 @@
               </span>
 
               <span>
-                VIP1
+                VIP{{runTime.user?runTime.user.user.vipGrade:1}}
               </span>
             </div>
           </div>
@@ -69,26 +69,26 @@
             </div>
           </div>
 
-          <img src="assets/image/settings/img_settings_logout_button.png">
+          <img src="assets/image/settings/img_settings_logout_button.png" (click)="logout()">
         </div>
 
         <div *ngIf="tabIndex == 1" class="tab02_container">
           <div class="input_item">
             <span>现密码：</span>
-            <ion-input></ion-input>
+            <ion-input [(ngModel)]="modifyPwdParam.oldpwd" type="password"></ion-input>
           </div>
 
           <div class="input_item">
             <span>新密码：</span>
-            <ion-input></ion-input>
+            <ion-input [(ngModel)]="modifyPwdParam.pwd" type="password"></ion-input>
           </div>
 
           <div class="input_item">
             <span>确认密码：</span>
-            <ion-input></ion-input>
+            <ion-input [(ngModel)]="modifyPwdParam.repwd" type="password"></ion-input>
           </div>
 
-          <img src="assets/image/settings/img_settings_confirm_update_button.png">
+          <img src="assets/image/settings/img_settings_confirm_update_button.png" (click)="modifyPwd()">
         </div>
 
         <div *ngIf="tabIndex == 2" class="tab03_container">

@@ -228,6 +228,11 @@ export class ApiService {
     return this.buildPostPromise('/front/setPayPwd', params, null, null, null, {});
   }
 
+  /** 修改登录密码 */
+  modifyLoginPwd(params): Promise<any> {
+    return this.buildPostPromise('/front/modifyLoginPwd', params, null, null, null, {});
+  }
+
   /** 统计活动打码是否满足提现 进入提现页面请求，不需要做返回处理 */
   betUpperLImit(): Promise<any> {
     return this.buildPostPromise('/front/betUpperLImit', null, null, null, null, {});
