@@ -7,7 +7,8 @@ import { Router } from '@angular/router';
   styleUrls: ['./activity.page.scss'],
 })
 export class ActivityPage implements OnInit {
-
+  tabIndex: number = 0;
+  
   constructor(public mRouter: Router) { }
 
   ngOnInit() {

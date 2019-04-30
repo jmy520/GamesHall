@@ -13,87 +13,106 @@
       <div class="refresh_chip_type_list_container">
         <div class="list_inner">
 
-          <div [class]="item.colCode == ximaSeachParam.game_type ? 'list_item active':'list_item'" *ngFor="let item of apiColumns.list" (click)="tabGame(item.colCode)">
+          <!-- <div (click)="tabIndex = 0" [class]="tabIndex == 0 ? 'list_item active' : 'list_item'">
+            <img src="assets/image/refresh_chip/img_refresh_chip_poker_icon.png">棋牌游戏
+          </div>
+
+          <div (click)="tabIndex = 1" [class]="tabIndex == 1 ? 'list_item active' : 'list_item'">
+            <img src="assets/image/refresh_chip/img_refresh_chip_fishing_icon.png">捕鱼游戏
+          </div>
+
+          <div (click)="tabIndex = 2" [class]="tabIndex == 2 ? 'list_item active' : 'list_item'">
+            <img src="assets/image/refresh_chip/img_refresh_chip_arcade_game_icon.png">电子游戏
+          </div>
+
+          <div (click)="tabIndex = 3" [class]="tabIndex == 3 ? 'list_item active' : 'list_item'">
+            <img src="assets/image/refresh_chip/img_refresh_chip_real_game_icon.png">真人视讯
+          </div>
+
+          <div (click)="tabIndex = 4" [class]="tabIndex == 4 ? 'list_item active' : 'list_item'">
+            <img src="assets/image/refresh_chip/img_refresh_chip_ball_icon.png">体育投注
+          </div> -->
+
+          <div [class]="item.colCode == ximaSeachParam.game_type ? 'list_item active':'list_item'"
+            *ngFor="let item of apiColumns.list" (click)="tabGame(item.colCode)">
             <img src="assets/image/common/img_default_icon.png">{{item.colName}}游戏
           </div>
-
         </div>
-      </div>
 
-      <img src="assets/image/refresh_chip/img_split_line.png" class="split_line">
+        <img src="assets/image/refresh_chip/img_split_line.png" class="split_line">
 
-      <div class="refresh_chip_content_container">
-        <div class="refresh_chip_content_table">
-          <div class="total_and_history">
-            <span>
-              总计游戏投注：
-            </span>
-            <span>
-              ￥{{ximaObj.bettotal}}
-            </span>
-            <span>
-              <img src="assets/image/refresh_chip/img_history_icon.png">
-              历史洗码记录
-            </span>
-          </div>
+        <div class="refresh_chip_content_container">
+          <div class="refresh_chip_content_table">
+            <div class="total_and_history">
+              <span>
+                总计游戏投注：
+              </span>
+              <span>
+                ￥{{ximaObj.bettotal}}
+              </span>
+              <span (click)="goRefreshChipRecord()">
+                <img src="assets/image/refresh_chip/img_history_icon.png">
+                历史洗码记录
+              </span>
+            </div>
 
-          <div class="prompt_info">
-            <img src="assets/image/refresh_chip/img_prompt_icon.png">
-            <span>
-              由于注单延迟，自助洗码彩金会延迟统计。
-            </span>
-          </div>
+            <div class="prompt_info">
+              <img src="assets/image/refresh_chip/img_prompt_icon.png">
+              <span>
+                由于注单延迟，自助洗码彩金会延迟统计。
+              </span>
+            </div>
 
-          <div class="table_header">
-            <span>全部游戏</span>
-            <span>游戏洗码量</span>
-            <span>比例<img src="assets/image/refresh_chip/img_help_icon.png"></span>
-            <span>洗码金额</span>
-          </div>
+            <div class="table_header">
+              <span>全部游戏</span>
+              <span>游戏洗码量</span>
+              <span>比例<img (click)="goRefreshChipRatio()" src="assets/image/refresh_chip/img_help_icon.png"></span>
+              <span>洗码金额</span>
+            </div>
 
-          <div class="content_table">
-            <div class="content_table_inner">
+            <div class="content_table">
+              <div class="content_table_inner">
 
-              <div class="table_row" *ngFor="let item of ximaObj.apiXimaLjs">
-                <span>
-                  {{item.api_name}}
-                </span>
-                <span>
-                  {{item.bet_all?item.bet_all:'0.0'}}
-                </span>
-                <span>
-                  {{item.xm_bl?item.xm_bl:'0.0'}}%
-                </span>
-                <span>
-                  {{item.xm_money?item.xm_money:'0.0'}}
-                </span>
+                <div class="table_row" *ngFor="let item of ximaObj.apiXimaLjs">
+                  <span>
+                    {{item.api_name}}
+                  </span>
+                  <span>
+                    {{item.bet_all?item.bet_all:'0.0'}}
+                  </span>
+                  <span>
+                    {{item.xm_bl?item.xm_bl:'0.0'}}%
+                  </span>
+                  <span>
+                    {{item.xm_money?item.xm_money:'0.0'}}
+                  </span>
+                </div>
+
               </div>
-
             </div>
           </div>
-        </div>
 
-        <div class="statistics">
-          <div class="last_time">
-            <span>
-              上次结算时间：
-            </span>
-            <span>
+          <div class="statistics">
+            <div class="last_time">
+              <span>
+                上次结算时间：
+              </span>
+              <span>
                 {{ximaObj.lastJsTime?ximaObj.lastJsTime:'未结算'}}
-            </span>
-          </div>
-          <div class="amount">
-            <span>
-              洗码金额：
-            </span>
-            <span>
-              ￥{{ximaObj.ximatotal}}
-            </span>
-          </div>
+              </span>
+            </div>
+            <div class="amount">
+              <span>
+                洗码金额：
+              </span>
+              <span>
+                ￥{{ximaObj.ximatotal}}
+              </span>
+            </div>
 
-          <img class="refresh_chip_button" src="assets/image/refresh_chip/img_refresh_chip_button.png">
+            <img class="refresh_chip_button" src="assets/image/refresh_chip/img_refresh_chip_button.png">
+          </div>
         </div>
       </div>
     </div>
-  </div>
 </ion-content>

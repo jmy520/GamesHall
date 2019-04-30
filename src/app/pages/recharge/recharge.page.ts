@@ -7,7 +7,8 @@ import { Router } from '@angular/router';
   styleUrls: ['./recharge.page.scss'],
 })
 export class RechargePage implements OnInit {
-
+  tabIndex: number = 0;
+  
   constructor(public mRouter: Router) { }
 
   ngOnInit() {
