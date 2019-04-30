@@ -10,6 +10,8 @@ import { PictureHelper } from 'src/common/helper/PictureHelper';
 import { SafeBoxValidateComponent } from 'src/app/components/safe-box-validate/safe-box-validate.component';
 import { MessageComponent } from 'src/app/components/message/message.component';
 import { SettingsComponent } from 'src/app/components/settings/settings.component';
+import { Clipboard } from '@ionic-native/clipboard/ngx';
+import { RestConfig } from 'src/common/config/RestConfig';
 
 @Component({
   selector: 'app-home',
@@ -19,6 +21,8 @@ import { SettingsComponent } from 'src/app/components/settings/settings.componen
 export class HomePage extends BaseView {
 
   currentGameType = 0;
+
+  domain: string = RestConfig.COPY_DOMAIN;
 
   getGameTypeListParams: any = {
     colType: 'home_left_column'
@@ -57,6 +61,7 @@ export class HomePage extends BaseView {
 
   constructor(
     public mRouter: Router,
+    private clipboard: Clipboard,
     public mLoading: LoadingController,
     public mToast: ToastController,
     public mModal: ModalController,
@@ -75,16 +80,28 @@ export class HomePage extends BaseView {
     this.wallet();
     this.getGameTypeList();
 
-    this.gameTypeArray.set("buyu_game", "assets/image/home/img_fishing_game_icon.png");
-    this.gameTypeArray.set("qipai_game", "assets/image/home/img_poker_game_icon.png");
-    this.gameTypeArray.set("dianzi_game", "assets/image/home/img_arcade_game_icon.png");
-    this.gameTypeArray.set("xunshi_game", "assets/image/home/img_real_game_icon.png");
-    this.gameTypeArray.set("tiyusaishi_game", "assets/image/home/img_ball_game_icon.png");
-    this.gameTypeArray.set("hot_game", "assets/image/home/img_hot_game_icon.png");
+    this.gameTypeArray.set('buyu_game', 'assets/image/home/img_fishing_game_icon.png');
+    this.gameTypeArray.set('qipai_game', 'assets/image/home/img_poker_game_icon.png');
+    this.gameTypeArray.set('dianzi_game', 'assets/image/home/img_arcade_game_icon.png');
+    this.gameTypeArray.set('xunshi_game', 'assets/image/home/img_real_game_icon.png');
+    this.gameTypeArray.set('tiyusaishi_game', 'assets/image/home/img_ball_game_icon.png');
+    this.gameTypeArray.set('hot_game', 'assets/image/home/img_hot_game_icon.png');
   }
 
   getGameTypeImage(typeCode: string) {
     return this.gameTypeArray.get(typeCode);
+  }
+
+  repWallet() {
+    this.runtime.payButtonVido();
+    this.wallet();
+  }
+
+  copyDomain() {
+    this.runtime.payButtonVido();
+    this.clipboard.copy(this.domain).then(()=>{
+      this.showToast('复制成功');
+    });
   }
 
   getGameTypeList() {

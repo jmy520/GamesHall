@@ -20,8 +20,8 @@ export class PromotePage extends BaseView implements OnInit {
   dataTotal = 0;
 
   homeData: any = {
-    canCommission: 0.0,
-    ljCommission: 0.0,
+    canCommission: 0,
+    ljCommission: 0,
     pepolNum: 0
   };
 
@@ -260,6 +260,7 @@ export class PromotePage extends BaseView implements OnInit {
   }
 
   receiveCommision() {
+    this.runtime.payButtonVido();
     if (this.homeData.canCommission > 0 ) {
       this.showToast('未有可领取的佣金.');
     } else {
