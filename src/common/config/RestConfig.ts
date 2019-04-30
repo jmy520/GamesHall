@@ -13,4 +13,7 @@ export class RestConfig {
   static PHONE_STREAM_PORT = '170';
 
   static TIME_OUT = 10000;
+
+
+  static COPY_DOMAIN = 'WWW.ky888.COM';
 }

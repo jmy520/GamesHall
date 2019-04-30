@@ -97,11 +97,14 @@
       max-width: 1vw;
     }
 
+    &>.pd{
+      padding: 4vh 3vw;
+    }
+
     &>.customer_service_content_container{
       width: calc(100% - 20vw - 1vw);
       height: 100%;
-      float: left;
-      padding: 4vh 3vw;
+      float: left;      
       overflow-y: scroll;
 
       &>.tab00_container{

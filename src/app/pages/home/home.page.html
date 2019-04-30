@@ -33,7 +33,7 @@
             <span class="coin_value">
               {{userWallet.factMoney}}
             </span>
-            <img src="assets/image/home/icon_refresh.png" (click)="wallet()">
+            <img src="assets/image/home/icon_refresh.png" (click)="repWallet()">
           </div>
 
           <div class="logo">
@@ -41,8 +41,8 @@
           </div>
 
           <div class="netword_location">
-            网址：WWW.ky888.COM
-            <ion-button color="dark" size="small">
+            网址：{{domain}}
+            <ion-button color="dark" size="small" (click)="copyDomain()">
               复制
             </ion-button>
           </div>

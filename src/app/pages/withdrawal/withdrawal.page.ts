@@ -26,11 +26,13 @@ export class WithdrawalPage extends BaseView implements OnInit {
 
   bankCards = [];
 
-  currentBank: any;
+  currentBank: any; // 绑定银行卡当前选择的银行
+
+  currentBankCard: any; // 提现当前选中要提现到的银行卡
 
   withDrawalParam = {
-    money: '0.0',
-    bankGid: ''
+    money: 0,
+    bankGid: null
   };
 
   bindCardParam = {
@@ -41,7 +43,32 @@ export class WithdrawalPage extends BaseView implements OnInit {
     bankSubName: ''
   };
 
+  seachBankItemParam = {
+    itemType: 'recharge',
+    insterTimeStart: '',
+    InsterTimeEnd: '',
+    page: 1,
+    size: 100
+  };
+
+  seachCashDetailParam = {
+    page: 1,
+    size: 100
+  };
+
+  cashDetails = {
+    totals: 0,
+    totalsPage: 0,
+    list: []
+  };
+
   bankList = [];
+
+  bankItems = {
+    totals: 0,
+    totalsPage: 0,
+    list: []
+  };
 
   constructor(
     public mRouter: Router,
@@ -63,14 +90,33 @@ export class WithdrawalPage extends BaseView implements OnInit {
       this.mRouter.navigate(['/home']);
       return;
     }
+    this.betUpperLImit();
     this.banks();
     this.cashIndex();
   }
 
+  tabLeft(vl) {
+    this.runtime.payButtonVido();
+    this.tabIndex = vl;
+    if (vl === 1) {
+      this.liushuiTab(0); // 调用流水切换
+    }
+  }
+
   clearMoney() {
     this.runtime.payButtonVido();
-    this.withDrawalParam.money = '';
+    this.withDrawalParam.money = 0;
   }
+
+  betUpperLImit() {
+    this.api.betUpperLImit().then(response => {
+      const errorMessage = response.msg;
+      if (errorMessage) {
+        this.showToast(errorMessage);
+      }
+    }).catch(error => { });
+  }
+
   cashIndex() {
     const loading = super.showLoading('加载中...');
     this.api.cashIndex().then(response => {
@@ -80,6 +126,31 @@ export class WithdrawalPage extends BaseView implements OnInit {
       } else {
         this.userWallet = response.data['wallect'];
         this.bankCards = response.data['bankCards'];
+        if (this.bankCards.length > 0) {
+          this.currentBankCard = this.bankCards[0];
+          this.withDrawalParam.bankGid = this.currentBankCard.gid;
+        }
+      }
+    }).catch(error => { }).finally(() => {
+      loading.then((loadinginstan) => {
+        loadinginstan.dismiss();
+      });
+    });
+  }
+
+  cash() {
+    this.runtime.payButtonVido();
+    if (this.withDrawalParam.money <= 0) {
+      this.showToast('请输入提现金额.');
+      return;
+    }
+    const loading = super.showLoading('提现请求中...');
+    this.api.cash(this.withDrawalParam).then(response => {
+      const errorMessage = response.hashError;
+      if (errorMessage) {
+        this.showToast(errorMessage);
+      } else {
+        this.showToast('提现成功,等待银行处理.');
       }
     }).catch(error => { }).finally(() => {
       loading.then((loadinginstan) => {
@@ -99,7 +170,71 @@ export class WithdrawalPage extends BaseView implements OnInit {
     }).catch(error => { });
   }
 
+  bankItem() {
+    const loading = super.showLoading('加载中...');
+    this.api.bankItem(this.seachBankItemParam).then(response => {
+      const errorMessage = response.msg;
+      if (errorMessage) {
+        this.showToast(errorMessage);
+      } else {
+        this.bankItems = response.data;
+      }
+    }).catch(error => { }).finally(() => {
+      loading.then((loadinginstan) => {
+        loadinginstan.dismiss();
+      });
+    });
+  }
+
+  nextPage(page) {
+    this.runtime.payButtonVido();
+    if ((this.seachBankItemParam.page + page) > 0 && (this.seachBankItemParam.page + page) <= this.bankItems.totalsPage) {
+      this.seachBankItemParam.page = this.seachBankItemParam.page + page;
+      this.bankItem();
+    }
+  }
+
+  cashDetail() {
+    const loading = super.showLoading('加载中...');
+    this.api.cashDetail(this.seachCashDetailParam).then(response => {
+      const errorMessage = response.msg;
+      if (errorMessage) {
+        this.showToast(errorMessage);
+      } else {
+        this.cashDetails = response.data;
+      }
+    }).catch(error => { }).finally(() => {
+      loading.then((loadinginstan) => {
+        loadinginstan.dismiss();
+      });
+    });
+  }
+
+  nextPageLimit(page) {
+    this.runtime.payButtonVido();
+    if ((this.seachCashDetailParam.page + page) > 0 && (this.seachCashDetailParam.page + page) <= this.cashDetails.totalsPage) {
+      this.seachCashDetailParam.page = this.seachCashDetailParam.page + page;
+      this.cashDetail();
+    }
+  }
+
+  liushuiTab(vl) {
+    this.runtime.payButtonVido();
+    this.innerTabIndex = vl;
+    if (this.innerTabIndex === 0) {
+      this.bankItem();
+    } else {
+      this.cashDetail();
+    }
+  }
+
+  tep_button() {
+    this.runtime.payButtonVido();
+    this.isAddingBankCard = false;
+  }
+
   bind() {
+    this.runtime.payButtonVido();
     if (this.bindCardParam.bankGid === undefined || this.bindCardParam.bankGid === '') {
       this.showToast('请选择开户银行');
       return;
@@ -136,13 +271,27 @@ export class WithdrawalPage extends BaseView implements OnInit {
     return o1 && o2 ? o1.gid === o2.gid : o1 === o2;
   }
 
+  compareWithBankCardFn = (o1, o2) => {
+    return o1 && o2 ? o1.gid === o2.gid : o1 === o2;
+  }
+
   bankSelected() {
     this.bindCardParam.bankGid = this.currentBank.gid;
     this.bindCardParam.bankName = this.currentBank.value1;
   }
+  bankCardSelected () {
+    console.log('--->' + JSON.stringify(this.currentBankCard));
+    this.withDrawalParam.bankGid = this.currentBankCard.gid;
+  }
 
   fetchImage(fileName: string) {
     return PictureHelper.fetchImage(fileName + '.png');
+  }
+
+  goBind() {
+    this.runtime.payButtonVido();
+    this.tabIndex = 2;
+    this.isAddingBankCard = true;
   }
 
   viewWithdrawalRecord() {

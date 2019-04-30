@@ -48,6 +48,7 @@ export class MessageComponent extends BaseView implements OnInit {
   }
 
   tabSelect(gid) {
+    this.runtime.payButtonVido();
     this.gongGaoSeachParam.colGid = gid;
     this.getNotices();
   }

@@ -26,6 +26,15 @@ export class UserStore {
     }
   }
 
+  async saveKey(key: string, obj: string) {
+    try {
+      const val = await this.storage.set(key, obj);
+      console.log('[saveKey] save() complete', val);
+    } catch (err) {
+      console.error('[saveKey] save() error:', err);
+    }
+  }
+
   /**
    * 读取缓存的用户信息
    */
@@ -42,6 +51,23 @@ export class UserStore {
         }
       } catch (err) {
         console.error('[UserStore] load() error:', err);
+        reject(err);
+      }
+    });
+  }
+
+  getKey(key: string): Promise<any> {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const val = await this.storage.get(key);
+        console.log('[getKey] load() complete:', val);
+        if (!val) {
+          resolve(null);
+        } else {
+          resolve(val);
+        }
+      } catch (err) {
+        console.error('[getKey] load() error:', err);
         reject(err);
       }
     });

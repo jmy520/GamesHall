@@ -22,6 +22,7 @@ import { UserStore } from './services/storage/user-store';
 import { DatePipe } from '@angular/common';
 import { DateUtile } from 'src/common/helper/DateUtile';
 import { NativeAudio } from '@ionic-native/native-audio/ngx';
+import { Clipboard } from '@ionic-native/clipboard/ngx';
 
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
@@ -71,6 +72,7 @@ import { RefreshChipRecordComponent } from './components/refresh-chip-record/ref
     ApiService,
     Runtime,
     NativeAudio,
+    Clipboard,
     DatePipe,
     DateUtile,
     SafeBox,
