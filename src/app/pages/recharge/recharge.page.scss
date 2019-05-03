@@ -5,6 +5,7 @@
   background: black;
 
   &>.header{
+    display: flex;
     width: 100%;
     height: 13vh;
     background: url("src/assets/image/recharge/img_recharge_header_bg.png") no-repeat;
@@ -39,6 +40,81 @@
       margin-top: 2vh;
       float: left;
       vertical-align: middle;
+    }
+
+    &>.recharge_header_info{
+      width: auto;
+      height: 100%;
+      flex: 1;
+      text-align: right;
+
+      &>.recharge_header_info_inner{
+        display: inline-block;
+        width: 68vh;
+        height: auto;
+        padding-right: 2vh;
+
+        &>.balance{
+          position: relative;
+          display: block;
+          float: left;
+          margin-top: 2vh;
+          width: 28vh;
+          height: 10vh;
+
+          &>span{
+            position: absolute;
+            display: inline-block;
+            left: 0;
+            top: 2vh;
+            width: 32vh;
+            height: 8vh;
+            padding-left: 8vh;
+            text-align: center;
+          }
+
+          &>img{
+            position: absolute;
+            display: inline-block;
+            width: 10vh;
+            height: auto;
+            left: 0;
+            top: 0;
+          }
+        }
+
+        &>img{
+          display: block;
+          width: 6vh;
+          height: 6vh;
+          float: left;
+          margin-left: 2vh;
+          margin-top: 4vh;
+        }
+
+        &>.recharge_record{
+          display: block;
+          width: 24vh;
+          height: auto;
+          float: left;
+          padding: 1vh;
+          margin-left: 2vh;
+          margin-top: 2vh;
+          background: url("src/assets/image/recharge/img_recharge_header_recharge_record_bg.png ") no-repeat;
+          background-size: 100% 100%;
+
+          &>img{
+            width: 8vh;
+            height: 8vh;
+            vertical-align: middle;
+          }
+
+          &>span{
+            font-size: 3.2vh;
+            color: $main_color;
+          }
+        }
+      }
     }
   }
 
@@ -111,11 +187,10 @@
       height: 100%;
       float: left;
       padding: 2vh 2vw;
-      overflow-y: scroll;
 
-      &>.recharge_content_inner{
+      &>.recharge_tab01_content{
         width: 100%;
-        height: auto;
+        height: 100%;
         padding: 0 2vw;
 
         &>.text_info{
@@ -184,6 +259,512 @@
             margin-left: 1vh;
             margin-top: 6vh;
             @include press_effect;
+          }
+        }
+      }
+
+      &>.recharge_inner{
+        width: 100%;
+        height: 100%;
+
+        &>.to_user{
+          width: 50%;
+          height: 100%;
+          float: left;
+          padding-right: 1vh;
+          box-sizing: border-box;
+
+          &>.user_infomation{
+            width: 100%;
+            height: 62vh;
+            background: url("src/assets/image/recharge/img_recharge_user_bg.png") no-repeat;
+            background-size: 100% 100%;
+            padding-bottom: 2vh;
+            padding: 0 2vh;
+
+            &>img{
+              display: block;
+              width: auto;
+              height: 8vh;
+              margin: 0 auto;
+            }
+
+            &>.info_row{
+              width: 100%;
+              height: auto;
+              padding: 1vh 0;
+
+              &>.row_title{
+                display: inline-block;
+                width: 16vh;
+                font-size: 3.2vh;
+                color: #CCC;
+                vertical-align: middle;
+              }
+
+              &>.row_info{
+                display: inline-block;
+                margin-left: 1vh;
+                width: calc(100% - 16vh - 1vh);
+                height: auto;
+                padding: 1vh 0;
+                @include getBorder(bottom, 0.55px, #CCC);
+
+                &>img{
+                  width: 6vh;
+                  height: auto;
+                  border-radius: 50%;
+                  vertical-align: middle;
+                }
+
+                &>span{
+                  display: inline-block;
+                  font-size: 3.6vh;
+
+                  &:nth-of-type(1){
+                    width: 18.6vw;
+                    color: white;
+                    font-weight: bold;
+
+                    &.sort{
+                      width: calc(18.6vw - 6vh);
+                    }
+                  }
+
+                  &:nth-of-type(2){
+                    font-size: 3.6vh;
+                    color: #CCC;
+                    padding: 1vh 2vh;
+                    background: url("src/assets/image/recharge/img_recharge_copy_button.png") no-repeat;
+                    background-size: 100% 100%;
+                    @include press_effect;
+                  }
+                }
+              }
+            }
+          }
+
+          &>span{
+            display: block;
+            width: 100%;
+            height: auto;
+            margin-top: 2vh;
+            font-size: 3.2vh;
+            color: #CCC;
+          }
+
+          &>.back_previours_page{
+            display: block;
+            width: 24vh;
+            height: 10vh;
+            line-height: 10vh;
+            padding: 0 2vh;
+            background: url("src/assets/image/recharge/img_recharge_back_previours_page_button.png") no-repeat;
+            background-size: 100% 100%;
+            margin: 0 auto;
+            margin-top: 4vh;
+            color: #CCC;
+            @include press_effect;
+          }
+        }
+
+        &>.from_user{
+          width: 50%;
+          height: 100%;
+          float: left;
+          padding-left: 1vh;
+          box-sizing: border-box;
+
+          &>.user_infomation{
+            width: 100%;
+            height: 62vh;
+            background: url("src/assets/image/recharge/img_recharge_user_bg.png") no-repeat;
+            background-size: 100% 100%;
+            padding: 0 2vh;
+
+            &>img{
+              display: block;
+              width: auto;
+              height: 8vh;
+              margin: 0 auto;
+            }
+
+            &>.input_row{
+              width: 100%;
+              height: auto;
+              margin-top: 2vh;
+
+              &>span{
+                display: inline-block;
+                width: 16vh;
+                font-size: 3.2vh;
+                color: #CCC;
+                vertical-align: middle;
+              }
+
+              &>ion-input{
+                --padding-start: 1vh;
+                --padding-end: 1vh;
+
+                display: inline-block;
+                width: calc(100% - 16vh);
+                background-color: black;
+                border-radius: 1vh;
+                font-size: 3.2vh;
+                color: #CCC;
+                @include getBorder(all, 0.55px, $main_color);
+              }
+            }
+
+            &>.tips_title{
+              width: 100%;
+              height: auto;
+              margin-top: 2vh;
+              text-align: center;
+              vertical-align: middle;
+
+              &>span{
+                display: inline-block;
+
+                &:nth-of-type(1){
+                  width: 18vh;
+                  height: 1px;
+                  background-color: #CCC;
+                }
+
+                &:nth-of-type(2){
+                  font-size: 3.2vh;
+                  color: #CCC;
+                  margin: 0 2vh;
+                }
+
+                &:nth-of-type(3){
+                  width: 18vh;
+                  height: 1px;
+                  background-color: #CCC;
+                }
+              }
+            }
+
+            &>.tips_info{
+              width: 100%;
+              height: auto;
+              margin-top: 2vh;
+              font-size: 3.2vh;
+              color: #CCC;
+            }
+          }
+
+          &>span{
+            display: block;
+            width: 100%;
+            height: auto;
+            margin-top: 2vh;
+            font-size: 3.2vh;
+            color: #CCC;
+          }
+
+          &>img{
+            display: block;
+            width: auto;
+            height: 10vh;
+            margin: 0 auto;
+            @include press_effect;
+          }
+        }
+      }
+
+      .recharge_base_content{
+        width: 100%;
+        height: 100%;
+
+        &>.top_tab_container{
+          width: 100%;
+          height: auto;
+          white-space: nowrap;
+          overflow-x: scroll;
+
+          &>span{
+            display: inline-block;
+            width: 26vh;
+            height: 10vh;
+            line-height: 10vh;
+            text-align: center;
+            background: url("src/assets/image/recharge/img_recharge_top_tab_unselect_bg.png") no-repeat;
+            background-size: 100% 100%;
+
+            &:not(:nth-of-type(1)){
+              margin-left: 2vh;
+            }
+
+            &.active{
+              background-image: url("src/assets/image/recharge/img_recharge_top_tab_selected_bg.png");
+            }
+          }
+        }
+
+        &>.inner_tab_content{
+          width: 100%;
+          height: calc(100% - 10vh);
+          padding: 2vh;
+          background: url("src/assets/image/recharge/img_recharge_content_bg02.png") no-repeat;
+          background-size: 100% 100%;
+
+          &>span{
+            display: block;
+            width: 100%;
+            font-size: 3.2vh;
+            color: #CCC;
+          }
+
+          &>.recharge_value_item_container{
+            width: 100%;
+            height: auto;
+            margin-top: 1vh;
+            @include clearfix;
+
+            &>span{
+              display: block;
+              float: left;
+              width: calc((100% - 6vh) / 4);
+              height: 10vh;
+              line-height: 10vh;
+              margin-top: 2vh;
+              text-align: center;
+              font-size: 3.6vh;
+              color: white;
+              background: url("src/assets/image/recharge/img_recharge_value_item_bg.png") no-repeat;
+              background-size: 100% 100%;
+              @include press_effect;
+
+              &:not(:nth-of-type(4n)){
+                margin-right: 2vh;
+              }
+            }
+          }
+
+          &>.declare_amount{
+            width: 100%;
+            height: auto;
+            padding: 2vh 2vh;
+            margin-top: 2vh;
+            border-radius: 2vh;
+            background: url("src/assets/image/recharge/img_recharge_input_block_bg.png") no-repeat;
+            background-size: 100% 100%;
+
+            &>.declare_main{
+              width: 100%;
+              height: auto;
+
+              &>span{
+                display: inline-block;
+                vertical-align: middle;
+
+                &:nth-of-type(1){
+                  width: 18vh;
+                  font-size: 3.6vh;
+                  color: white;
+                }
+
+                &:nth-of-type(2){
+                  width: 14vh;
+                  height: 8vh;
+                  line-height: 8vh;
+                  margin-left: 2vh;
+                  text-align: center;
+                  font-size: 3.6vh;
+                  color: #CCC;
+                  background: url("src/assets/image/recharge/img_recharge_clean_button.png ") no-repeat;
+                  background-size: 100% 100%;
+                  @include press_effect;
+                }
+              }
+
+              &>ion-input{
+                --padding-start: 1vh;
+                --padding-end: 1vh;
+
+                display: inline-block;
+                width: calc(100% - 32vh - 2vh);
+                background-color: black;
+                border-radius: 1vh;
+                font-size: 3.2vh;
+                color: #CCC;
+                @include getBorder(all, 0.55px, $main_color);
+              }
+            }
+
+            &>.tips{
+              width: 100%;
+              height: auto;
+              margin-top: 1vh;
+              font-size: 3.2vh;
+              color: $main_color;
+            }
+          }
+
+          &>img{
+            display: block;
+            height: 10vh;
+            width: auto;
+            margin: 0 auto;
+            margin-top: 2vh;
+            @include press_effect;
+          }
+        }
+      }
+
+      &>.recharge_tab02_content{
+        @extend .recharge_base_content;
+      }
+
+      &>.recharge_tab03_content{
+        @extend .recharge_base_content;
+      }
+
+      &>.recharge_tab04_content{
+        @extend .recharge_base_content;
+      }
+
+      &>.recharge_tab05_content{
+        @extend .recharge_base_content;
+      }
+
+      &>.recharge_tab06_content{
+        width: 100%;
+        height: 100%;
+
+        &>.proxy_header_container{
+          width: 100%;
+          height: auto;
+          padding: 1vh;
+          @include clearfix;
+          background: url("src/assets/image/recharge/img_recharge_proxy_header_bg.png") no-repeat;
+          background-size: 100% 100%;
+
+          &>img{
+            display: block;
+            width: 12vh;
+            height: auto;
+            float: left;
+          }
+
+          &>.proxy_tips{
+            width: calc(100% - 12vh - 2vh - 22vh - 2vh);
+            height: auto;
+            float: left;
+
+            &>.tips_item{
+              width: 100%;
+              height: auto;
+
+              &>img{
+                width: 4vh;
+                height: auto;
+                vertical-align: middle;
+              }
+
+              &>span{
+                display: inline-block;
+                width: calc(100% - 4vh - 2vh);
+                height: auto;
+                margin-left: 2vh;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+                overflow: hidden;
+                vertical-align: middle;
+                font-size: 3.2vh;
+                color: white;
+              }
+            }
+          }
+
+          &>.comment_proxy_button{
+            width: 22vh;
+            height: 8vh;
+            line-height: 8vh;
+            float: left;
+            margin-left: 2vh;
+            margin-top: 1vh;
+            text-align: center;
+            font-size: 3.6vh;
+            color: #CCC;
+            background: url("src/assets/image/recharge/img_recharge_proxy_recommend_button.png") no-repeat;
+            background-size: 100% 100%;
+            @include press_effect;
+          }
+        }
+
+        &>.users_container{
+          width: 100%;
+          height: auto;
+          white-space: nowrap;
+          overflow-x: scroll;
+          margin-top: 2vh;
+
+          &>.user_item{
+            display: inline-block;
+            width: 32vh;
+            height: auto;
+            padding: 2vh 3vh;
+            background: url("src/assets/image/recharge/img_recharge_proxy_user_item_bg.png") no-repeat;
+            background-size: 100% 100%;
+
+            &:not(:last-of-type){
+              margin-right: 2vh;
+            }
+
+            &>.row01{
+              width: 100%;
+              height: auto;
+              @include clearfix;
+
+              &>img{
+                display: block;
+                width: 9vh;
+                height: 9vh;
+                float: left;
+                border-radius: 1vh;
+              }
+
+              &>.user_info{
+                width: calc(100% - 9vh);
+                padding-left: 1vh;
+                box-sizing: border-box;
+                height: auto;
+                float: left;
+
+                &>span{
+                  display: block;
+                  width: 100%;
+                  height: auto;
+                  font-size: 3.2vh;
+                  color: $main_color;
+                }
+              }
+            }
+
+            &>.row02{
+              width: 100%;
+              height: auto;
+              padding: 1vh 0;
+              margin-top: 1vh;
+              background-color: black;
+              border-radius: 1vh;
+              @include getBorder(all, 0.55px, #CCC);
+              text-align: center;
+              color: white;
+              font-size: 3.6vh;
+            }
+
+            &>img{
+              display: block;
+              width: auto;
+              height: 8vh;
+              margin: 0 auto;
+              margin-top: 1vh;
+              @include press_effect;
+            }
           }
         }
       }

@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 })
 export class RechargePage implements OnInit {
   tabIndex: number = 0;
+  isInRecharge: boolean = false;
   
   constructor(public mRouter: Router) { }
 
