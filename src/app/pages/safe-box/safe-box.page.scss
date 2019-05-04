@@ -7,7 +7,7 @@
   &>.header{
     width: 100%;
     height: 13vh;
-    background: url("src/assets/image/safe_box/img_safe_box_header_bg.png") no-repeat;
+    background: url("src/assets/image/common/page/img_common_page_header_bg.png") no-repeat;
     background-size: 100% 100%;
 
     &>.back{
@@ -50,7 +50,7 @@
       height: 100%;
       width: 20vw;
       float: left;
-      background: url("src/assets/image/safe_box/img_safe_box_list_bg.png") no-repeat;
+      background: url("src/assets/image/common/page/img_common_type_list_bg.png") no-repeat;
       background-size: 100% 100%;
       overflow-y: scroll;
 
@@ -64,7 +64,7 @@
           line-height: 12vh;
           text-align: left;
           padding-left: 2vh;
-          background: url("src/assets/image/safe_box/img_item_high_light_bg.png") no-repeat;
+          background: url("src/assets/image/common/page/img_item_high_light_bg.png") no-repeat;
           background-size: 100% 100%;
           font-size: 3.6vh;
           font-weight: 600;
@@ -72,7 +72,7 @@
 
           &.active{
             color: #301F01;
-            background-image: url("src/assets/image/safe_box/img_item_selected_bg.png")
+            background-image: url("src/assets/image/common/page/img_item_selected_bg.png")
           }
 
           &>img{

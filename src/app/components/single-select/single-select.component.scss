@@ -9,7 +9,7 @@
     height: 80vh;
     left: calc(50% - 69vh);
     top: 10vh;
-    background-image: url("src/assets/image/single_select/img_single_select_content_bg.png");
+    background-image: url("src/assets/image/common/dialog/img_dialog_content_bg.png");
     background-repeat: no-repeat;
     background-position: center;
     background-size: 100% 100%;
@@ -19,7 +19,7 @@
       height: 12vh;
       line-height: 12vh;
       text-align: center;
-      background-image: url("src/assets/image/single_select/img_high_light_bg.png");
+      background-image: url("src/assets/image/common/dialog/img_high_light_bg.png");
       background-repeat: no-repeat;
       background-position: center;
       background-size: 100% 100%;
@@ -61,7 +61,7 @@
             line-height: 10vh;
             white-space: nowrap;
             text-overflow: ellipsis;
-            background: url("src/assets/image/single_select/img_high_light_bg.png") no-repeat;
+            background: url("src/assets/image/single_select/img_item_high_light_bg.png") no-repeat;
             background-size: 100% 100%;
             text-align: center;
             font-size: 4.2vh;

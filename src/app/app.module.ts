@@ -33,6 +33,8 @@ import { SingleSelectComponent } from './components/single-select/single-select.
 import { SettingsComponent } from './components/settings/settings.component';
 import { RefreshChipRatioComponent } from './components/refresh-chip-ratio/refresh-chip-ratio.component';
 import { RefreshChipRecordComponent } from './components/refresh-chip-record/refresh-chip-record.component';
+import { RechargeRecordComponent } from './components/recharge-record/recharge-record.component';
+import { RechargeDetailComponent } from './components/recharge-detail/recharge-detail.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +48,9 @@ import { RefreshChipRecordComponent } from './components/refresh-chip-record/ref
     SingleSelectComponent,
     SettingsComponent,
     RefreshChipRatioComponent,
-    RefreshChipRecordComponent
+    RefreshChipRecordComponent,
+    RechargeRecordComponent,
+    RechargeDetailComponent
   ],
 
   entryComponents: [
@@ -59,7 +63,9 @@ import { RefreshChipRecordComponent } from './components/refresh-chip-record/ref
     SingleSelectComponent,
     SettingsComponent,
     RefreshChipRatioComponent,
-    RefreshChipRecordComponent
+    RefreshChipRecordComponent,
+    RechargeRecordComponent,
+    RechargeDetailComponent
   ],
 
   imports: [BrowserModule, IonicModule.forRoot(), IonicStorageModule.forRoot(), AppRoutingModule, FormsModule, HttpClientModule],
