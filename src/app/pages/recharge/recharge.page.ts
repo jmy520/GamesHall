@@ -20,7 +20,9 @@ export class RechargePage extends BaseView implements OnInit {
 
   allPayItems = [];
 
-  currentPay = {};
+  currentPay = {
+    gid: null
+  };
 
   currentPayItem = {};
 

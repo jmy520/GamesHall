@@ -18,7 +18,11 @@ export class WithdrawalRecordComponent extends BaseView implements OnInit {
     size: 1000,
   };
 
-  bankItems = {};
+  bankItems = {
+    totals: 0,
+    totalsPage: 0,
+    list: []
+  };
 
   constructor(
     public mRouter: Router,
@@ -38,19 +42,22 @@ export class WithdrawalRecordComponent extends BaseView implements OnInit {
 
   bankItem() {
     this.runtime.payButtonVido();
-    this.showLoading('加载中...');
+    const loading = super.showLoading('加载中...');
     this.api.bankItem(this.bankItemParam).then(response => {
-        const errorMessage = response.msg;
+      this.mLoading.getTop().then(instance => {
+        instance.dismiss();
+      }).catch(e => { });
+        const errorMessage = response.hashError;
         if (errorMessage) {
           this.showToast(errorMessage);
         } else {
           this.bankItems = response.data;
         }
-      }).catch(error => { }).finally(() => {
+      }).catch(error => {
         this.mLoading.getTop().then(instance => {
           instance.dismiss();
-        }).catch(error => { });
-      });
+        }).catch(e => { });
+       });
   }
 
   dismissDialog() {

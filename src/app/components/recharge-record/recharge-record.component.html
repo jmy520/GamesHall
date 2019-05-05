@@ -16,17 +16,26 @@
       </div>
 
       <div class="table_container">
-        <div class="no_data">
+        <div class="no_data" *ngIf="bankItems.totals <= 0">
           <img src="assets/image/recharge_record/img_recharge_record_no_data_icon.png">
           <span>暂无数据</span>
         </div>
 
-        <div class="table_inner">
-          <div class="table_row">
-            <span>2019/04/20 14:00</span>
+        <div class="table_inner" *ngIf="bankItems.totals > 0">
+          <div class="table_row" *ngFor="let item of bankItems.list">
+            <span>{{item.createrTime | date:'yy/MM/dd HH:mm'}}</span>
             <span>支付宝入款</span>
             <span>充值失败</span>
-            <span>98.00</span>
+            <span *ngIf="'normal'==item.gStatus">
+                充值成功
+            </span>
+            <span *ngIf="'processing'==item.gStatus">
+                入款处理中
+            </span>
+            <span *ngIf="'fail'==item.gStatus">
+                充值失败
+            </span>
+            <span>{{item.actMoney}}</span>
             <span (click)="goDetail()">查看</span>
           </div>
         </div>
