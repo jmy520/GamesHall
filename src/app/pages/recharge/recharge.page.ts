@@ -5,6 +5,7 @@ import { Runtime } from 'src/app/services/Runtime';
 import { ApiService } from 'src/app/services/api.service';
 import { BaseView } from 'src/common/base/BaseView';
 import { PictureHelper } from 'src/common/helper/PictureHelper';
+import { RechargeRecordComponent } from 'src/app/components/recharge-record/recharge-record.component';
 
 @Component({
   selector: 'app-recharge',
@@ -37,7 +38,6 @@ export class RechargePage extends BaseView implements OnInit {
     public mModalController: ModalController) {
       super(mLoading, mToast, mModalController);
      }
-
   ngOnInit() {
     this.tabIcons.set('yhzz', 'assets/image/recharge/img_recharge_union_pay_icon.png');
     this.tabIcons.set('ylcz', 'assets/image/recharge/img_recharge_union_pay_icon.png');
@@ -102,5 +102,16 @@ export class RechargePage extends BaseView implements OnInit {
 
   fetchImage(fileName: string) {
     return PictureHelper.fetchImage(fileName + '.png');
+  }
+  
+  goRechargeRecord() {
+    this.mModal.create({
+      cssClass: 'common_modal_dialog',
+      component: RechargeRecordComponent
+    }).then(instance => {
+      instance.present();
+    }).catch(error => {
+      console.error(error);
+    });
   }
 }

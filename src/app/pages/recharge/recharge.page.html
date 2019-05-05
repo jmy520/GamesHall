@@ -2,8 +2,8 @@
   <div class="content_container">
     <div class="header">
       <div class="back" (click)="mRouter.navigate(['/home'])">
-        <img src="assets/image/recharge/img_recharge_back_button.png">
-        <img src="assets/image/recharge/img_recharge_back_text.png">
+        <img src="assets/image/common/page/img_common_back_button.png">
+        <img src="assets/image/common/page/img_common_back_text.png">
       </div>
 
       <img src="assets/image/recharge/img_recharge_page_title.png" class="page_title">
@@ -17,7 +17,7 @@
 
           <img src="assets/image/recharge/img_refresh_icon.png">
 
-          <div class="recharge_record">
+          <div class="recharge_record" (click)="goRechargeRecord()">
             <img src="assets/image/recharge/img_recharge_record_icon.png">
             <span>充值记录</span>
           </div>
@@ -36,7 +36,7 @@
         </div>
       </div>
 
-      <img src="assets/image/recharge/img_split_line.png" class="split_line">
+      <img src="assets/image/common/page/img_split_line.png" class="split_line">
 
       <div class="recharge_content_container">
         <div class="recharge_tab01_content" *ngIf="currentPay.payType == 'yhzz' && isInRecharge == false">
