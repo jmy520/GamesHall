@@ -13,33 +13,13 @@
       <div class="refresh_chip_type_list_container">
         <div class="list_inner">
 
-          <!-- <div (click)="tabIndex = 0" [class]="tabIndex == 0 ? 'list_item active' : 'list_item'">
-            <img src="assets/image/refresh_chip/img_refresh_chip_poker_icon.png">棋牌游戏
-          </div>
-
-          <div (click)="tabIndex = 1" [class]="tabIndex == 1 ? 'list_item active' : 'list_item'">
-            <img src="assets/image/refresh_chip/img_refresh_chip_fishing_icon.png">捕鱼游戏
-          </div>
-
-          <div (click)="tabIndex = 2" [class]="tabIndex == 2 ? 'list_item active' : 'list_item'">
-            <img src="assets/image/refresh_chip/img_refresh_chip_arcade_game_icon.png">电子游戏
-          </div>
-
-          <div (click)="tabIndex = 3" [class]="tabIndex == 3 ? 'list_item active' : 'list_item'">
-            <img src="assets/image/refresh_chip/img_refresh_chip_real_game_icon.png">真人视讯
-          </div>
-
-          <div (click)="tabIndex = 4" [class]="tabIndex == 4 ? 'list_item active' : 'list_item'">
-            <img src="assets/image/refresh_chip/img_refresh_chip_ball_icon.png">体育投注
-          </div> -->
-
           <div [class]="item.colCode == ximaSeachParam.game_type ? 'list_item active':'list_item'"
             *ngFor="let item of apiColumns.list" (click)="tabGame(item.colCode)">
-            <img src="assets/image/common/img_default_icon.png">{{item.colName}}游戏
+            <img [src]="tabIcons.get(item.colCode)">{{item.colName}}游戏
           </div>
-        </div>
-
-        <img src="assets/image/refresh_chip/img_split_line.png" class="split_line">
+        </div>        
+      </div>
+      <img src="assets/image/refresh_chip/img_split_line.png" class="split_line">
 
         <div class="refresh_chip_content_container">
           <div class="refresh_chip_content_table">
@@ -78,13 +58,13 @@
                     {{item.api_name}}
                   </span>
                   <span>
-                    {{item.bet_all?item.bet_all:'0.0'}}
+                    {{item.bet_all ? item.bet_all : '0.0'}}
                   </span>
                   <span>
-                    {{item.xm_bl?item.xm_bl:'0.0'}}%
+                    {{item.xm_bl ? (item.xm_bl*100).toFixed(2) : '0.0'}}%
                   </span>
                   <span>
-                    {{item.xm_money?item.xm_money:'0.0'}}
+                    {{item.xm_money ? item.xm_money : '0.0'}}
                   </span>
                 </div>
 
@@ -98,7 +78,7 @@
                 上次结算时间：
               </span>
               <span>
-                {{ximaObj.lastJsTime?ximaObj.lastJsTime:'未结算'}}
+                {{ximaObj.lastJsTime ? ximaObj.lastJsTime : '未结算'}}
               </span>
             </div>
             <div class="amount">
@@ -110,9 +90,9 @@
               </span>
             </div>
 
-            <img class="refresh_chip_button" src="assets/image/refresh_chip/img_refresh_chip_button.png">
+            <img class="refresh_chip_button" src="assets/image/refresh_chip/img_refresh_chip_button.png" (click)="handXima()">
           </div>
         </div>
-      </div>
     </div>
+  </div>
 </ion-content>

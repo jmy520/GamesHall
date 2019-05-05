@@ -40,6 +40,7 @@ export class LoginComponent extends BaseView implements OnInit {
     this.runtime.payButtonVido();
     this.mModal.getTop().then(modalInstance => {
       modalInstance.dismiss();
+      this.api.ximaInit();
     }).catch(error => { });
   }
 

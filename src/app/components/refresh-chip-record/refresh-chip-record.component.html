@@ -15,17 +15,18 @@
       </div>
 
       <div class="table_container">
-          <div class="no_data">
+          <div class="no_data" *ngIf="ximalogs.length <= 0">
             <img src="assets/image/refresh_chip_record/img_refresh_chip_record_no_data_icon.png">
             <span>暂无数据</span>
           </div>
           
-          <div class="table_inner">
-            <div class="table_row">
-              <span>2019/03/12</span>
-              <span>580</span>
-              <span>58000</span>
-              <span>洗码成功</span>
+          <div class="table_inner" *ngIf="ximalogs.length > 0">
+            <div class="table_row" *ngFor="let item of ximalogs">
+              <span>{{item.creater_time | date:'yy/MM/dd HH:mm'}}</span>
+              <span>{{item.bet_all}}</span>
+              <span>{{item.xm_money}}</span>
+              <span *ngIf="item.xm_status=='y'">洗码成功</span>
+              <span *ngIf="item.xm_status=='n'">洗码失败</span>
             </div>
           </div>
         </div>

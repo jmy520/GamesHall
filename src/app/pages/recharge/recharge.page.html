@@ -11,8 +11,8 @@
       <div class="recharge_header_info">
         <div class="recharge_header_info_inner">
           <div class="balance">
-            <span>余额：0.00元</span>
-            <img src="assets/image/recharge/img_recharge_value.png">
+            <span>余额：{{wallet.factMoney}}元</span>
+            <img src="assets/image/recharge/img_recharge_value.png" (click)="rechargeIndex()">
           </div>
 
           <img src="assets/image/recharge/img_refresh_icon.png">
@@ -29,30 +29,9 @@
       <div class="recharge_type_list_container">
         <div class="list_inner">
 
-          <div (click)="tabIndex = 0" [class]="tabIndex == 0 ? 'list_item active' : 'list_item'">
-            <img src="assets/image/recharge/img_recharge_union_pay_icon.png">网银转账
-            <img src="assets/image/recharge/img_recharge_tag_icon.png">
-          </div>
-
-          <div (click)="tabIndex = 1" [class]="tabIndex == 1 ? 'list_item active' : 'list_item'">
-            <img src="assets/image/recharge/img_recharge_union_pay_icon.png">网银充值
-            <img src="assets/image/recharge/img_recharge_tag_icon.png">
-          </div>
-
-          <div (click)="tabIndex = 2" [class]="tabIndex == 2 ? 'list_item active' : 'list_item'">
-            <img src="assets/image/recharge/img_recharge_wechat_pay_icon.png">微信充值
-          </div>
-
-          <div (click)="tabIndex = 3" [class]="tabIndex == 3 ? 'list_item active' : 'list_item'">
-            <img src="assets/image/recharge/img_recharge_ali_pay_icon.png">支付宝充值
-          </div>
-
-          <div (click)="tabIndex = 4" [class]="tabIndex == 4 ? 'list_item active' : 'list_item'">
-            <img src="assets/image/recharge/img_recharge_ali_pay_icon.png">支付宝转账
-          </div>
-
-          <div (click)="tabIndex = 5" [class]="tabIndex == 5 ? 'list_item active' : 'list_item'">
-            <img src="assets/image/recharge/img_recharge_proxy_icon.png">代理充值
+          <div (click)="tabPay(item)" [class]="item.gid==currentPay.gid ? 'list_item active' : 'list_item'" *ngFor="let item of apiPays">
+            <img [src]="tabIcons.get(item.payType)">{{item.payName}}
+            <img *ngIf="item.payLogo=='y'" src="assets/image/recharge/img_recharge_tag_icon.png">
           </div>
         </div>
       </div>
@@ -60,7 +39,7 @@
       <img src="assets/image/recharge/img_split_line.png" class="split_line">
 
       <div class="recharge_content_container">
-        <div class="recharge_tab01_content" *ngIf="tabIndex == 0 && !isInRecharge">
+        <div class="recharge_tab01_content" *ngIf="currentPay.payType == 'yhzz' && isInRecharge == false">
           <div class="text_info">
             <div></div>
             <h4>
@@ -68,23 +47,23 @@
             </h4>
           </div>
 
-          <div class="bank_item">
-            <img src="assets/image/common/img_default_icon.png">
+          <div class="bank_item" *ngFor="let item of allPayItems['g_' + currentPay.gid]">
+            <img [src]="fetchImage(item.bankCode)">
             <div>
               <h4>
-                工商银行
+                {{item.bankName}}
               </h4>
               <h4>
-                2402100901003106113
+                {{item.cardNo}}
               </h4>
             </div>
-            <img (click)="isInRecharge = true" src="assets/image/recharge/img_go_recharge_button.png"
+            <img (click)="tabPayItem(item,true)" src="assets/image/recharge/img_go_recharge_button.png"
               class="recharge_button">
           </div>
 
         </div>
 
-        <div class="recharge_inner" *ngIf="tabIndex == 0 && isInRecharge">
+        <div class="recharge_inner" *ngIf="currentPay.payType == 'yhzz' && isInRecharge">
 
           <div class="to_user">
             <div class="user_infomation">
@@ -93,8 +72,8 @@
               <div class="info_row">
                 <div class="row_title">收款银行</div>
                 <div class="row_info">
-                  <img src="assets/image/recharge/img_recharge_bank_item_01_icon.png">
-                  <span class="sort">农业银行</span>
+                  <img [src]="fetchImage(currentPayItem.bankCode)">
+                  <span class="sort">{{currentPayItem.bankName}}</span>
                   <span>复制</span>
                 </div>
               </div>
@@ -102,7 +81,7 @@
               <div class="info_row">
                 <div class="row_title">收款人</div>
                 <div class="row_info">
-                  <span>贾志凯</span>
+                  <span>{{currentPayItem.userName}}</span>
                   <span>复制</span>
                 </div>
               </div>
@@ -110,7 +89,7 @@
               <div class="info_row">
                 <div class="row_title">收款账号</div>
                 <div class="row_info">
-                  <span>6230520730039624572</span>
+                  <span>{{currentPayItem.cardNo}}</span>
                   <span>复制</span>
                 </div>
               </div>
@@ -118,7 +97,7 @@
               <div class="info_row">
                 <div class="row_title">开户地</div>
                 <div class="row_info">
-                  <span>洛阳景华路支行</span>
+                  <span>{{currentPayItem.bankSubName}}</span>
                   <span>复制</span>
                 </div>
               </div>
@@ -136,7 +115,7 @@
 
               <div class="input_row">
                 <span>存款金额</span>
-                <ion-input placeholder="单笔存款1-1000000"></ion-input>
+                <ion-input [placeholder]="'单笔存款' + currentPay.minMoney + '-' + currentPay.maxMoney"></ion-input>
               </div>
 
               <div class="input_row">
@@ -161,10 +140,9 @@
 
         </div>
 
-        <div class="recharge_tab02_content" *ngIf="tabIndex == 1">
+        <div class="recharge_tab02_content" *ngIf="currentPay.payType == 'ylcz'">
           <div class="top_tab_container">
-            <span class="active">选项卡01</span>
-            <span>选项卡02</span>
+            <span [class]="currentPayItem.gid == item.gid ?'active':''" *ngFor="let item of allPayItems['g_' + currentPay.gid]" (click)="tabPayItem(item,false)">{{item.bankName}}</span>
           </div>
 
           <div class="inner_tab_content">
@@ -210,7 +188,7 @@
                 <span>清除</span>
               </div>
               <div class="tips">
-                温馨提示：微信扫码支付，支付限额30-10000元，自动到账
+                温馨提示：微信扫码支付，支付限额{{currentPay.minMoney}}-{{currentPay.maxMoney}}元，自动到账
               </div>
             </div>
 
@@ -218,10 +196,9 @@
           </div>
         </div>
 
-        <div class="recharge_tab03_content" *ngIf="tabIndex == 2">
+        <div class="recharge_tab03_content" *ngIf="currentPay.payType == 'wxcz'">
           <div class="top_tab_container">
-            <span class="active">选项卡01</span>
-            <span>选项卡02</span>
+            <span [class]="currentPayItem.gid == item.gid ?'active':''" *ngFor="let item of allPayItems['g_' + currentPay.gid]" (click)="tabPayItem(item,false)">{{item.bankName}}</span>
           </div>
 
           <div class="inner_tab_content">
@@ -275,10 +252,9 @@
           </div>
         </div>
 
-        <div class="recharge_tab04_content" *ngIf="tabIndex == 3">
+        <div class="recharge_tab04_content" *ngIf="currentPay.payType == 'alicz'">
           <div class="top_tab_container">
-            <span class="active">选项卡01</span>
-            <span>选项卡02</span>
+            <span [class]="currentPayItem.gid == item.gid ?'active':''" *ngFor="let item of allPayItems['g_' + currentPay.gid]" (click)="tabPayItem(item,false)">{{item.bankName}}</span>
           </div>
 
           <div class="inner_tab_content">
@@ -332,10 +308,9 @@
           </div>
         </div>
 
-        <div class="recharge_tab05_content" *ngIf="tabIndex == 4">
+        <div class="recharge_tab05_content" *ngIf="currentPay.payType == 'alizz'">
           <div class="top_tab_container">
-            <span class="active">选项卡01</span>
-            <span>选项卡02</span>
+            <span [class]="currentPayItem.gid == item.gid ?'active':''" *ngFor="let item of allPayItems['g_' + currentPay.gid]" (click)="tabPayItem(item,false)">{{item.bankName}}</span>
           </div>
 
           <div class="inner_tab_content">
@@ -389,7 +364,7 @@
           </div>
         </div>
 
-        <div class="recharge_tab06_content" *ngIf="tabIndex == 5">
+        <div class="recharge_tab06_content" *ngIf="currentPay.payType == 'dlcz'">
           <div class="proxy_header_container">
             <img src="assets/image/recharge/img_recharge_proxy_icon.png">
             <div class="proxy_tips">
@@ -404,22 +379,22 @@
               </div>
             </div>
 
-            <div class="comment_proxy_button">
+            <div class="comment_proxy_button" (click)="goKufe()">
               投诉代理
             </div>
           </div>
 
           <div class="users_container">
-            <div class="user_item">
+            <div class="user_item" *ngFor="let item of allPayItems['g_' + currentPay.gid]">
               <div class="row01">
-                <img src="assets/image/common/img_default_header.jpg">
+                <img [src]="item.payLogo">
                 <div class="user_info">
-                  <span>财务专员</span>
+                  <span>{{item.userName}}</span>
                   <span>微信号</span>
                 </div>
               </div>
               <div class="row02">
-                mika383
+                  {{item.cardNo}}
               </div>
 
               <img src="assets/image/recharge/img_recharge_proxy_copy_wx_code_button.png">

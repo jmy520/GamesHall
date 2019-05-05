@@ -14,7 +14,7 @@ import { SafeResourceUrl, DomSanitizer } from '@angular/platform-browser';
 export class CustomerServicePage extends BaseView implements OnInit {
   targetUrl: SafeResourceUrl = '';
   seachParam = {
-    bcode: 'qq',
+    bcode: 'online',
   };
 
   kefuList = [];

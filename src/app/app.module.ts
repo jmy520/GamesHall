@@ -33,6 +33,7 @@ import { SingleSelectComponent } from './components/single-select/single-select.
 import { SettingsComponent } from './components/settings/settings.component';
 import { RefreshChipRatioComponent } from './components/refresh-chip-ratio/refresh-chip-ratio.component';
 import { RefreshChipRecordComponent } from './components/refresh-chip-record/refresh-chip-record.component';
+import { PhotoLibrary } from '@ionic-native/photo-library/ngx';
 
 @NgModule({
   declarations: [
@@ -74,6 +75,7 @@ import { RefreshChipRecordComponent } from './components/refresh-chip-record/ref
     DatePipe,
     DateUtile,
     SafeBox,
+    PhotoLibrary,
     UserStore,
     HTMLAudioElement,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }

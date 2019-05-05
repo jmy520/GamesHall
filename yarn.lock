@@ -340,6 +340,13 @@
   dependencies:
     "@types/cordova" latest
 
+"@ionic-native/photo-library@^5.5.1":
+  version "5.5.1"
+  resolved "https://registry.npm.taobao.org/@ionic-native/photo-library/download/@ionic-native/photo-library-5.5.1.tgz#e68a6c77327cf790d7fa3b118ab3046768ee70c7"
+  integrity sha1-5opsdzJ895DX+jsRirMEZ2jucMc=
+  dependencies:
+    "@types/cordova" latest
+
 "@ionic-native/splash-screen@^5.0.0":
   version "5.5.1"
   resolved "https://registry.npm.taobao.org/@ionic-native/splash-screen/download/@ionic-native/splash-screen-5.5.1.tgz#173cc0e8b3109fd8d9861b1226abee165d5ff2e8"

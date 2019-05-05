@@ -32,22 +32,27 @@ export class RefreshChipPage extends BaseView implements OnInit {
 
   tabIcons: Map<string, string> = new Map();
 
-  constructor(public mRouter: Router, public api: ApiService, public runtime: Runtime, public mLoading: LoadingController, public mToast: ToastController, public mModal: ModalController) {
+  constructor(public mRouter: Router,
+     public api: ApiService,
+    public runtime: Runtime,
+    public mLoading: LoadingController,
+    public mToast: ToastController,
+    public mModal: ModalController) {
     super(mLoading, mToast, mModal);
   }
 
   ngOnInit() {
-    //TODO 填写KEY
-    // this.tabIcons.set('key', 'assets/image/refresh_chip/img_refresh_chip_poker_icon.png');
-    // this.tabIcons.set('key', 'assets/image/refresh_chip/img_refresh_chip_fishing_icon.png');
-    // this.tabIcons.set('key', 'assets/image/refresh_chip/img_refresh_chip_arcade_game_icon.png');
-    // this.tabIcons.set('key', 'assets/image/refresh_chip/img_refresh_chip_real_game_icon.png');
-    // this.tabIcons.set('key', 'assets/image/refresh_chip/img_refresh_chip_ball_icon.png');
+    // TODO 填写KEY
+    this.tabIcons.set('QP', 'assets/image/refresh_chip/img_refresh_chip_poker_icon.png');
+    this.tabIcons.set('PY', 'assets/image/refresh_chip/img_refresh_chip_fishing_icon.png');
+    this.tabIcons.set('DZ', 'assets/image/refresh_chip/img_refresh_chip_arcade_game_icon.png');
+    this.tabIcons.set('ZR', 'assets/image/refresh_chip/img_refresh_chip_real_game_icon.png');
+    this.tabIcons.set('TY', 'assets/image/refresh_chip/img_refresh_chip_ball_icon.png');
   }
 
   goRefreshChipRatio() {
     this.mModal.create({
-      cssClass: "common_modal_dialog",
+      cssClass: 'common_modal_dialog',
       component: RefreshChipRatioComponent
     }).then(instance => {
       instance.present();
@@ -58,7 +63,7 @@ export class RefreshChipPage extends BaseView implements OnInit {
 
   goRefreshChipRecord() {
     this.mModal.create({
-      cssClass: "common_modal_dialog",
+      cssClass: 'common_modal_dialog',
       component: RefreshChipRecordComponent
     }).then(instance => {
       instance.present();
@@ -99,6 +104,9 @@ export class RefreshChipPage extends BaseView implements OnInit {
   ximaLijiList() {
     this.showLoading('加载中...');
     this.api.ximaLijiList(this.ximaSeachParam).then(response => {
+      this.mLoading.getTop().then(instance => {
+        instance.dismiss();
+      }).catch(error => { });
       const errorMessage = response.msg;
       if (errorMessage) {
         this.showToast(errorMessage);
@@ -110,5 +118,15 @@ export class RefreshChipPage extends BaseView implements OnInit {
         instance.dismiss();
       }).catch(error => { });
     });
+  }
+
+  handXima() {
+    this.api.handXima(this.ximaSeachParam).then(response => {
+      const errorMessage = response.hashError;
+      if (errorMessage) {
+        this.showToast(errorMessage);
+      } else {
+      }
+    }).catch(error => { });
   }
 }

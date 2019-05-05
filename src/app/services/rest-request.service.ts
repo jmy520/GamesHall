@@ -9,10 +9,11 @@ import { Platform, ToastController } from '@ionic/angular';
 })
 export class RestRequestService {
   /** base url */
-  private BASE_URL: string = RestConfig.BASE_URL;
+  public BASE_URL: string = RestConfig.BASE_URL;
 
   /** default port */
-  private PORT: string = RestConfig.DEFAULT_PORT;
+  public PORT: string = RestConfig.DEFAULT_PORT;
+  
 
   constructor(public http: HttpClient, public mPlatform: Platform, public mToast: ToastController) {
     if (mPlatform.is("cordova")) {

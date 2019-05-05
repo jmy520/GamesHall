@@ -110,9 +110,9 @@ export class WithdrawalPage extends BaseView implements OnInit {
 
   betUpperLImit() {
     this.api.betUpperLImit().then(response => {
-      const errorMessage = response.msg;
+      const errorMessage = response.hashError;
       if (errorMessage) {
-        this.showToast(errorMessage);
+        this.showToast(response.msg);
       }
     }).catch(error => { });
   }
@@ -120,9 +120,12 @@ export class WithdrawalPage extends BaseView implements OnInit {
   cashIndex() {
     const loading = super.showLoading('加载中...');
     this.api.cashIndex().then(response => {
-      const errorMessage = response.msg;
+      loading.then((loadinginstan) => {
+        loadinginstan.dismiss();
+      });
+      const errorMessage = response.hashError;
       if (errorMessage) {
-        this.showToast(errorMessage);
+        this.showToast(response.msg);
       } else {
         this.userWallet = response.data['wallect'];
         this.bankCards = response.data['bankCards'];
@@ -131,11 +134,11 @@ export class WithdrawalPage extends BaseView implements OnInit {
           this.withDrawalParam.bankGid = this.currentBankCard.gid;
         }
       }
-    }).catch(error => { }).finally(() => {
+    }).catch(error => {
       loading.then((loadinginstan) => {
         loadinginstan.dismiss();
       });
-    });
+     });
   }
 
   cash() {
@@ -148,7 +151,7 @@ export class WithdrawalPage extends BaseView implements OnInit {
     this.api.cash(this.withDrawalParam).then(response => {
       const errorMessage = response.hashError;
       if (errorMessage) {
-        this.showToast(errorMessage);
+        this.showToast(response.msg);
       } else {
         this.showToast('提现成功,等待银行处理.');
       }
@@ -163,7 +166,7 @@ export class WithdrawalPage extends BaseView implements OnInit {
     this.api.banks().then(response => {
       const errorMessage = response.msg;
       if (errorMessage) {
-        this.showToast(errorMessage);
+        this.showToast(response.msg);
       } else {
         this.bankList = response.data;
       }
@@ -173,9 +176,9 @@ export class WithdrawalPage extends BaseView implements OnInit {
   bankItem() {
     const loading = super.showLoading('加载中...');
     this.api.bankItem(this.seachBankItemParam).then(response => {
-      const errorMessage = response.msg;
+      const errorMessage = response.hashError;
       if (errorMessage) {
-        this.showToast(errorMessage);
+        this.showToast(response.msg);
       } else {
         this.bankItems = response.data;
       }
@@ -197,9 +200,9 @@ export class WithdrawalPage extends BaseView implements OnInit {
   cashDetail() {
     const loading = super.showLoading('加载中...');
     this.api.cashDetail(this.seachCashDetailParam).then(response => {
-      const errorMessage = response.msg;
+      const errorMessage = response.hashError;
       if (errorMessage) {
-        this.showToast(errorMessage);
+        this.showToast(response.msg);
       } else {
         this.cashDetails = response.data;
       }
@@ -253,9 +256,9 @@ export class WithdrawalPage extends BaseView implements OnInit {
     }
     const loading = super.showLoading('提交中...');
     this.api.bindCard(this.bindCardParam).then(response => {
-      const errorMessage = response.msg;
+      const errorMessage = response.hashError;
       if (errorMessage) {
-        this.showToast(errorMessage);
+        this.showToast(response.msg);
       } else {
         this.showToast('成功。');
         this.isAddingBankCard = false;

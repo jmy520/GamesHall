@@ -88,9 +88,9 @@
                 复制您的专属网址发送给好友
               </span>
               <span class="address">
-                https://ly888.com
+                {{homeData.tgLink}}
               </span>
-              <img src="assets/image/promote/img_copy_url.png" class="copy_link_address">
+              <img src="assets/image/promote/img_copy_url.png" class="copy_link_address" (click)="copyDomain()">
             </div>
 
             <div class="share_to_thirdpart">
@@ -120,9 +120,9 @@
             </div>
 
             <div class="qr_code">
-              <img src="assets/image/common/img_default.png">
+              <img [src]="myQr()">
 
-              <img src="assets/image/promote/img_save_picture.png">
+              <img src="assets/image/promote/img_save_picture.png" (click)="saveShareImg()">
             </div>
           </div>
         </div>

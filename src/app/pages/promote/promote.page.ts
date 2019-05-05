@@ -4,10 +4,15 @@ import { Router } from '@angular/router';
 import { ModalController, ToastController , LoadingController, AlertController } from '@ionic/angular';
 import { Runtime } from 'src/app/services/Runtime';
 import { ApiService } from 'src/app/services/api.service';
-import { ReceiveCommisionComponent } from 'src/app/components/receive-commision/receive-commision.component';
+import { Clipboard } from '@ionic-native/clipboard/ngx';
 import { BaseView } from 'src/common/base/BaseView';
 import { DatePipe } from '@angular/common';
 import { DateUtile } from 'src/common/helper/DateUtile';
+import { SafeResourceUrl, DomSanitizer } from '@angular/platform-browser';
+import { PhotoLibrary } from '@ionic-native/photo-library/ngx';
+import { RestConfig } from 'src/common/config/RestConfig';
+
+
 
 @Component({
   selector: 'app-promote',
@@ -19,10 +24,13 @@ export class PromotePage extends BaseView implements OnInit {
 
   dataTotal = 0;
 
+  qrData = ''; // 推广二维码 base64字符串
+
   homeData: any = {
     canCommission: 0,
     ljCommission: 0,
-    pepolNum: 0
+    pepolNum: 0,
+    tgLink: ''
   };
 
   seachParam = {
@@ -55,8 +63,11 @@ export class PromotePage extends BaseView implements OnInit {
   constructor(public mRouter: Router,
     public runtime: Runtime,
     private datePipe: DatePipe,
+    private clipboard: Clipboard,
     public mLoading: LoadingController,
+    private photoLibrary: PhotoLibrary,
     public mToast: ToastController,
+    private sanitizer: DomSanitizer,
     public alertController: AlertController,
     public dateUtile: DateUtile,
     public api: ApiService,
@@ -74,6 +85,7 @@ export class PromotePage extends BaseView implements OnInit {
       return;
     }
     this.initData();
+    this.myQrData();
     this.initTimeArray();
   }
 
@@ -118,7 +130,7 @@ export class PromotePage extends BaseView implements OnInit {
     const loading = super.showLoading('加载中...');
     this.api.promote().then(response => {
       console.log('------>' + JSON.stringify(response));
-      const errorMessage = response.msg;
+      const errorMessage = response.hashError;
       if (errorMessage) {
         this.showToast(errorMessage);
       } else {
@@ -148,7 +160,7 @@ export class PromotePage extends BaseView implements OnInit {
   myCommissions() {
     const loading = super.showLoading('加载中...');
     this.api.myCommissions(this.seachParam).then(response => {
-      const errorMessage = response.msg;
+      const errorMessage = response.hashError;
       if (errorMessage) {
         this.showToast(errorMessage);
       } else {
@@ -164,7 +176,7 @@ export class PromotePage extends BaseView implements OnInit {
   groupMembers() {
     const loading = super.showLoading('加载中...');
     this.api.groupMembers(this.seachParam).then(response => {
-      const errorMessage = response.msg;
+      const errorMessage = response.hashError;
       if (errorMessage) {
         this.showToast(errorMessage);
       } else {
@@ -180,7 +192,7 @@ export class PromotePage extends BaseView implements OnInit {
   bankItem() {
     const loading = super.showLoading('加载中...');
     this.api.bankItem(this.seachParam).then(response => {
-      const errorMessage = response.msg;
+      const errorMessage = response.hashError;
       if (errorMessage) {
         this.showToast(errorMessage);
       } else {
@@ -190,6 +202,45 @@ export class PromotePage extends BaseView implements OnInit {
       loading.then((loadinginstan) => {
         loadinginstan.dismiss();
       });
+    });
+  }
+
+  myQrData() {
+    this.api.myQr({weight: 200, heiht: 200}).then(response => {
+      const errorMessage = response.hashError;
+      if (errorMessage) {
+        this.showToast(errorMessage);
+      } else {
+        this.qrData = response.data;
+      }
+    }).catch(error => { });
+  }
+
+  copyDomain() {
+    this.runtime.payButtonVido();
+    this.clipboard.copy(this.homeData.tgLink).then(() => {
+      this.showToast('复制成功');
+    });
+  }
+  myQr() {
+    return this.sanitizer.bypassSecurityTrustResourceUrl('data:image/jpeg;base64,' + this.qrData);
+  }
+
+  openApp(type) {
+    if (type === 'qq') {
+
+    } else if (type === 'wx') {
+
+    } else if (type === 'wx') {
+
+    }
+  }
+
+  saveShareImg() {
+    const urlimg = this.api.ROOT_URL + '/shareImg?ugid=' + this.runtime.user.user.gid + '&weight183&heiht=183&imageName=kyshare.png';
+    this.photoLibrary.saveImage(urlimg
+    , 'gamehall').then(() => {
+      alert('保存成功');
     });
   }
 

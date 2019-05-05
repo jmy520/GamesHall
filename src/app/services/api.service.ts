@@ -11,11 +11,13 @@ export class ApiService {
 
   END_POINT: String = 'mobile';
 
+  ROOT_URL = '';
+
   constructor(
     public mRouter: Router,
     public runtime: Runtime,
     public requestProvider: RestRequestService) {
-
+      this.ROOT_URL = requestProvider.BASE_URL + ':' + requestProvider.PORT;
   }
 
   private buildGetPromise(url: string, params?: any, coverBaseUrl?: string, coverPort?: string, headers?: any): Promise<any> {
@@ -247,4 +249,32 @@ export class ApiService {
   ximaLijiList(params): Promise<any> {
     return this.buildPostPromise('/front/ximaLijiList', params, null, null, null, {});
   }
+
+  /** 洗码记录 */
+  historyXimaLogs(params): Promise<any> {
+    return this.buildPostPromise('/front/historyXimaLogs', params, null, null, null, {});
+  }
+
+   /** 手动洗码 */
+   handXima(params): Promise<any> {
+    return this.buildPostPromise('/front/handXima', params, null, null, null, {});
+  }
+
+  /** 洗码初始化 */
+  ximaInit(): Promise<any> {
+    return this.buildPostPromise('/front/ximaInit', null, null, null, null, {});
+  }
+
+   /** 我的推广二维码 */
+   myQr(params): Promise<any> {
+    return this.buildPostPromise('/front/myQr', params, null, null, null, {});
+  }
+
+  /** 充值页面 */
+  recharge(): Promise<any> {
+    return this.buildPostPromise('/front/recharge', null, null, null, null, {});
+  }
+
+  
+
 }
