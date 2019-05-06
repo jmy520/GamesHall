@@ -83,7 +83,6 @@ import { RechargeDetailComponent } from './components/recharge-detail/recharge-d
     SafeBox,
     PhotoLibrary,
     UserStore,
-    HTMLAudioElement,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]
