@@ -21,12 +21,15 @@ export class RechargePage extends BaseView implements OnInit {
   allPayItems = [];
 
   currentPay = {
-    gid: null
+    gid: null,
+    payType: '',
   };
 
   currentPayItem = {};
 
-  wallet = {};
+  wallet = {
+    factMoney: 0.0
+  };
 
   tabIcons: Map<string, string> = new Map();
 

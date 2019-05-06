@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { Router } from '@angular/router';
 import { PopoverController, ModalController, LoadingController, ToastController } from '@ionic/angular';
 import { LoginComponent } from 'src/app/components/login/login.component';
@@ -18,7 +18,7 @@ import { RestConfig } from 'src/common/config/RestConfig';
   templateUrl: './home.page.html',
   styleUrls: ['./home.page.scss'],
 })
-export class HomePage extends BaseView {
+export class HomePage extends BaseView implements OnInit {
 
   currentGameType = 0;
 
@@ -71,7 +71,6 @@ export class HomePage extends BaseView {
     super(mLoading, mToast, mModal);
   }
 
-  // tslint:disable-next-line:use-life-cycle-interface
   ngOnInit() {
     this.getNotices();
   }
@@ -99,7 +98,7 @@ export class HomePage extends BaseView {
 
   copyDomain() {
     this.runtime.payButtonVido();
-    this.clipboard.copy(this.domain).then(()=>{
+    this.clipboard.copy(this.domain).then(() => {
       this.showToast('复制成功');
     });
   }
