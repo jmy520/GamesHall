@@ -265,6 +265,16 @@ export class ApiService {
     return this.buildPostPromise('/front/ximaInit', null, null, null, null, {});
   }
 
+  /** 根据游戏类型活动平台 */
+  apiInfos(params): Promise<any> {
+    return this.buildPostPromise('/front/apiInfos', params, null, null, null, {});
+  }
+
+  /** 洗码比率 */
+  ximaBili(params): Promise<any> {
+    return this.buildPostPromise('/front/ximaBili', params, null, null, null, {});
+  }
+
    /** 我的推广二维码 */
    myQr(params): Promise<any> {
     return this.buildPostPromise('/front/myQr', params, null, null, null, {});
@@ -275,6 +285,10 @@ export class ApiService {
     return this.buildPostPromise('/front/recharge', null, null, null, null, {});
   }
 
-  
+  /** 活动列表 */
+  findActByType(params): Promise<any> {
+    return this.buildPostPromise('/front/findActByType', params, null, null, null, {});
+  }
+
 
 }

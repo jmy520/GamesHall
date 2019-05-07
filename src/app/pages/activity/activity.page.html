@@ -13,28 +13,8 @@
       <div class="activity_type_list_container">
         <div class="list_inner">
 
-          <div (click)="tabIndex = 0" [class]="tabIndex == 0 ? 'list_item active' : 'list_item'">
-            <img src="assets/image/activity/img_activity_unity_icon.png">综合活动
-          </div>
-
-          <div (click)="tabIndex = 1" [class]="tabIndex == 1 ? 'list_item active' : 'list_item'">
-            <img src="assets/image/activity/img_activity_poker_icon.png">棋牌活动
-          </div>
-
-          <div (click)="tabIndex = 2" [class]="tabIndex == 2 ? 'list_item active' : 'list_item'">
-            <img src="assets/image/activity/img_activity_fishing_icon.png">捕鱼活动
-          </div>
-
-          <div (click)="tabIndex = 3" [class]="tabIndex == 3 ? 'list_item active' : 'list_item'">
-            <img src="assets/image/activity/img_activity_arcade_game_icon.png">电子活动
-          </div>
-
-          <div (click)="tabIndex = 4" [class]="tabIndex == 4 ? 'list_item active' : 'list_item'">
-            <img src="assets/image/activity/img_activity_real_game_icon.png">视讯活动
-          </div>
-
-          <div (click)="tabIndex = 5" [class]="tabIndex == 5 ? 'list_item active' : 'list_item'">
-            <img src="assets/image/activity/img_activity_ball_game_icon.png">体育活动
+          <div (click)="tabActivity(item)" [class]="item.colCode == curretnColumn.colCode ? 'list_item active' : 'list_item'" *ngFor="let item of apiColumns.list">
+            <img [src]="tabIcons.get(item.colCode)">{{item.colName}}
           </div>
 
         </div>
@@ -45,18 +25,18 @@
       <div class="activity_content_container">
         <div class="activity_content_inner">
 
-          <div class="activity_item">
+          <div class="activity_item" *ngFor="let item of actityList">
             <div class="activity_summary">
               <div class="activity_summary_inner">
                 <h3>
-                  幸运降临 天天赠送亿万豪礼
+                  {{item.actitle}}
                 </h3>
                 <h5>
-                  2019-02-18 07:32
+                  {{item.displaytime}}
                 </h5>
-                <img src="assets/image/common/img_default.png">
+                <img [src]="fetchImage(item.actimg)">
               </div>
-              <img src="assets/image/activity/img_view_detail.png" class="view_detail">
+              <img src="assets/image/activity/img_view_detail.png" class="view_detail" (click)="currentActivity=item">
             </div>
 
             <div class="activity_oper">
@@ -64,7 +44,7 @@
                 该活动暂不支持在线领取
               </div>
               <div class="buttons">
-                <img src="assets/image/activity/img_online_ask.png">
+                <img src="assets/image/activity/img_online_ask.png" (click)="goKefu()">
               </div>
             </div>
           </div>

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ModalController, LoadingController, ToastController } from '@ionic/angular';
+import { ModalController, LoadingController, ToastController, AlertController} from '@ionic/angular';
 import { BaseView } from 'src/common/base/BaseView';
 import { Runtime } from 'src/app/services/Runtime';
 import { ApiService } from 'src/app/services/api.service';
@@ -25,6 +25,7 @@ export class SettingsComponent extends BaseView implements OnInit {
     public mLoading: LoadingController,
     public mToast: ToastController,
     public mModal: ModalController,
+    public alertController: AlertController,
     public runTime: Runtime,
     public api: ApiService) {
       super(mLoading, mToast, mModal);
@@ -41,6 +42,15 @@ export class SettingsComponent extends BaseView implements OnInit {
   }
 
   ngOnInit() {}
+
+  tabSet(indx) {
+    this.runTime.payButtonVido();
+    if (indx === 1 && this.runTime.user == null) {
+      this.showToast('请先登录');
+      return;
+    }
+    this.tabIndex = indx;
+  }
 
 
   modifyPwd() {
@@ -79,9 +89,28 @@ export class SettingsComponent extends BaseView implements OnInit {
     }).catch(error => { });
   }
 
-  logout() {
-    this.runTime.postLogout();
-    this.dismissDialog() ;
+  async logout() {
+    const _this = this;
+    const alert = await this.alertController.create({
+      header: '退出确认？',
+      message: '您是否要登出账号?',
+      buttons: [
+        {
+          text: '取消',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+          }
+        }, {
+          text: '确定',
+          handler: () => {
+            _this.runTime.postLogout();
+            _this.dismissDialog() ;
+          }
+        }
+      ]
+    });
+    await alert.present();
   }
 
 

@@ -21,7 +21,7 @@ export class Runtime {
       // this.nativeAudio.preloadComplex('bgAudio', RestConfig.BASE_VIDIO_URL + '/bg-audio.wav', 1, 1, 0).then(this.onSuccess, this.onError);
       console.log('---->' + this.platform.platforms());
       const _this = this;
-      if (this.platform.is('android') || this.platform.is('ios')  || this.platform.is('mobileweb')) {
+      if (this.platform.is('cordova')) {
         // tslint:disable-next-line:max-line-length
         this.nativeAudio.preloadComplex('butAudio', 'assets/vido/bubble-2.mp3', 1, 1, 0).then(() => {
           console.log('butAudio success');
@@ -103,7 +103,7 @@ export class Runtime {
   }
 
   payButtonVido() {
-    if (this.platform.is('android') || this.platform.is('ios') || this.platform.is('mobileweb')) {
+    if (this.platform.is('cordova')) {
       if (this.isButNaticeAudio) {
         this.nativeAudio.play('butAudio').then(() => {
           console.log('butAudio--->play');
@@ -120,7 +120,67 @@ export class Runtime {
         this.butAudioElement.play();
       }
     }
-   }
+  }
+
+  payBgVido() {
+    if (this.platform.is('cordova')) {
+      if (this.isBgNaticeAudio) {
+        this.nativeAudio.play('bgAudio').then(() => {
+          console.log('bgAudio--->play');
+        }).catch((e) => {
+          console.log('bgAudio play catch' + e);
+        });
+      } else {
+        if (this.bgAudioElement) {
+          this.bgAudioElement.play();
+        }
+      }
+    } else {
+      if (this.bgAudioElement) {
+        this.bgAudioElement.play();
+      }
+    }
+  }
+
+  stopBgVido() {
+    if (this.platform.is('cordova')) {
+      if (this.isBgNaticeAudio) {
+        this.nativeAudio.stop('bgAudio').then(() => {
+          console.log('bgAudio--->stop');
+        }).catch((e) => {
+          console.log('bgAudio stop catch' + e);
+        });
+      } else {
+        if (this.bgAudioElement) {
+          this.bgAudioElement.pause();
+        }
+      }
+    } else {
+      if (this.bgAudioElement) {
+        this.bgAudioElement.pause();
+      }
+    }
+  }
+
+  stopButVido() {
+    if (this.platform.is('cordova')) {
+      if (this.isButNaticeAudio) {
+        this.nativeAudio.stop('butAudio').then(() => {
+          console.log('butAudio--->stop');
+        }).catch((e) => {
+          console.log('butAudio stop catch' + e);
+        });
+      } else {
+        if (this.butAudioElement) {
+          this.butAudioElement.pause();
+        }
+      }
+    } else {
+      if (this.butAudioElement) {
+        this.butAudioElement.pause();
+      }
+    }
+  }
 
    saveKey(key: string, obj: string) {
      return this.storage.saveKey(key, obj);
