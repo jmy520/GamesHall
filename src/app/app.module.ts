@@ -36,6 +36,8 @@ import { RefreshChipRecordComponent } from './components/refresh-chip-record/ref
 import { PhotoLibrary } from '@ionic-native/photo-library/ngx';
 import { RechargeRecordComponent } from './components/recharge-record/recharge-record.component';
 import { RechargeDetailComponent } from './components/recharge-detail/recharge-detail.component';
+import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
+import { AppAvailability  } from '@ionic-native/app-availability/ngx';
 
 @NgModule({
   declarations: [
@@ -78,6 +80,8 @@ import { RechargeDetailComponent } from './components/recharge-detail/recharge-d
     Runtime,
     NativeAudio,
     Clipboard,
+    InAppBrowser,
+    AppAvailability,
     DatePipe,
     DateUtile,
     SafeBox,
