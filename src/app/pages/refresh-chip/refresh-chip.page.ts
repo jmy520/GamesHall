@@ -17,6 +17,10 @@ export class RefreshChipPage extends BaseView implements OnInit {
     game_type: ''
   };
 
+  curretnColumn = {
+    colCode: ''
+  };
+
   apiColumns = {
     totals: 0,
     totalsPage: 0,
@@ -53,7 +57,14 @@ export class RefreshChipPage extends BaseView implements OnInit {
   goRefreshChipRatio() {
     this.mModal.create({
       cssClass: 'common_modal_dialog',
-      component: RefreshChipRatioComponent
+      component: RefreshChipRatioComponent,
+      componentProps: {
+        ximaSeachParam: {
+          api_code: '',
+          game_type: this.ximaSeachParam.game_type,
+        },
+        curretnColumn: this.curretnColumn,
+      }
     }).then(instance => {
       instance.present();
     }).catch(error => {
@@ -64,7 +75,10 @@ export class RefreshChipPage extends BaseView implements OnInit {
   goRefreshChipRecord() {
     this.mModal.create({
       cssClass: 'common_modal_dialog',
-      component: RefreshChipRecordComponent
+      component: RefreshChipRecordComponent,
+      componentProps: {
+        'ximaSeachParam.game_type': this.ximaSeachParam.game_type
+      }
     }).then(instance => {
       instance.present();
     }).catch(error => {
@@ -82,19 +96,21 @@ export class RefreshChipPage extends BaseView implements OnInit {
   }
 
   tabGame(clcode) {
-    this.ximaSeachParam.game_type = clcode;
+    this.curretnColumn = clcode;
+    this.ximaSeachParam.game_type = this.curretnColumn.colCode;
     this.ximaLijiList();
   }
 
   initApiColumnsData() {
     this.api.fetchGameTypeList({ colType: 'game_type' }).then(response => {
-      const errorMessage = response.msg;
+      const errorMessage = response.hashError;
       if (errorMessage) {
-        this.showToast(errorMessage);
+        this.showToast(response.msg);
       } else {
         this.apiColumns = response.data;
         if (this.apiColumns.totals > 0) {
           this.ximaSeachParam.game_type = this.apiColumns.list[0].colCode;
+          this.curretnColumn = this.apiColumns.list[0];
         }
         this.ximaLijiList();
       }
@@ -107,9 +123,9 @@ export class RefreshChipPage extends BaseView implements OnInit {
       this.mLoading.getTop().then(instance => {
         instance.dismiss();
       }).catch(error => { });
-      const errorMessage = response.msg;
+      const errorMessage = response.hashError;
       if (errorMessage) {
-        this.showToast(errorMessage);
+        this.showToast(response.msg);
       } else {
         this.ximaObj = response.data;
       }
@@ -124,7 +140,7 @@ export class RefreshChipPage extends BaseView implements OnInit {
     this.api.handXima(this.ximaSeachParam).then(response => {
       const errorMessage = response.hashError;
       if (errorMessage) {
-        this.showToast(errorMessage);
+        this.showToast(response.msg);
       } else {
       }
     }).catch(error => { });

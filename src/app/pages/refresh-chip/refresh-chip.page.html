@@ -14,12 +14,12 @@
         <div class="list_inner">
 
           <div [class]="item.colCode == ximaSeachParam.game_type ? 'list_item active':'list_item'"
-            *ngFor="let item of apiColumns.list" (click)="tabGame(item.colCode)">
+            *ngFor="let item of apiColumns.list" (click)="tabGame(item)">
             <img [src]="tabIcons.get(item.colCode)">{{item.colName}}游戏
           </div>
         </div>
-
-        <img src="assets/image/common/page/img_split_line.png" class="split_line">
+    </div>
+    <img src="assets/image/common/page/img_split_line.png" class="split_line">
 
         <div class="refresh_chip_content_container">
           <div class="refresh_chip_content_table">
@@ -93,7 +93,6 @@
             <img class="refresh_chip_button" src="assets/image/refresh_chip/img_refresh_chip_button.png" (click)="handXima()">
           </div>
         </div>
-    </div>
   </div>
 </div>
 </ion-content>

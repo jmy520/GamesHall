@@ -9,12 +9,7 @@
     <div class="dialog_content_container">
       <div class="tab_container">
         <div class="tab_inner">
-          <span (click)="tabIndex = 0" [class]="tabIndex == 0 ? 'active' : ''">FG棋牌</span>
-          <span (click)="tabIndex = 1" [class]="tabIndex == 1 ? 'active' : ''">夺宝棋牌</span>
-          <span (click)="tabIndex = 2" [class]="tabIndex == 2 ? 'active' : ''">开元棋牌</span>
-          <span (click)="tabIndex = 3" [class]="tabIndex == 3 ? 'active' : ''">新世界棋牌</span>
-          <span (click)="tabIndex = 4" [class]="tabIndex == 4 ? 'active' : ''">乐游棋牌</span>
-          <span (click)="tabIndex = 5" [class]="tabIndex == 5 ? 'active' : ''">VG棋牌</span>
+          <span (click)="tabApiInfo(item.apiCode)" [class]="ximaSeachParam.api_code == item.apiCode ? 'active' : ''" *ngFor="let item of apiInfos" >{{item.apiName}}{{curretnColumn.colName}}</span>
         </div>
       </div>
 

@@ -356,10 +356,6 @@ export class HomePage extends BaseView implements OnInit {
 
   goSettings() {
     this.runtime.payButtonVido();
-    if (this.runtime.user == null) {
-      this.presentLogin();
-      return;
-    }
     this.mModal.create({
       component: SettingsComponent,
       cssClass: 'common_modal_dialog'

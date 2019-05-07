@@ -43,11 +43,16 @@ export class GamePage extends BaseView implements OnInit {
   }
 
   ionViewDidEnter() {
+    this.runtime.stopBgVido();
     this.loginedUser = this.runtime.user;
     if (this.loginedUser) {
       this.isLogined = true;
       this.jumpToGamePage(this.gameGid);
     }
+  }
+
+  ionViewDidLeave() {
+    this.runtime.payBgVido();
   }
 
   goDating() {
@@ -63,9 +68,9 @@ export class GamePage extends BaseView implements OnInit {
     }
     const loadingPromise = this.showLoading('正在登录请稍后...');
     this.api.fetchGameLink({ gameGid: gameGid }).then(response => {
-        const errorMessage = response.msg;
+        const errorMessage = response.hashError;
         if (errorMessage) {
-          this.showToast(errorMessage);
+          this.showToast(response.msg);
         } else {
           this.targetUrl = this.sanitizer.bypassSecurityTrustResourceUrl(response.data.url + '&backUrl=0&jumpType=1');
         }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ModalController, LoadingController, ToastController } from '@ionic/angular';
 import { BaseView } from 'src/common/base/BaseView';
 import { Runtime } from 'src/app/services/Runtime';
@@ -11,6 +11,7 @@ import { ApiService } from 'src/app/services/api.service';
 })
 export class RefreshChipRecordComponent extends BaseView implements OnInit {
 
+  @Input()
   ximaSeachParam = {
     game_type: ''
   };
@@ -33,21 +34,21 @@ export class RefreshChipRecordComponent extends BaseView implements OnInit {
   ngOnInit() {}
 
   historyXimaLogs() {
-    this.showLoading('加载中...');
+    const mLoading = this.showLoading('加载中...');
     this.api.historyXimaLogs(this.ximaSeachParam).then(response => {
       this.mLoading.getTop().then(instance => {
         instance.dismiss();
       }).catch(error => { });
-      const errorMessage = response.msg;
+      const errorMessage = response.hashError;
       if (errorMessage) {
-        this.showToast(errorMessage);
+        this.showToast(errorMessage.msg);
       } else {
         this.ximalogs = response.data;
       }
-    }).catch(error => { }).finally(() => {
+    }).catch(error => { 
       this.mLoading.getTop().then(instance => {
         instance.dismiss();
-      }).catch(error => { });
+      }).catch(e => { });
     });
   }
 

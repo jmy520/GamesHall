@@ -354,11 +354,13 @@ export class PromotePage extends BaseView implements OnInit {
   receive() {
     const loading = super.showLoading('领取中...');
     this.api.promote().then(response => {
-      const errorMessage = response.msg;
+      loading.then((loadinginstan) => {
+        loadinginstan.dismiss();
+      });
+      const errorMessage = response.hashError;
       if (errorMessage) {
-        this.showToast(errorMessage);
+        this.showToast(response.msg);
       } else {
-        this.showToast(errorMessage);
         this.initData();
       }
     }).catch(error => { }).finally(() => {
