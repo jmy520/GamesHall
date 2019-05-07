@@ -93,6 +93,10 @@ export class HomePage extends BaseView implements OnInit {
 
   repWallet() {
     this.runtime.payButtonVido();
+    if (this.runtime.user == null) {
+      this.presentLogin();
+      return;
+    }
     this.wallet();
   }
 
@@ -162,12 +166,6 @@ export class HomePage extends BaseView implements OnInit {
   }
 
   wallet() {
-    // this.runtime.payButtonVido();
-    if (this.runtime.user == null) {
-      this.presentLogin();
-      return;
-    }
-
     this.api.wallet().then(response => {
         const errorMessage = response.msg;
         if (errorMessage) {
