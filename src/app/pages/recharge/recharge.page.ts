@@ -63,6 +63,7 @@ export class RechargePage extends BaseView implements OnInit {
   }
 
   tabPay(pay) {
+    this.runtime.payButtonVido();
     this.currentPay = pay;
     const items = this.allPayItems['g_' + this.currentPay.gid];
     if (items.length > 0) {
@@ -72,11 +73,13 @@ export class RechargePage extends BaseView implements OnInit {
   }
 
   tabPayItem(payitem, isyhzz) {
+    this.runtime.payButtonVido();
     this.currentPayItem = payitem;
     this.isInRecharge = isyhzz;
   }
 
   goKufe() {
+    this.runtime.payButtonVido();
     this.mRouter.navigate(['/customer-service']);
   }
 
@@ -110,6 +113,7 @@ export class RechargePage extends BaseView implements OnInit {
   }
   
   goRechargeRecord() {
+    this.runtime.payButtonVido();
     this.mModal.create({
       cssClass: 'common_modal_dialog',
       component: RechargeRecordComponent
