@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { LoginComponent } from 'src/app/components/login/login.component';
 import { Router } from '@angular/router';
-import { ModalController, ToastController , LoadingController, AlertController } from '@ionic/angular';
+import { ModalController, ToastController, LoadingController, AlertController, Platform } from '@ionic/angular';
 import { Runtime } from 'src/app/services/Runtime';
 import { ApiService } from 'src/app/services/api.service';
 import { Clipboard } from '@ionic-native/clipboard/ngx';
@@ -11,8 +11,8 @@ import { DateUtile } from 'src/common/helper/DateUtile';
 import { SafeResourceUrl, DomSanitizer } from '@angular/platform-browser';
 import { PhotoLibrary } from '@ionic-native/photo-library/ngx';
 import { RestConfig } from 'src/common/config/RestConfig';
-
-
+import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
+import { AppAvailability } from '@ionic-native/app-availability/ngx';
 
 @Component({
   selector: 'app-promote',
@@ -49,8 +49,8 @@ export class PromotePage extends BaseView implements OnInit {
     endTimeStr: ''
   };
 
-  timeSelectNumberArray = [3, 5, 7, 10, 30, 90 ];
-  timeSelectTextArray = ['三天', '五天', '七天', '十天', '一个月', '三个月' ];
+  timeSelectNumberArray = [3, 5, 7, 10, 30, 90];
+  timeSelectTextArray = ['三天', '五天', '七天', '十天', '一个月', '三个月'];
 
   timeSelectObjectArray = [];
 
@@ -71,9 +71,12 @@ export class PromotePage extends BaseView implements OnInit {
     public alertController: AlertController,
     public dateUtile: DateUtile,
     public api: ApiService,
+    public mInAppBrowser: InAppBrowser,
+    public mAppAvailadility: AppAvailability,
+    public mPlatform: Platform,
     public mModalController: ModalController) {
-      super(mLoading, mToast, mModalController);
-     }
+    super(mLoading, mToast, mModalController);
+  }
 
   ngOnInit() {
   }
@@ -95,7 +98,7 @@ export class PromotePage extends BaseView implements OnInit {
 
 
   initTimeArray() {
-    const now: Date  = new Date();
+    const now: Date = new Date();
     this.timeSelectObjectArray.push({
       id: 0,
       txt: '全部',
@@ -129,7 +132,7 @@ export class PromotePage extends BaseView implements OnInit {
   initData() {
     const loading = super.showLoading('加载中...');
     this.api.promote().then(response => {
-      console.log('------>' + JSON.stringify(response));
+      console.log('->' + JSON.stringify(response));
       const errorMessage = response.hashError;
       if (errorMessage) {
         this.showToast(errorMessage);
@@ -206,7 +209,7 @@ export class PromotePage extends BaseView implements OnInit {
   }
 
   myQrData() {
-    this.api.myQr({weight: 200, heiht: 200}).then(response => {
+    this.api.myQr({ weight: 200, heiht: 200 }).then(response => {
       const errorMessage = response.hashError;
       if (errorMessage) {
         this.showToast(errorMessage);
@@ -222,26 +225,17 @@ export class PromotePage extends BaseView implements OnInit {
       this.showToast('复制成功');
     });
   }
+
   myQr() {
     return this.sanitizer.bypassSecurityTrustResourceUrl('data:image/jpeg;base64,' + this.qrData);
-  }
-
-  openApp(type) {
-    if (type === 'qq') {
-
-    } else if (type === 'wx') {
-
-    } else if (type === 'wx') {
-
-    }
   }
 
   saveShareImg() {
     const urlimg = this.api.ROOT_URL + '/shareImg?ugid=' + this.runtime.user.user.gid + '&weight183&heiht=183&imageName=kyshare.png';
     this.photoLibrary.saveImage(urlimg
-    , 'gamehall').then(() => {
-      alert('保存成功');
-    });
+      , 'gamehall').then(() => {
+        alert('保存成功');
+      });
   }
 
   presentLogin() {
@@ -312,7 +306,7 @@ export class PromotePage extends BaseView implements OnInit {
 
   receiveCommision() {
     this.runtime.payButtonVido();
-    if (this.homeData.canCommission > 0 ) {
+    if (this.homeData.canCommission > 0) {
       this.showToast('未有可领取的佣金.');
     } else {
       this.presentAlertConfirm();
@@ -368,5 +362,40 @@ export class PromotePage extends BaseView implements OnInit {
         loadinginstan.dismiss();
       });
     });
+  }
+
+  openWx() {
+    var app = '';
+    if (this.mPlatform.is('ios')) {
+      app = 'weixin://';
+    } else if (this.mPlatform.is('android')) {
+      app = 'com.tencent.mm';
+    }
+
+    this.mAppAvailadility.check(app)
+      .then(
+        (yes: boolean) => {
+          this.mInAppBrowser.create('weixin://', '_system');
+        },
+        (no: boolean) => {
+          this.showToast("您尚未安装微信");
+        });
+  }
+
+  openQQ() {
+    var app = '';
+    if (this.mPlatform.is('ios')) {
+      app = 'mqq://';
+    } else if (this.mPlatform.is('android')) {
+      app = 'com.tencent.mobileqq';
+    }
+
+    this.mAppAvailadility.check(app)
+      .then(
+        (yes: boolean) => {
+          this.mInAppBrowser.create('mqqwpa://im/chat?chat_type=wpa&uin=2489851536', '_system');
+        }, (no: boolean) => {
+          this.showToast("您尚未安装QQ");
+        });
   }
 }

@@ -23,6 +23,8 @@ export class RegisterComponent extends BaseView implements OnInit {
     phoneNo: ""
   };
 
+  tabIndex: number = 0;
+
   timerText: string = "60";
   timerTick: boolean = false;
 
@@ -86,6 +88,11 @@ export class RegisterComponent extends BaseView implements OnInit {
         loadingInstance.dismiss();
       });
     });
+  }
+
+  refreshImageValidCode() {
+    //TODO 刷新图片验证码
+
   }
 
   dismissDialog() {

@@ -1,6 +1,6 @@
 <div class="content_container">
   <div class="dialog_container">
-    <div class="header">
+    <!-- <div class="header">
       <img src="assets/image/register/img_title.png" class="title">
     </div>
 
@@ -36,6 +36,73 @@
           (click)="sendValidCode()">
         <span *ngIf="timerTick" [innerHtml]="timerText" class="send_valid_code_timer">
         </span>
+      </div>
+
+      <img class="register_button" src="assets/image/register/img_register_button.png" (click)="register()">
+    </div> -->
+
+    <div class="header">
+      <div [class]="tabIndex == 0 ? 'tab01 active' : 'tab01'" (click)="tabIndex = 0">
+        账号注册
+      </div>
+
+      <div [class]="tabIndex == 1 ? 'tab02 active' : 'tab02'" (click)="tabIndex = 1">
+        手机注册
+      </div>
+    </div>
+
+    <img class="split_line" src="assets/image/common/dialog/img_split_line.png">
+
+    <div class="form_container">
+      <div *ngIf="tabIndex == 0" class="tab01_content">
+
+        <div class="account">
+          <span>账号</span>
+          <input type="text" [(ngModel)]="registerParams.account" placeholder="请输入6-14位字母加数字">
+        </div>
+
+        <div class="password">
+          <span>密码</span>
+          <input type="password" [(ngModel)]="registerParams.pwd" placeholder="由6-12位数字加字母组成">
+        </div>
+
+        <div class="repassword">
+          <span>确认密码</span>
+          <input type="password" [(ngModel)]="registerParams.repwd" placeholder="由6-12位数字加字母组成">
+        </div>
+
+        <div class="valid_code">
+          <span>验证码</span>
+          <input type="text" [(ngModel)]="registerParams.vsCode">
+          <img (click)="refreshImageValidCode()">
+        </div>
+      </div>
+
+      <div *ngIf="tabIndex == 1" class="tab02_content">
+        <div class="phone_no">
+          <span>手机号</span>
+          <input type="phone" [(ngModel)]="registerParams.phoneNo">
+        </div>
+
+        <div class="password">
+          <span>密码</span>
+          <input type="password" [(ngModel)]="registerParams.pwd" placeholder="请输入6-14位字母加数字">
+        </div>
+
+        <div class="repassword">
+          <span>确认密码</span>
+          <input type="password" placeholder="由6-12位数字加字母组成" [(ngModel)]="registerParams.repwd">
+        </div>
+
+        <div class="valid_code">
+          <span>验证码</span>
+          <input type="text">
+          <img class="send_valid_code" [(ngModel)]="registerParams.vsCode" *ngIf="!timerTick" (click)="sendValidCode()"
+            src="assets/image/register/img_send_validation_code_button.png">
+
+          <span *ngIf="timerTick" [innerHtml]="timerText" class="send_valid_code_timer">
+          </span>
+        </div>
       </div>
 
       <img class="register_button" src="assets/image/register/img_register_button.png" (click)="register()">
