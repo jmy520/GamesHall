@@ -128,9 +128,9 @@ export class SafeBoxPage extends BaseView implements OnInit {
       loading.then((loadinginstan) => {
         loadinginstan.dismiss();
       });
-      const errorMessage = response.msg;
+      const errorMessage = response.hashError;
       if (errorMessage) {
-        this.showToast(errorMessage);
+        this.showToast(response.msg);
       } else {
         this.userWallet = response.data;
         if (this.userWallet.payPwd === '111111') {
@@ -148,9 +148,9 @@ export class SafeBoxPage extends BaseView implements OnInit {
   bankItemDatas() {
     const loading = super.showLoading('请求中...');
     this.api.bankItem(this.safeBoxSeachParam).then(response => {
-      const errorMessage = response.msg;
+      const errorMessage = response.hashError;
       if (errorMessage) {
-        this.showToast(errorMessage);
+        this.showToast(response.msg);
       } else {
         this.bankItemObj = response.data;
       }

@@ -92,9 +92,14 @@ export class ApiService {
     return this.buildPostPromise('/smsCode', params);
   }
 
-  /** 注册 */
-  register(params: any): Promise<any> {
+  /** 手机号注册 */
+  phoneRegister(params: any): Promise<any> {
     return this.buildPostPromise('/regist', params);
+  }
+
+  /** 账号注册 */
+  aregister(params: any): Promise<any> {
+    return this.buildPostPromise('/aregist', params);
   }
 
   /** 登录 */
@@ -125,6 +130,11 @@ export class ApiService {
   /** 客服列表 */
   customerServer(params: any): Promise<any> {
     return this.buildGetPromise('/customerServer', params);
+  }
+
+  /** 获取推荐人 */
+  getShareParam(): Promise<any> {
+    return this.buildGetPromise('/getShareParam', null);
   }
 
   // ------------------- 用户模块 -------------------
@@ -290,5 +300,21 @@ export class ApiService {
     return this.buildPostPromise('/front/findActByType', params, null, null, null, {});
   }
 
+  /** 领取VIP对应类型礼金 */
+  lqVipMoney(params): Promise<any> {
+    return this.buildPostPromise('/front/lqVipMoney', params, null, null, null, {});
+  }
+
+
+  /** 提交存款信息 */
+  subPayInfo(params): Promise<any> {
+    return this.buildPostPromise('/front/subPayInfo', params, null, null, null, {});
+  }
+
+
+  /** 用户充值记录 */
+  userRechagelogs(): Promise<any> {
+    return this.buildPostPromise('/front/userRechagelogs', null, null, null, null, {});
+  }
 
 }

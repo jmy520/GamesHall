@@ -235,6 +235,8 @@ export class PromotePage extends BaseView implements OnInit {
     this.photoLibrary.saveImage(urlimg
       , 'gamehall').then(() => {
         alert('保存成功');
+      }).catch((e) => {
+        this.showToast('保存图片错误->' + e);
       });
   }
 

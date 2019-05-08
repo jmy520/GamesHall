@@ -15,5 +15,5 @@ export class RestConfig {
   static TIME_OUT = 10000;
 
 
-  static COPY_DOMAIN = 'WWW.ky888.COM';
+  static COPY_DOMAIN = 'WWW.lyy994.COM';
 }

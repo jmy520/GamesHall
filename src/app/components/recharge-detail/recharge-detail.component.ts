@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ModalController } from '@ionic/angular';
+import { Router } from '@angular/router';
+import { Runtime } from 'src/app/services/Runtime';
 
 @Component({
   selector: 'app-recharge-detail',
@@ -8,7 +10,17 @@ import { ModalController } from '@ionic/angular';
 })
 export class RechargeDetailComponent implements OnInit {
 
-  constructor(public mModal: ModalController) { }
+  @Input()
+  item = {
+    orderNo: '',
+    skBankName: '',
+    skStatus: '',
+    createrTime: ''
+  };
+
+  constructor(public mRouter: Router,
+    public mModal: ModalController,
+    public runtime: Runtime) { }
 
   ngOnInit() {}
 
@@ -16,5 +28,10 @@ export class RechargeDetailComponent implements OnInit {
     this.mModal.getTop().then(modalInstance => {
       modalInstance.dismiss();
     }).catch(error => { });
+  }
+
+  goKefu() {
+    this.runtime.payButtonVido();
+    this.mRouter.navigate(['/customer-service']);
   }
 }

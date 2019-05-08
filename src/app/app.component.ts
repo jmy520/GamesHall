@@ -5,6 +5,7 @@ import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { UserStore } from './services/storage/user-store';
 import { Runtime } from 'src/app/services/Runtime';
+import { ApiService } from 'src/app/services/api.service';
 
 @Component({
   selector: 'app-root',
@@ -13,6 +14,7 @@ import { Runtime } from 'src/app/services/Runtime';
 export class AppComponent {
   constructor(
     private userStore: UserStore,
+    private api: ApiService,
     private platform: Platform,
     public runtime: Runtime,
     private splashScreen: SplashScreen,
@@ -26,6 +28,11 @@ export class AppComponent {
       // this.statusBar.styleDefault();
       this.statusBar.hide();
       this.splashScreen.hide();
+      this.api.getShareParam().then((respone) => {
+        if (!respone.hashError) {
+          this.userStore.saveKey('agentGid', respone.data);
+        }
+      });
       // 加载用户信息
       this.userStore
         .load()

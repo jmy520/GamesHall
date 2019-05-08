@@ -97,7 +97,7 @@
       "cordova-plugin-openinstall": {
         "OPENINSTALL_APPKEY": "z9gajl",
         "OPENINSTALL_SCHEME": "z9gajl"
-      }
+      },
       "cordova-plugin-appavailability": {}
     },
     "platforms": [

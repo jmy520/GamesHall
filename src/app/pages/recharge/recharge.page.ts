@@ -25,10 +25,23 @@ export class RechargePage extends BaseView implements OnInit {
     payType: '',
   };
 
-  currentPayItem = {};
+  currentPayItem = {
+    bankName: '',
+    userName: '',
+    cardNo: '',
+    bankSubName: ''
+  };
 
   wallet = {
     factMoney: 0.0
+  };
+
+  payParam = {
+    ckmoney: 0,
+    ckinfo: '',
+    skbankname: '',
+    skusername: '',
+    skcarno: ''
   };
 
   tabIcons: Map<string, string> = new Map();
@@ -111,7 +124,37 @@ export class RechargePage extends BaseView implements OnInit {
   fetchImage(fileName: string) {
     return PictureHelper.fetchImage(fileName + '.png');
   }
-  
+
+  subPayInfo() {
+    if (this.payParam.ckmoney <= 0) {
+      this.showToast('请输入充值金额.');
+      return;
+    }
+    if (this.payParam.ckinfo === '') {
+      this.showToast('请输入存款信息项,否则无法到账');
+      return;
+    }
+    this.payParam.skbankname = this.currentPayItem.bankName;
+    this.payParam.skcarno = this.currentPayItem.cardNo;
+    this.payParam.skusername = this.currentPayItem.userName;
+    const loading = super.showLoading('加载中...');
+    this.api.subPayInfo(this.payParam).then(response => {
+      this.mLoading.getTop().then(instance => {
+        instance.dismiss();
+      }).catch(e => { });
+        const errorMessage = response.hashError;
+        if (errorMessage) {
+          this.showToast(response.msg);
+        } else {
+          this.showToast('充值完成,等待银行处理,如较长时间未到账,请联系客服.');
+        }
+      }).catch(error => {
+        this.mLoading.getTop().then(instance => {
+          instance.dismiss();
+        }).catch(e => { });
+       });
+  }
+
   goRechargeRecord() {
     this.runtime.payButtonVido();
     this.mModal.create({

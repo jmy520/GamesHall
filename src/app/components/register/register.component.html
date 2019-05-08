@@ -61,6 +61,11 @@
           <input type="text" [(ngModel)]="registerParams.account" placeholder="请输入6-14位字母加数字">
         </div>
 
+        <div class="account">
+          <span>手机号</span>
+          <input type="text" [(ngModel)]="registerParams.phoneNo" placeholder="请输入手机号码">
+        </div>
+
         <div class="password">
           <span>密码</span>
           <input type="password" [(ngModel)]="registerParams.pwd" placeholder="由6-12位数字加字母组成">
@@ -74,7 +79,7 @@
         <div class="valid_code">
           <span>验证码</span>
           <input type="text" [(ngModel)]="registerParams.vsCode">
-          <img (click)="refreshImageValidCode()">
+          <img (click)="refreshImageValidCode()" [src]="registImgCode">
         </div>
       </div>
 

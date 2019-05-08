@@ -30,6 +30,10 @@ export class PersonalCenterPage extends BaseView implements OnInit {
     endTimeStr: ''
   };
 
+  lqVipParam = {
+    ljType: '',
+  };
+
   timeSelectNumberArray = [3, 5, 7, 10, 30, 90];
   timeSelectTextArray = ['三天', '五天', '七天', '十天', '一个月', '三个月'];
 
@@ -233,9 +237,9 @@ export class PersonalCenterPage extends BaseView implements OnInit {
 
   initApiColumnsData() {
     this.api.fetchGameTypeList({ colType: 'game_type' }).then(response => {
-      const errorMessage = response.msg;
+      const errorMessage = response.hashError;
       if (errorMessage) {
-        this.showToast(errorMessage);
+        this.showToast(response.msg);
       } else {
         this.apiColumns = response.data;
         if (this.apiColumns.totals > 0) {
@@ -248,9 +252,9 @@ export class PersonalCenterPage extends BaseView implements OnInit {
 
   initApiInfosData() {
     this.api.fetchApiInfoList({ page: 1, size: 100 }).then(response => {
-      const errorMessage = response.msg;
+      const errorMessage = response.hashError;
       if (errorMessage) {
-        this.showToast(errorMessage);
+        this.showToast(response.msg);
       } else {
         this.apiInfos = response.data;
       }
@@ -259,9 +263,9 @@ export class PersonalCenterPage extends BaseView implements OnInit {
 
   comdicts() {
     this.api.comdicts({ type: 'bank_item_type' }).then(response => {
-      const errorMessage = response.msg;
+      const errorMessage = response.hashError;
       if (errorMessage) {
-        this.showToast(errorMessage);
+        this.showToast(response.msg);
       } else {
         this.bankItemTypes = response.data;
       }
@@ -270,9 +274,9 @@ export class PersonalCenterPage extends BaseView implements OnInit {
 
   wallet() {
     this.api.wallet().then(response => {
-      const errorMessage = response.msg;
+      const errorMessage = response.hashError;
       if (errorMessage) {
-        this.showToast(errorMessage);
+        this.showToast(response.msg);
       } else {
         this.userWallet = response.data;
       }
@@ -281,9 +285,9 @@ export class PersonalCenterPage extends BaseView implements OnInit {
 
   selAllUsersVip() {
     this.api.selAllUsersVip().then(response => {
-      const errorMessage = response.msg;
+      const errorMessage = response.hashError;
       if (errorMessage) {
-        this.showToast(errorMessage);
+        this.showToast(response.msg);
       } else {
         this.levelPresentArray = response.data;
         const _this = this;
@@ -302,9 +306,9 @@ export class PersonalCenterPage extends BaseView implements OnInit {
 
   nextUserVip() {
     this.api.nextUserVip().then(response => {
-      const errorMessage = response.msg;
+      const errorMessage = response.hashError;
       if (errorMessage) {
-        this.showToast(errorMessage);
+        this.showToast(response.msg);
       } else {
         this.nextLevel = response.data;
       }
@@ -372,9 +376,9 @@ export class PersonalCenterPage extends BaseView implements OnInit {
   bankItem() {
     const loading = super.showLoading('加载中...');
     this.api.bankItem(this.seachBankItemParam).then(response => {
-      const errorMessage = response.msg;
+      const errorMessage = response.hashError;
       if (errorMessage) {
-        this.showToast(errorMessage);
+        this.showToast(response.msg);
       } else {
         this.bankItems = response.data;
       }
@@ -389,9 +393,9 @@ export class PersonalCenterPage extends BaseView implements OnInit {
   getBetLogs() {
     const loading = super.showLoading('加载中...');
     this.api.betlogs(this.seachBetLogParam).then(response => {
-      const errorMessage = response.msg;
+      const errorMessage = response.hashError;
       if (errorMessage) {
-        this.showToast(errorMessage);
+        this.showToast(response.msg);
       } else {
         this.betLogs = response.data;
       }
@@ -405,9 +409,9 @@ export class PersonalCenterPage extends BaseView implements OnInit {
   getReports() {
     const loading = super.showLoading('加载中...');
     this.api.selfTongji(this.seachReportParam).then(response => {
-      const errorMessage = response.msg;
+      const errorMessage = response.hashError;
       if (errorMessage) {
-        this.showToast(errorMessage);
+        this.showToast(response.msg);
       } else {
         this.selfReport = response.data;
       }
@@ -421,9 +425,9 @@ export class PersonalCenterPage extends BaseView implements OnInit {
   getSumByTimes() {
     const loading = super.showLoading('加载中...');
     this.api.bankItemTongji(this.seachReportParam).then(response => {
-      const errorMessage = response.msg;
+      const errorMessage = response.hashError;
       if (errorMessage) {
-        this.showToast(errorMessage);
+        this.showToast(response.msg);
       } else {
         this.sumByTime = response.data;
       }
@@ -437,9 +441,12 @@ export class PersonalCenterPage extends BaseView implements OnInit {
   updateInfo() {
     const loading = super.showLoading('处理中...');
     this.api.updataInfo(this.selfInfpParam).then(response => {
-      const errorMessage = response.msg;
+      const errorMessage = response.hashError;
+      loading.then((loadinginstan) => {
+        loadinginstan.dismiss();
+      });
       if (errorMessage) {
-        this.showToast(errorMessage);
+        this.showToast(response.msg);
       } else {
         this.showToast('成功!');
         this.runTime.user.user.nickName = this.selfInfpParam.nickName;
@@ -450,11 +457,11 @@ export class PersonalCenterPage extends BaseView implements OnInit {
         this.runTime.user.user.userWx = this.selfInfpParam.wx;
         this.runTime.postLogin(this.runTime.user);
       }
-    }).catch(error => { }).finally(() => {
+    }).catch(error => {
       loading.then((loadinginstan) => {
         loadinginstan.dismiss();
       });
-    });
+     });
   }
 
   tabSelect(tabIndex) {
@@ -584,5 +591,46 @@ export class PersonalCenterPage extends BaseView implements OnInit {
     });
   }
 
+  goXima() {
+    this.mRouter.navigate(['/refresh-chip']);
+  }
+
+  lq(item, vl) {
+    if (vl === 'jjlj') {
+      if (item.level.isjjlj) {
+        this.lqVipParam.ljType = 'jj_lj';
+        this.lqVipMoney();
+      }
+    } else if (vl === 'ylj') {
+      if (item.level.isylj) {
+        this.lqVipParam.ljType = 'y_lj';
+        this.lqVipMoney();
+      }
+    } else if (vl === 'zlj') {
+      if (item.level.iszlj) {
+        this.lqVipParam.ljType = 'z_lj';
+        this.lqVipMoney();
+      }
+    }
+  }
+
+  lqVipMoney() {
+    const loading = super.showLoading('领取中...');
+    this.api.lqVipMoney(this.lqVipParam).then(response => {
+      const errorMessage = response.hashError;
+      loading.then((loadinginstan) => {
+        loadinginstan.dismiss();
+      });
+      if (errorMessage) {
+        this.showToast(response.msg);
+      } else {
+        this.showToast('领取成功!');
+      }
+    }).catch(error => {
+      loading.then((loadinginstan) => {
+        loadinginstan.dismiss();
+      });
+     });
+  }
 
 }

@@ -22,21 +22,21 @@
         </div>
 
         <div class="table_inner" *ngIf="bankItems.totals > 0">
-          <div class="table_row" *ngFor="let item of bankItems.list">
+          <div class="table_row" *ngFor="let item of bankItems">
             <span>{{item.createrTime | date:'yy/MM/dd HH:mm'}}</span>
-            <span>支付宝入款</span>
+            <span>{{item.skBankName}}</span>
             <span>充值失败</span>
-            <span *ngIf="'normal'==item.gStatus">
+            <span *ngIf="'success'==item.skStatus">
                 充值成功
             </span>
-            <span *ngIf="'processing'==item.gStatus">
+            <span *ngIf="'ring'==item.skStatus">
                 入款处理中
             </span>
-            <span *ngIf="'fail'==item.gStatus">
+            <span *ngIf="'fail'==item.skStatus">
                 充值失败
             </span>
-            <span>{{item.actMoney}}</span>
-            <span (click)="goDetail()">查看</span>
+            <span>{{item.ckMoney}}</span>
+            <span (click)="goDetail(item)">查看</span>
           </div>
         </div>
       </div>

@@ -105,7 +105,7 @@
                       当前等级可领取
                     </div>
                     <img src="assets/image/personal_center/img_personal_center_commision_button_disable.png"
-                      [class]="presentItem.vipGrade==runTime.user.vipGrade ? 'button active' : 'button'">
+                      [class]="presentItem.level.isjjlj ? 'button active' : 'button'" (click)="lq(presentItem,'jjlj')">
                   </div>
 
                   <div class="present_item">
@@ -120,7 +120,7 @@
                       当前等级可领取
                     </div>
                     <img src="assets/image/personal_center/img_personal_center_commision_button_disable.png"
-                      [class]="presentItem.vipGrade==runTime.user.vipGrade ? 'button active' : 'button'">
+                      [class]="presentItem.level.isylj ? 'button active' : 'button'" (click)="lq(presentItem,'ylj')">
                   </div>
 
                   <div class="present_item">
@@ -135,7 +135,7 @@
                       当前等级可领取
                     </div>
                     <img src="assets/image/personal_center/img_personal_center_commision_button_disable.png"
-                      [class]="presentItem.vipGrade==runTime.user.vipGrade ? 'button active' : 'button'">
+                      [class]="presentItem.level.iszlj ? 'button active' : 'button'" (click)="lq(presentItem,'zlj')">
                   </div>
 
                   <div class="present_item">
@@ -150,7 +150,7 @@
                       可享受自高比例
                     </div>
                     <img src="assets/image/personal_center/img_personal_center_refresh_chip_button.png"
-                      [class]="presentItem.vipGrade==runTime.user.vipGrade ? 'button active' : 'button'">
+                      [class]="presentItem.vipGrade==runTime.user.vipGrade ? 'button active' : 'button'" (click)="goXima()">
                   </div>
                 </div>
               </ion-slide>

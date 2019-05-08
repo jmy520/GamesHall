@@ -43,13 +43,13 @@ export class RechargeRecordComponent extends BaseView implements OnInit {
 
   bankItem() {
     const loading = super.showLoading('加载中...');
-    this.api.bankItem(this.bankItemParam).then(response => {
+    this.api.userRechagelogs().then(response => {
       this.mLoading.getTop().then(instance => {
         instance.dismiss();
       }).catch(e => { });
         const errorMessage = response.hashError;
         if (errorMessage) {
-          this.showToast(errorMessage);
+          this.showToast(response.msg);
         } else {
           this.bankItems = response.data;
         }
@@ -66,10 +66,14 @@ export class RechargeRecordComponent extends BaseView implements OnInit {
     }).catch(error => { });
   }
 
-  goDetail() {
+  goDetail(vl) {
+    this.runtime.payButtonVido();
     this.mModal.create({
-      cssClass: "common_modal_dialog",
-      component: RechargeDetailComponent
+      cssClass: 'common_modal_dialog',
+      component: RechargeDetailComponent,
+      componentProps: {
+        item: vl
+      }
     }).then(instance => {
       instance.present();
     }).catch(error => {
