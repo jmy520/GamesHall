@@ -12,10 +12,11 @@ export class RechargeDetailComponent implements OnInit {
 
   @Input()
   item = {
+    ckMoney: 0,
     orderNo: '',
     skBankName: '',
     skStatus: '',
-    createrTime: ''
+    createrTime: Date
   };
 
   constructor(public mRouter: Router,

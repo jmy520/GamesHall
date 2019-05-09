@@ -6,6 +6,8 @@ export abstract class BaseView {
   /** show loading */
   protected async showLoading(message: string) {
     const loader = await this.loadingCtrl.create({
+      translucent: true,
+      spinner: 'circles',
       message: message
     });
     await loader.present();

@@ -9,9 +9,15 @@
     <div class="dialog_content_container">
       <div class="status">
         <img src="assets/image/recharge_detail/img_recharge_detail_error_icon.png">
-        <span>
+        <span *ngIf="'success'==item.skStatus">
+          充值成功
+      </span>
+      <span *ngIf="'ring'==item.skStatus">
+          入款处理中
+      </span>
+      <span *ngIf="'fail'==item.skStatus">
           充值失败
-        </span>
+      </span>
       </div>
 
       <div class="recharge_value">
