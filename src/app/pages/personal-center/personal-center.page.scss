@@ -315,6 +315,10 @@
                   width: 90%;
                   height: auto;
                   margin-top: 1vh;
+
+                  &.active{
+                    @include press_effect;
+                  }
                 }
               }
 

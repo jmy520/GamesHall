@@ -13,7 +13,9 @@
       <div class="activity_type_list_container">
         <div class="list_inner">
 
-          <div (click)="tabActivity(item)" [class]="item.colCode == curretnColumn.colCode ? 'list_item active' : 'list_item'" *ngFor="let item of apiColumns.list">
+          <div (click)="tabActivity(item)"
+            [class]="item.colCode == curretnColumn.colCode ? 'list_item active' : 'list_item'"
+            *ngFor="let item of apiColumns.list">
             <img [src]="tabIcons.get(item.colCode)">{{item.colName}}
           </div>
 
@@ -26,26 +28,31 @@
         <div class="activity_content_inner">
 
           <div class="activity_item" *ngFor="let item of actityList">
-            <div class="activity_summary">
-              <div class="activity_summary_inner">
-                <h3>
-                  {{item.actitle}}
-                </h3>
-                <h5>
-                  {{item.displaytime}}
-                </h5>
-                <img [src]="fetchImage(item.actimg)">
+            <div class="activity_item_normal">
+              <div class="activity_summary">
+                <div class="activity_summary_inner">
+                  <h3>
+                    {{item.actitle}}
+                  </h3>
+                  <h5>
+                    {{item.displaytime}}
+                  </h5>
+                  <img [src]="fetchImage(item.actimg)">
+                </div>
+                <img src="assets/image/activity/img_view_detail.png" class="view_detail" (click)="item.open_status = !item.open_status">
               </div>
-              <img src="assets/image/activity/img_view_detail.png" class="view_detail" (click)="currentActivity=item">
+
+              <div class="activity_oper">
+                <div class="description">
+                  该活动暂不支持在线领取
+                </div>
+                <div class="buttons">
+                  <img src="assets/image/activity/img_online_ask.png" (click)="goKefu()">
+                </div>
+              </div>
             </div>
 
-            <div class="activity_oper">
-              <div class="description">
-                该活动暂不支持在线领取
-              </div>
-              <div class="buttons">
-                <img src="assets/image/activity/img_online_ask.png" (click)="goKefu()">
-              </div>
+            <div *ngIf="item.open_status" class="activity_item_detail_infomation" [innerHtml]="item.activity_detail">
             </div>
           </div>
 

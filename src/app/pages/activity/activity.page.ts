@@ -11,7 +11,7 @@ import { PictureHelper } from 'src/common/helper/PictureHelper';
   templateUrl: './activity.page.html',
   styleUrls: ['./activity.page.scss'],
 })
-export class ActivityPage extends BaseView implements OnInit  {
+export class ActivityPage extends BaseView implements OnInit {
   tabIndex: number = 0;
 
   actType = '';
@@ -43,7 +43,7 @@ export class ActivityPage extends BaseView implements OnInit  {
     public api: ApiService,
     public mPopover: PopoverController) {
     super(mLoading, mToast, mModal);
-   }
+  }
 
   ngOnInit() {
 
@@ -69,7 +69,7 @@ export class ActivityPage extends BaseView implements OnInit  {
         if (this.apiColumns.totals > 0) {
           this.curretnColumn = this.apiColumns.list[0];
         }
-        this.loadActivi();
+        this.loadActivityData();
       }
     }).catch(error => { });
   }
@@ -77,22 +77,35 @@ export class ActivityPage extends BaseView implements OnInit  {
   tabActivity(item) {
     this.runtime.payButtonVido();
     this.curretnColumn = item;
+    this.loadActivityData();
   }
 
-  loadActivi() {
-    const loadingPromise = this.showLoading('正在登录请稍后...');
-    this.api.findActByType({ actType: this.curretnColumn.colCode }).then(response => {
-        const errorMessage = response.hashError;
-        if (errorMessage) {
-          this.showToast(response.msg);
-        } else {
-          this.actityList = response.data;
-        }
-      }).catch(error => { }).finally(() => {
-        loadingPromise.then(instance => {
-          instance.dismiss();
-        }).catch(error => { });
-      });
+  loadActivityData() {
+    //TODO 此处仅为调试，请删除并打开下面注释。
+    this.actityList = [
+      {
+        actitle: '活动标题',
+        displaytime: '2019/05/09',
+        actimg: '1555842732611.png',
+        activity_detail: '<h4>活动详情</h4><p>活动时间：即日起</p><p>活动详情：即日起注册用户，只要在乐游棋牌新会员任务完成相应的任务即可领取改礼包。</p>',
+      }
+    ];
+
+    // this.api.findActByType({ actType: this.curretnColumn.colCode }).then(response => {
+    //   const errorMessage = response.hashError;
+    //   if (errorMessage) {
+    //     this.showToast(response.msg);
+    //   } else {
+    //     console.log(response.data);
+    //     this.actityList = response.data;
+    //   }
+    // }).catch(error => { }).finally(() => {
+    // });
+
+    for (let index = 0; index < this.actityList.length; index++) {
+      const element = this.actityList[index];
+      element['open_status'] = false;
+    }
   }
 
   fetchImage(fileName: string) {
@@ -102,7 +115,7 @@ export class ActivityPage extends BaseView implements OnInit  {
   goKefu() {
     this.runtime.payButtonVido();
     if (this.runtime.user == null) {
-      this.showToast('请先登录。');
+      this.showToast('请先登录');
       this.mRouter.navigate(['/home']);
       return;
     }

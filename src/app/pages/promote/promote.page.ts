@@ -232,12 +232,17 @@ export class PromotePage extends BaseView implements OnInit {
 
   saveShareImg() {
     const urlimg = this.api.ROOT_URL + '/shareImg?ugid=' + this.runtime.user.user.gid + '&weight183&heiht=183&imageName=kyshare.png';
-    this.photoLibrary.saveImage(urlimg
-      , 'gamehall').then(() => {
-        alert('保存成功');
-      }).catch((e) => {
-        this.showToast('保存图片错误->' + e);
-      });
+
+    this.photoLibrary.requestAuthorization().then(() => {
+      this.photoLibrary.saveImage(urlimg
+        , 'gamehall').then(() => {
+          this.showToast('保存成功');
+        }).catch((e) => {
+          this.showToast('保存图片错误');
+        });
+    }).catch(error => {
+      this.showToast('保存失败');
+    });
   }
 
   presentLogin() {

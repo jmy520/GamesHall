@@ -104,8 +104,10 @@
                     <div class="tips">
                       当前等级可领取
                     </div>
-                    <img src="assets/image/personal_center/img_personal_center_commision_button_disable.png"
-                      [class]="presentItem.level.isjjlj ? 'button active' : 'button'" (click)="lq(presentItem,'jjlj')">
+                    <img
+                      [src]="!presentItem.level.isjjlj ? 'assets/image/personal_center/img_personal_center_commision_button_disable.png' : 'assets/image/personal_center/img_personal_center_commision_button_enable.png'"
+                      [class]="presentItem.level.isjjlj ? 'active' : ''"
+                      (click)="lq(presentItem,'jjlj')">
                   </div>
 
                   <div class="present_item">
@@ -119,8 +121,10 @@
                     <div class="tips">
                       当前等级可领取
                     </div>
-                    <img src="assets/image/personal_center/img_personal_center_commision_button_disable.png"
-                      [class]="presentItem.level.isylj ? 'button active' : 'button'" (click)="lq(presentItem,'ylj')">
+                    <img
+                      [src]="!presentItem.level.isjjlj ? 'assets/image/personal_center/img_personal_center_commision_button_disable.png' : 'assets/image/personal_center/img_personal_center_commision_button_enable.png'"
+                      [class]="presentItem.level.isjjlj ? 'active' : ''"
+                      (click)="lq(presentItem,'ylj')">
                   </div>
 
                   <div class="present_item">
@@ -134,8 +138,10 @@
                     <div class="tips">
                       当前等级可领取
                     </div>
-                    <img src="assets/image/personal_center/img_personal_center_commision_button_disable.png"
-                      [class]="presentItem.level.iszlj ? 'button active' : 'button'" (click)="lq(presentItem,'zlj')">
+                    <img
+                      [src]="!presentItem.level.isjjlj ? 'assets/image/personal_center/img_personal_center_commision_button_disable.png' : 'assets/image/personal_center/img_personal_center_commision_button_enable.png'"
+                      [class]="presentItem.level.isjjlj ? 'active' : ''"
+                      (click)="lq(presentItem,'zlj')">
                   </div>
 
                   <div class="present_item">
@@ -149,8 +155,10 @@
                     <div class="tips">
                       可享受自高比例
                     </div>
-                    <img src="assets/image/personal_center/img_personal_center_refresh_chip_button.png"
-                      [class]="presentItem.vipGrade==runTime.user.vipGrade ? 'button active' : 'button'" (click)="goXima()">
+                    <img
+                      [src]="presentItem.vipGrade == runTime.user.vipGrade ? 'assets/image/personal_center/img_personal_center_refresh_chip_button.png' : 'assets/image/personal_center/img_personal_center_refresh_chip_button_disable.png'"
+                      [class]="presentItem.vipGrade == runTime.user.vipGrade  ? 'active' : ''"
+                      (click)="goXima()">
                   </div>
                 </div>
               </ion-slide>
@@ -182,7 +190,7 @@
                   <div class="row02">
                     <div class="name">
                       <span>姓名：</span>
-                      <span >{{runTime.user?runTime.user.user.nickName:''}}</span>
+                      <span>{{runTime.user?runTime.user.user.nickName:''}}</span>
                     </div>
 
                     <div class="sex">
@@ -195,7 +203,8 @@
                       <span>生日：</span>
                       <ng-container *ngIf="isEditBaseInfo">
                         <span [class]="isEditBaseInfo ? 'active' : ''">
-                          <ion-datetime placeholder="选择日期" display-format="YYYY/MM/DD" [(ngModel)]="selfInfpParam.birthday"></ion-datetime>
+                          <ion-datetime placeholder="选择日期" display-format="YYYY/MM/DD"
+                            [(ngModel)]="selfInfpParam.birthday"></ion-datetime>
                         </span>
                       </ng-container>
                       <ng-container *ngIf="!isEditBaseInfo">
@@ -226,8 +235,10 @@
               <div class="info_content_container">
                 <div class="info_item">
                   <span>邮箱：</span>
-                  <span *ngIf="!isEditContact">{{runTime.user && runTime.user.user.userEmail ? runTime.user.user.userEmail : '未填写'}}</span>
-                  <ion-input placeholder="请输入邮箱" type="email" *ngIf="isEditContact" [(ngModel)]="selfInfpParam.email"></ion-input>
+                  <span
+                    *ngIf="!isEditContact">{{runTime.user && runTime.user.user.userEmail ? runTime.user.user.userEmail : '未填写'}}</span>
+                  <ion-input placeholder="请输入邮箱" type="email" *ngIf="isEditContact" [(ngModel)]="selfInfpParam.email">
+                  </ion-input>
                 </div>
 
                 <div class="info_item">
@@ -237,14 +248,18 @@
 
                 <div class="info_item">
                   <span>QQ：</span>
-                  <span *ngIf="!isEditContact">{{runTime.user && runTime.user.user.userQq ? runTime.user.user.userQq : '未填写'}}</span>
-                  <ion-input placeholder="请输入QQ号" type="number" *ngIf="isEditContact" [(ngModel)]="selfInfpParam.qq"></ion-input>
+                  <span
+                    *ngIf="!isEditContact">{{runTime.user && runTime.user.user.userQq ? runTime.user.user.userQq : '未填写'}}</span>
+                  <ion-input placeholder="请输入QQ号" type="number" *ngIf="isEditContact" [(ngModel)]="selfInfpParam.qq">
+                  </ion-input>
                 </div>
 
                 <div class="info_item">
                   <span>微信：</span>
-                  <span *ngIf="!isEditContact">{{runTime.user && runTime.user.user.userWx ? runTime.user.user.userWx : '未填写'}}</span>
-                  <ion-input type="text" placeholder="请输入微信号" *ngIf="isEditContact" [(ngModel)]="selfInfpParam.wx"></ion-input>
+                  <span
+                    *ngIf="!isEditContact">{{runTime.user && runTime.user.user.userWx ? runTime.user.user.userWx : '未填写'}}</span>
+                  <ion-input type="text" placeholder="请输入微信号" *ngIf="isEditContact" [(ngModel)]="selfInfpParam.wx">
+                  </ion-input>
                 </div>
               </div>
             </div>
