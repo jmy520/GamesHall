@@ -185,7 +185,7 @@
               <div class="declare_main">
                 <span>充值金额</span>
                 <ion-input placeholder="请输入充值金额" [(ngModel)]="autoPayParam.amount"></ion-input>
-                <span>清除</span>
+                <span (click)="clearMoney()">清除</span>
               </div>
               <div class="tips">
                 温馨提示：微信扫码支付，支付限额{{currentPay.minMoney}}-{{currentPay.maxMoney}}元，自动到账
@@ -241,7 +241,7 @@
               <div class="declare_main">
                 <span>充值金额</span>
                 <ion-input placeholder="请输入充值金额" [(ngModel)]="autoPayParam.amount"></ion-input>
-                <span>清除</span>
+                <span (click)="clearMoney()">清除</span>
               </div>
               <div class="tips">
                 温馨提示：XSOPAY微信H5支付，支持限额200-800元自动到账
@@ -297,7 +297,7 @@
               <div class="declare_main">
                 <span>充值金额</span>
                 <ion-input placeholder="请输入充值金额" [(ngModel)]="autoPayParam.amount"></ion-input>
-                <span>清除</span>
+                <span (click)="clearMoney()">清除</span>
               </div>
               <div class="tips">
                 温馨提示：以上金额支付，复制链接发送好友点击链接支付即可成功支付，支持限额98-10000元自动到账
@@ -353,7 +353,7 @@
               <div class="declare_main">
                 <span>充值金额</span>
                 <ion-input placeholder="请输入充值金额"></ion-input>
-                <span>清除</span>
+                <span (click)="clearMoney()">清除</span>
               </div>
               <div class="tips">
                 温馨提示：输入订单编号后四位支付，支持限额10-10000元自动到账

@@ -190,6 +190,11 @@ export class RechargePage extends BaseView implements OnInit {
        });
   }
 
+  clearMoney() {
+    this.runtime.payButtonVido();
+    this.autoPayParam.amount = 0;
+  }
+
   goRechargeRecord() {
     this.runtime.payButtonVido();
     this.mModal.create({
