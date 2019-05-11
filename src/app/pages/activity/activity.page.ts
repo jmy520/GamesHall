@@ -81,31 +81,22 @@ export class ActivityPage extends BaseView implements OnInit {
   }
 
   loadActivityData() {
-    //TODO 此处仅为调试，请删除并打开下面注释。
-    this.actityList = [
-      {
-        actitle: '活动标题',
-        displaytime: '2019/05/09',
-        actimg: '1555842732611.png',
-        activity_detail: '<h4>活动详情</h4><p>活动时间：即日起</p><p>活动详情：即日起注册用户，只要在乐游棋牌新会员任务完成相应的任务即可领取改礼包。</p>',
+    // TODO 此处仅为调试，请删除并打开下面注释。
+
+    this.api.findActByType({ actType: this.curretnColumn.colCode }).then(response => {
+      const errorMessage = response.hashError;
+      if (errorMessage) {
+        this.showToast(response.msg);
+      } else {
+        console.log(response.data);
+        this.actityList = response.data;
+        for (let index = 0; index < this.actityList.length; index++) {
+          const element = this.actityList[index];
+          element['open_status'] = false;
+        }
       }
-    ];
-
-    // this.api.findActByType({ actType: this.curretnColumn.colCode }).then(response => {
-    //   const errorMessage = response.hashError;
-    //   if (errorMessage) {
-    //     this.showToast(response.msg);
-    //   } else {
-    //     console.log(response.data);
-    //     this.actityList = response.data;
-    //   }
-    // }).catch(error => { }).finally(() => {
-    // });
-
-    for (let index = 0; index < this.actityList.length; index++) {
-      const element = this.actityList[index];
-      element['open_status'] = false;
-    }
+    }).catch(error => { }).finally(() => {
+    });
   }
 
   fetchImage(fileName: string) {
