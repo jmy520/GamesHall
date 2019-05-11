@@ -18,11 +18,7 @@ export class RechargeRecordComponent extends BaseView implements OnInit {
     size: 1000,
   };
 
-  bankItems = {
-    totals: 0,
-    totalsPage: 0,
-    list: []
-  };
+  bankItems = [];
 
   constructor(
     public runtime: Runtime,

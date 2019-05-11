@@ -219,6 +219,7 @@ export class PersonalCenterPage extends BaseView implements OnInit {
     this.selAllUsersVip();
     this.nextUserVip();
     this.wallet();
+    this.levelSlides.slideTo(this.currentLevel);
   }
 
   goLevel(val) {
@@ -533,7 +534,7 @@ export class PersonalCenterPage extends BaseView implements OnInit {
     } else if (levelStyle === 3) {
       result = this.style03LevelArray[level ? level : this.currentLevel];
     } else if (levelStyle === 4) {
-      result = this.style04LevelArray[level ? level : this.currentLevel];
+      result = this.style04LevelArray[level >= 0 ? level : this.currentLevel];
     }
     return result;
   }

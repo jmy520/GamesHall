@@ -30,7 +30,7 @@
         <div class="list_inner">
 
           <div (click)="tabPay(item)" [class]="item.gid==currentPay.gid ? 'list_item active' : 'list_item'" *ngFor="let item of apiPays">
-            <img [src]="tabIcons.get(item.payType)">{{item.payName}}
+            <img [src]="tabIcons.get(item.payType)">{{item.showName}}
             <img *ngIf="item.payLogo=='y'" src="assets/image/recharge/img_recharge_tag_icon.png">
           </div>
         </div>
@@ -115,12 +115,12 @@
 
               <div class="input_row">
                 <span>存款金额</span>
-                <ion-input [placeholder]="'单笔存款' + currentPay.minMoney + '-' + currentPay.maxMoney"></ion-input>
+                <ion-input [placeholder]="'单笔存款' + currentPay.minMoney + '-' + currentPay.maxMoney" [(ngModel)]="payParam.ckmoney"></ion-input>
               </div>
 
               <div class="input_row">
                 <span>存款信息</span>
-                <ion-input placeholder="请输入姓名或者卡号后四位"></ion-input>
+                <ion-input placeholder="请输入姓名或者卡号后四位" [(ngModel)]="payParam.ckinfo"></ion-input>
               </div>
 
               <div class="tips_title">
@@ -148,35 +148,35 @@
           <div class="inner_tab_content">
             <span>玩家常用的充值金额</span>
             <div class="recharge_value_item_container">
-              <span>
+              <span (click)="autoPayParam.amount=100">
                 100元
               </span>
 
-              <span>
+              <span (click)="autoPayParam.amount=200">
                 200元
               </span>
 
-              <span>
+              <span (click)="autoPayParam.amount=500">
                 500元
               </span>
 
-              <span>
+              <span (click)="autoPayParam.amount=1000">
                 1000元
               </span>
 
-              <span>
+              <span (click)="autoPayParam.amount=1500">
                 1500元
               </span>
 
-              <span>
+              <span (click)="autoPayParam.amount=3000">
                 3000元
               </span>
 
-              <span>
+              <span (click)="autoPayParam.amount=4000">
                 4000元
               </span>
 
-              <span>
+              <span (click)="autoPayParam.amount=5000">
                 5000元
               </span>
             </div>
@@ -184,7 +184,7 @@
             <div class="declare_amount">
               <div class="declare_main">
                 <span>充值金额</span>
-                <ion-input placeholder="请输入充值金额"></ion-input>
+                <ion-input placeholder="请输入充值金额" [(ngModel)]="autoPayParam.amount"></ion-input>
                 <span>清除</span>
               </div>
               <div class="tips">
@@ -192,7 +192,7 @@
               </div>
             </div>
 
-            <img src="assets/image/recharge/img_recharge_submit_recharge_button.png">
+            <img src="assets/image/recharge/img_recharge_submit_recharge_button.png" (click)="subForRechage()">
           </div>
         </div>
 
@@ -204,35 +204,35 @@
           <div class="inner_tab_content">
             <span>玩家常用的充值金额</span>
             <div class="recharge_value_item_container">
-              <span>
+              <span (click)="autoPayParam.amount=200">
                 200元
               </span>
 
-              <span>
+              <span (click)="autoPayParam.amount=500">
                 500元
               </span>
 
-              <span>
+              <span (click)="autoPayParam.amount=800">
                 800元
               </span>
 
-              <span>
+              <span (click)="autoPayParam.amount=1000">
                 1000元
               </span>
 
-              <span>
+              <span (click)="autoPayParam.amount=1500">
                 1500元
               </span>
 
-              <span>
+              <span (click)="autoPayParam.amount=3000">
                 3000元
               </span>
 
-              <span>
+              <span (click)="autoPayParam.amount=4000">
                 4000元
               </span>
 
-              <span>
+              <span (click)="autoPayParam.amount=5000">
                 5000元
               </span>
             </div>
@@ -240,7 +240,7 @@
             <div class="declare_amount">
               <div class="declare_main">
                 <span>充值金额</span>
-                <ion-input placeholder="请输入充值金额"></ion-input>
+                <ion-input placeholder="请输入充值金额" [(ngModel)]="autoPayParam.amount"></ion-input>
                 <span>清除</span>
               </div>
               <div class="tips">
@@ -248,7 +248,7 @@
               </div>
             </div>
 
-            <img src="assets/image/recharge/img_recharge_submit_recharge_button.png">
+            <img src="assets/image/recharge/img_recharge_submit_recharge_button.png" (click)="subForRechage()">
           </div>
         </div>
 
@@ -260,35 +260,35 @@
           <div class="inner_tab_content">
             <span>玩家常用的充值金额</span>
             <div class="recharge_value_item_container">
-              <span>
+              <span (click)="autoPayParam.amount=98">
                 98元
               </span>
 
-              <span>
+              <span (click)="autoPayParam.amount=398">
                 398元
               </span>
 
-              <span>
+              <span (click)="autoPayParam.amount=498">
                 498元
               </span>
 
-              <span>
+              <span (click)="autoPayParam.amount=998">
                 998元
               </span>
 
-              <span>
+              <span (click)="autoPayParam.amount=1998">
                 1998元
               </span>
 
-              <span>
+              <span (click)="autoPayParam.amount=2998">
                 2998元
               </span>
 
-              <span>
+              <span (click)="autoPayParam.amount=4998">
                 4998元
               </span>
 
-              <span>
+              <span (click)="autoPayParam.amount=9998">
                 9998元
               </span>
             </div>
@@ -296,7 +296,7 @@
             <div class="declare_amount">
               <div class="declare_main">
                 <span>充值金额</span>
-                <ion-input placeholder="请输入充值金额"></ion-input>
+                <ion-input placeholder="请输入充值金额" [(ngModel)]="autoPayParam.amount"></ion-input>
                 <span>清除</span>
               </div>
               <div class="tips">
@@ -304,7 +304,7 @@
               </div>
             </div>
 
-            <img src="assets/image/recharge/img_recharge_submit_recharge_button.png">
+            <img src="assets/image/recharge/img_recharge_submit_recharge_button.png" (click)="subForRechage()">
           </div>
         </div>
 

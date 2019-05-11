@@ -317,4 +317,8 @@ export class ApiService {
     return this.buildPostPromise('/front/userRechagelogs', null, null, null, null, {});
   }
 
+  /** 第四方充值 */
+  forRechage(url, params): Promise<any> {
+    return this.buildPostPromise(url, params, null, null, null, {});
+  }
 }

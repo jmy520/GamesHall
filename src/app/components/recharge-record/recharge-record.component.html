@@ -16,16 +16,15 @@
       </div>
 
       <div class="table_container">
-        <div class="no_data" *ngIf="bankItems.totals <= 0">
+        <div class="no_data" *ngIf="bankItems.length <= 0">
           <img src="assets/image/recharge_record/img_recharge_record_no_data_icon.png">
           <span>暂无数据</span>
         </div>
 
-        <div class="table_inner" *ngIf="bankItems.totals > 0">
+        <div class="table_inner" *ngIf="bankItems.length > 0">
           <div class="table_row" *ngFor="let item of bankItems">
             <span>{{item.createrTime | date:'yy/MM/dd HH:mm'}}</span>
-            <span>{{item.skBankName}}</span>
-            <span>充值失败</span>
+            <span>{{item.skUserName}}</span>
             <span *ngIf="'success'==item.skStatus">
                 充值成功
             </span>

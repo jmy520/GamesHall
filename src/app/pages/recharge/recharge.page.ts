@@ -6,6 +6,7 @@ import { ApiService } from 'src/app/services/api.service';
 import { BaseView } from 'src/common/base/BaseView';
 import { PictureHelper } from 'src/common/helper/PictureHelper';
 import { RechargeRecordComponent } from 'src/app/components/recharge-record/recharge-record.component';
+import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 
 @Component({
   selector: 'app-recharge',
@@ -23,9 +24,11 @@ export class RechargePage extends BaseView implements OnInit {
   currentPay = {
     gid: null,
     payType: '',
+    jumpUrl: ''
   };
 
   currentPayItem = {
+    gid: '',
     bankName: '',
     userName: '',
     cardNo: '',
@@ -44,6 +47,11 @@ export class RechargePage extends BaseView implements OnInit {
     skcarno: ''
   };
 
+  autoPayParam = {
+    amount: 0,
+    pItemGid: ''
+  };
+
   tabIcons: Map<string, string> = new Map();
 
   constructor(
@@ -52,6 +60,7 @@ export class RechargePage extends BaseView implements OnInit {
     public mLoading: LoadingController,
     public mToast: ToastController,
     public alertController: AlertController,
+    public mInAppBrowser: InAppBrowser,
     public api: ApiService,
     public mModalController: ModalController) {
       super(mLoading, mToast, mModalController);
@@ -83,12 +92,14 @@ export class RechargePage extends BaseView implements OnInit {
       this.currentPayItem = items[0];
     }
     this.isInRecharge = false;
+    this.autoPayParam.amount = 0;
   }
 
   tabPayItem(payitem, isyhzz) {
     this.runtime.payButtonVido();
     this.currentPayItem = payitem;
     this.isInRecharge = isyhzz;
+    this.autoPayParam.amount = 0;
   }
 
   goKufe() {
@@ -147,6 +158,30 @@ export class RechargePage extends BaseView implements OnInit {
           this.showToast(response.msg);
         } else {
           this.showToast('充值完成,等待银行处理,如较长时间未到账,请联系客服.');
+        }
+      }).catch(error => {
+        this.mLoading.getTop().then(instance => {
+          instance.dismiss();
+        }).catch(e => { });
+       });
+  }
+
+  subForRechage() {
+    if (this.autoPayParam.amount <= 0) {
+      this.showToast('请输入充值金额.');
+      return;
+    }
+    this.autoPayParam.pItemGid = this.currentPayItem.gid;
+    const loading = super.showLoading('请求中...');
+    this.api.forRechage(this.currentPay.jumpUrl, this.autoPayParam).then(response => {
+      this.mLoading.getTop().then(instance => {
+        instance.dismiss();
+      }).catch(e => { });
+        const errorMessage = response.hashError;
+        if (errorMessage) {
+          this.showToast(response.msg);
+        } else {
+          this.mInAppBrowser.create(response.data, '_system');
         }
       }).catch(error => {
         this.mLoading.getTop().then(instance => {
